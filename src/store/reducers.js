@@ -18,6 +18,8 @@ import ModalityReducer from "./modality/reducer";
 //benefit
 import BenefitReducer from "./benifit/reducer";
 
+import CompetitionReducer from "./competition/reducer";
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -28,6 +30,7 @@ const rootReducer = combineReducers({
   DemoReducer,
   ModalityReducer,
   BenefitReducer,
+  CompetitionReducer,
 })
 
 export default rootReducer;

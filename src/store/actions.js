@@ -9,3 +9,4 @@ export * from "./auth/profile/actions";
 
 //-----demo export file
 export * from "./demo/actions";
+export * from "./modality/actions"

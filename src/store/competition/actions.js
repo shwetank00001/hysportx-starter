@@ -1,20 +1,21 @@
+
 import {
-  MODALITY_LIST_REQUEST,
-  MODALITY_LIST_SUCCESS,
-  MODALITY_LIST_FAIL,
+  COMPETITION_LIST_REQUEST,
+  COMPETITION_LIST_SUCCESS,
+  COMPETITION_LIST_FAIL,
 } from "./actionTypes"
 
 
-export const modalityListRequest = () => ({
-    type:  MODALITY_LIST_REQUEST,
+export const competitionListRequest = () => ({
+    type:  COMPETITION_LIST_REQUEST,
 });
 
-export const modalityListSuccess = (modality) => ({
-    type: MODALITY_LIST_SUCCESS,
-    payload: modality,
+export const competitionListSuccess = (modality) => ({
+    type: COMPETITION_LIST_SUCCESS,
+    payload: competition,
 });
 
-export const modalityListFail = error => ({
-  type: MODALITY_LIST_FAIL,
+export const competitionListFail = error => ({
+  type: COMPETITION_LIST_FAIL,
   payload: error,
 })

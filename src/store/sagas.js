@@ -10,6 +10,7 @@ import LayoutSaga from "./layout/saga"
 import demoSaga from "./demo/saga"
 import modalitySaga from "./modality/saga"
 import benefitSaga from "./benifit/saga"
+import competitionSaga from "./competition/saga"
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     fork(demoSaga),
     fork(modalitySaga),
     fork(benefitSaga),
+    fork(competitionSaga),
   ])
 }
