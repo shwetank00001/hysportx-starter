@@ -27,5 +27,5 @@ function* listModalitySaga() {
 
 
 export default function* modalitySaga() {
-    yield takeLatest(MODALITY_LIST_REQUEST, listModalitySaga);   
+    yield takeLatest(MODALITY_LIST_REQUEST, listDemoSaga);   
 }
