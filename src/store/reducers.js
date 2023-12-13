@@ -15,6 +15,9 @@ import DemoReducer from "./demo/reducer";
 // modality
 import ModalityReducer from "./modality/reducer";
 
+//benefit
+import BenefitReducer from "./benifit/reducer";
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -24,6 +27,7 @@ const rootReducer = combineReducers({
   Profile,
   DemoReducer,
   ModalityReducer,
+  BenefitReducer,
 })
 
 export default rootReducer;

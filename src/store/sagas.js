@@ -1,13 +1,16 @@
-import { all, fork } from "redux-saga/effects";
+import { all, fork } from "redux-saga/effects"
 
 //public
-import AccountSaga from "./auth/register/saga";
-import AuthSaga from "./auth/login/saga";
-import ForgetSaga from "./auth/forgetpwd/saga";
-import ProfileSaga from "./auth/profile/saga";
-import LayoutSaga from "./layout/saga";
+import AccountSaga from "./auth/register/saga"
+import AuthSaga from "./auth/login/saga"
+import ForgetSaga from "./auth/forgetpwd/saga"
+import ProfileSaga from "./auth/profile/saga"
+import LayoutSaga from "./layout/saga"
 
-import demoSaga from "./demo/saga";
+import demoSaga from "./demo/saga"
+import modalitySaga from "./modality/saga"
+import benefitSaga from "./benifit/saga"
+
 export default function* rootSaga() {
   yield all([
     //public
@@ -17,5 +20,7 @@ export default function* rootSaga() {
     fork(ProfileSaga),
     fork(LayoutSaga),
     fork(demoSaga),
-  ]);
+    fork(modalitySaga),
+    fork(benefitSaga),
+  ])
 }

@@ -1,20 +1,20 @@
 import {
-  MODALITY_LIST_REQUEST,
-  MODALITY_LIST_SUCCESS,
-  MODALITY_LIST_FAIL,
+  BENEFIT_LIST_REQUEST,
+  BENEFIT_LIST_SUCCESS,
+  BENEFIT_LIST_FAIL,
 } from "./actionTypes"
 
 
-export const modalityListRequest = () => ({
-    type:  MODALITY_LIST_REQUEST,
+export const benefitListRequest = () => ({
+    type:  BENEFIT_LIST_REQUEST,
 });
 
-export const modalityListSuccess = (modality) => ({
-    type: MODALITY_LIST_SUCCESS,
-    payload: modality,
+export const benefitListSuccess = (benefit) => ({
+    type: BENEFIT_LIST_SUCCESS,
+    payload: benefit,
 });
 
-export const modalityListFail = error => ({
-  type: MODALITY_LIST_FAIL,
+export const benefitListFail = error => ({
+  type: BENEFIT_LIST_FAIL,
   payload: error,
 })

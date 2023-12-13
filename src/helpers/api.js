@@ -46,7 +46,7 @@ export const equipment= {
 }
 
 // api for BENIFIT
-export const benifit = {
+export const benefit = {
   add: (data, token) =>
     post("/benifit", data, { headers: { Authorization: `Bearer ${token}` } }),
 
