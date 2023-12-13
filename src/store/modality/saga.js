@@ -12,7 +12,6 @@ import {
 
 
 function* listModalitySaga() {
-    // console.log("working saga....")
     try {
         const data = yield call(modality.list);
         console.log(data.data);
