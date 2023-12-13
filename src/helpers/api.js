@@ -15,8 +15,8 @@ export const modality = {
       headers: { Authorization: `Bearer ${token}` },
     }),
 
-  list: () =>
-    get("/modalities", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () => get("/modalities"),
+  // list: () => get("/modalities", { headers: { Authorization: `Bearer ${token}` } }),
 
   details: id =>
     get(`/modality/${id}`, { headers: { Authorization: `Bearer ${token}` } }),

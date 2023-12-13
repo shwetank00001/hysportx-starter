@@ -6,9 +6,9 @@ import Breadcrumbs from "components/Common/Breadcrumb"
 import { listModalityRequest } from "store/modality/actions"
 const index = () => {
   const dispatch = useDispatch()
-  const list = useSelector(state => state.DemoReducer.demo)
+  const list = useSelector(state => state.ModalityReducer.modality)
 
-  console.log("main file listing data", list)
+  console.log("Modality page", list)
 
   useEffect(() => {
     dispatch(listModalityRequest())
@@ -18,7 +18,7 @@ const index = () => {
       <div className="page-content">
         <div className="container-fluid">
           <Breadcrumbs title="Modality" breadcrumbItem="Modality" />
-          your content here............
+          Modality testing here- EG
         </div>
       </div>
     </React.Fragment>
