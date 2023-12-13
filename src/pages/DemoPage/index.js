@@ -5,14 +5,19 @@ import Breadcrumbs from 'components/Common/Breadcrumb';
 
 
 import { demoListRequest } from "store/demo/actions";
+import { listModalityRequest } from "store/modality/actions"
+
 const index = () => {
   const dispatch = useDispatch();
   const list = useSelector(state => state.DemoReducer.demo);
+  const modality = useSelector(state => state.ModalityReducer.modality);
 
   console.log("main file listing data",list);
+  console.log("modality data", modality)
 
   useEffect(() => {
     dispatch(demoListRequest());
+    dispatch(listModalityRequest())
 },[]);
   return (
     <React.Fragment>

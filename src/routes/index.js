@@ -20,19 +20,20 @@ import Dashboard from "../pages/Dashboard/index";
 //----import route path-----
 
 import DemoPage from "pages/DemoPage"
+import ModalityPage from "pages/Modality"
+
+
 
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
   // //profile
   { path: "/profile", component: <UserProfile /> },
-  
+
   // ---start create route----
   { path: "/Demo", component: <DemoPage /> },
-
-
-  
-];
+  { path: "/modality", component: <ModalityPage /> },
+]
 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
