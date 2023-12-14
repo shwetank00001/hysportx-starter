@@ -22,6 +22,10 @@ import CompetitionReducer from "./competition/reducer";
 
 import activityReducer from "./activity/reducer";
 import equipmentReducer from "./equipment/reducer";
+import muscleReducer from "./muscle/reducer";
+import performanceReducer from "./performance/reducer";
+import exerciseReducer from "./exercises/reducer";
+import competitionReducer from "./competition/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -36,6 +40,10 @@ const rootReducer = combineReducers({
   CompetitionReducer,
   activityReducer,
   equipmentReducer,
+  muscleReducer,
+  performanceReducer,
+  exerciseReducer,
+  competitionReducer
 })
 
 export default rootReducer;

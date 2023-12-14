@@ -78,8 +78,7 @@ export const muscle = {
   details: (id, token) =>
     get(`/muscle/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 
-  list: token =>
-    get("/muscles", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () => get("/muscles"),
 
   delete: (id, token) =>
     del(`/muscle/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -102,8 +101,8 @@ export const performance = {
       headers: { Authorization: `Bearer ${token}` },
     }),
 
-  list: token =>
-    get("/performancetags", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () =>
+    get("/performancetags"),
 
   delete: (id, token) =>
     del(`/performancetag/${id}`, {
@@ -120,8 +119,7 @@ export const exercise = {
   details: (id, token) =>
     get(`/exercise/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 
-  list: token =>
-    get("/exercises", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () => get("/exercises"),
 
   delete: (id, token) =>
     del(`/exercise/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -137,8 +135,7 @@ export const activity = {
   details: (id, token) =>
     get(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 
-  list: token =>
-    get("/activities"),
+  list: () => get("/activities"),
 
   delete: (id, token) =>
     del(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -156,8 +153,8 @@ export const competition = {
       headers: { Authorization: `Bearer ${token}` },
     }),
 
-  list: token =>
-    get("/competitions", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () =>
+    get("/competitions"),
 	
   delete: (id, token) =>
     del(`/competition/${id}`, {
