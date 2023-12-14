@@ -38,8 +38,8 @@ export const equipment= {
   details: (id, token) =>
     get(`/equipment/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 	
-  list: token =>
-    get("/equipments", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () =>
+    get("/equipments", ),
 
   delete: (id, token) =>
     del(`/equipment/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -58,8 +58,8 @@ export const benefit = {
   details: (id, token) =>
     get(`/benifit/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 
-  list: token =>
-    get("/benifits", { headers: { Authorization: `Bearer ${token}` } }),
+  list: () =>
+    get("/benifits"),
 
   delete: (id, token) =>
     del(`/benifit/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
@@ -138,7 +138,7 @@ export const activity = {
     get(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
 
   list: token =>
-    get("/activities", { headers: { Authorization: `Bearer ${token}` } }),
+    get("/activities"),
 
   delete: (id, token) =>
     del(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),

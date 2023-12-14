@@ -16,9 +16,12 @@ import DemoReducer from "./demo/reducer";
 import ModalityReducer from "./modality/reducer";
 
 //benefit
-import BenefitReducer from "./benifit/reducer";
+import benefitReducer from "./benifit/reducer"
 
 import CompetitionReducer from "./competition/reducer";
+
+import activityReducer from "./activity/reducer";
+import equipmentReducer from "./equipment/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -29,8 +32,10 @@ const rootReducer = combineReducers({
   Profile,
   DemoReducer,
   ModalityReducer,
-  BenefitReducer,
+  benefitReducer,
   CompetitionReducer,
+  activityReducer,
+  equipmentReducer,
 })
 
 export default rootReducer;
