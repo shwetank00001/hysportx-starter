@@ -35,7 +35,7 @@ const index = () => {
   console.log("benefit data: ", benefit)
   console.log("muscles data:- ", muscles)
   console.log("performance data: ", performance)
-  console.log("exercise data:-> ", exercise)
+  console.log("exercise data:->  ", exercise)
   console.log("competition data: ", competition)
 
   useEffect(() => {
