@@ -14,6 +14,8 @@ import CryptoIcoLanding from "../pages/CryptoIcoLanding/index";
 
 import Hysport from "pages/HYSPORTX";
 
+import Exercise from "pages/Exercise"
+
 
 
 // Dashboard
@@ -42,8 +44,9 @@ const authProtectedRoutes = [
   { path: "/modality", component: <ModalityPage /> },
   // { path: "/exercise", component: <HExercise /> },
   // { path: "/activity", component: <HActiviy /> },
-  // { path: "/condition", component: <HCondition /> },\
+  // { path: "/condition", component: <HCondition /> },
   { path: "/hysport", component: <Hysport /> },
+  { path: "/exercise", component: <Exercise /> },
 ]
 
 

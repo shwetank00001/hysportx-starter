@@ -158,6 +158,12 @@ const SidebarContent = props => {
                 <span>{props.t("HExercise")}</span>
               </Link>
             </li>
+            <li>
+              <Link to="/exercise" className="">
+                <i className="bx bx-home-circle"></i>
+                <span>{props.t("HExercise List")}</span>
+              </Link>
+            </li>
 
 
           </ul>
