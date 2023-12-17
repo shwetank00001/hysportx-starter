@@ -30,43 +30,41 @@ function HExercise() {
   const [modal4, setmodal4] = useState(false)
   const [modal5, setmodal5] = useState(false)
 
-
-
   const dispatch = useDispatch()
-
-
 
   const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
   const [modalityData, setModalityData] = useState()
 
-useEffect(() => {
-  dispatch(listModalityRequest())
-}, [dispatch])
+  useEffect(() => {
+    dispatch(listModalityRequest())
+  }, [dispatch])
 
-useEffect(() => {
-  if (modalityDispatch.exercise) {
-    getModality()
+  useEffect(() => {
+    if (modalityDispatch.exercise) {
+      getModality()
+    }
+  }, [modalityDispatch])
+
+  function getModality() {
+    try {
+      const ele = modalityDispatch.exercise.map(function (item) {
+        return {
+          label: item.name,
+          value: item.id,
+        }
+      })
+      setModalityData(ele)
+      console.log("ele is ", ele)
+    } catch (error) {
+      console.log(error)
+    }
   }
-}, [modalityDispatch])
 
-
-function getModality() {
-  try {
-    const ele = modalityDispatch.exercise.map(function (item) {
-      return {
-        label: item.name,
-        value: item.id,
-      }
-    })
-    setModalityData(ele)
-    console.log("ele is ", ele)
-  } catch (error) {
-    console.log(error)
+  function handleMulti() {
+    console.log("clicked")
   }
-}
 
-console.log(modalityDispatch.exercise)
-  
+  console.log(modalityDispatch.exercise)
 
   const performncetag = [
     {
