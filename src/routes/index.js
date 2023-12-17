@@ -12,6 +12,8 @@ import ForgetPwd from "../pages/Authentication/ForgetPassword";
 
 import CryptoIcoLanding from "../pages/CryptoIcoLanding/index";
 
+import Hysport from "pages/HYSPORTX";
+
 
 
 // Dashboard
@@ -21,6 +23,11 @@ import Dashboard from "../pages/Dashboard/index";
 
 import DemoPage from "pages/DemoPage"
 import ModalityPage from "pages/Modality"
+
+
+import HActiviy from "pages/HYSPORTX/HActivity";
+import HCondition from "pages/HYSPORTX/HCondition";
+import HExercise from "pages/HYSPORTX/HExercise";
 
 
 
@@ -33,7 +40,13 @@ const authProtectedRoutes = [
   // ---start create route----
   { path: "/Demo", component: <DemoPage /> },
   { path: "/modality", component: <ModalityPage /> },
+  // { path: "/exercise", component: <HExercise /> },
+  // { path: "/activity", component: <HActiviy /> },
+  // { path: "/condition", component: <HCondition /> },\
+  { path: "/hysport", component: <Hysport /> },
 ]
+
+
 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
