@@ -6,14 +6,15 @@ export const LoginButton = () => {
   }
   return (
     <React.Fragment>
-      <div className="ms-lg-2">
+    
         <Button
+        className=''
           color="success"
           outline
           onClick={login}>
-          Login
+        <i className='bx bx-lock-alt'  />  SignUp
         </Button>
-      </div>
+      
     </React.Fragment>
   )
 }

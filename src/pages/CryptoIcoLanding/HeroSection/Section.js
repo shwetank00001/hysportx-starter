@@ -47,14 +47,15 @@ const Section = () => {
 
   return (
     <React.Fragment>
-      <section className="section hero-section bg-ico-hero" id="home">
-        <div className="bg-overlay bg-primary"></div>
-        <Container>
+      <section className="section hero-section " id="home">
+        <div className="bg-overlay bg-dark"></div>
+
+        <Container> 
           <Row className="align-items-center">
             <Col lg={5}>
               <div className="text-white-50">
-                <h1 className="text-white fw-semibold mb-3 hero-title">Skote - Ico Landing for a cryptocurrency business</h1>
-                <p className="font-size-14">It will be as simple as occidental in fact to an English person, it will seem like simplified as a skeptical Cambridge</p>
+                <h1 className="text-white fw-semibold mb-3 hero-title">HySportx - Iconic Landing Page for a Sports and Fitness Platform</h1>
+                <p className="font-size-14">HySportx offers a user-friendly experience, making it as straightforward as it can be. To an English speaker, it will feel as clear and intuitive as a critical thinker at Cambridge University</p>
 
                 <div className="d-flex flex-wrap gap-2 mt-4">
                   <Link to="#" className="btn btn-success">Get Whitepaper</Link>
@@ -62,42 +63,7 @@ const Section = () => {
                 </div>
               </div>
             </Col>
-            <Col lg={5} md={8} sm={10} className="ms-lg-auto">
-              <Card className="overflow-hidden mb-0 mt-5 mt-lg-0">
-                <CardHeader className="text-center">
-                  <h5 className="mb-0">ICO Countdown time</h5>
-                </CardHeader>
-                <CardBody>
-                  <div className="text-center">
-
-                    <h5>Time left to Ico :</h5>
-                    <div className="mt-4">
-                      <div className="counter-number ico-countdown"></div>
-                      <Countdown date="2025/10/31" renderer={renderer} />
-                    </div>
-
-                    <div className="mt-4">
-                      <button type="button" className="btn btn-success w-md">Get Token</button>
-                    </div>
-
-                    <div className="mt-5">
-                      <h4 className="fw-semibold">1 ETH = 2235 SKT</h4>
-                      <div className="clearfix mt-4">
-                        <h5 className="float-end font-size-14">5234.43</h5>
-                      </div>
-                      <div className="progress p-1 progress-xl softcap-progress">
-                        <div className="progress-bar bg-info" role="progressbar" style={{ width: "15%" }} aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
-                          <div className="progress-label">15 %</div>
-                        </div>
-                        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{ width: "30%" }} aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
-                          <div className="progress-label">30 %</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
+           
           </Row>
         </Container>
       </section>

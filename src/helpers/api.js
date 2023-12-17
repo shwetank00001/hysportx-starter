@@ -5,6 +5,7 @@ export const demo = {
   list: () => get("/modalities"),
 }
 
+
 // api for MODALITY
 export const modality = {
   add: data =>

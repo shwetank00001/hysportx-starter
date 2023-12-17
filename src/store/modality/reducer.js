@@ -16,7 +16,7 @@ import {
 
 const initialState = {
   modality: [],
-  loading: false,
+  loading: true,
   error: null,
 }
 

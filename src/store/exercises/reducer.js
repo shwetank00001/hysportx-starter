@@ -16,7 +16,7 @@ import {
 
 const initialState = {
   exercise: [],
-  loading: false,
+  loading: true,
   error: null,
 }
 

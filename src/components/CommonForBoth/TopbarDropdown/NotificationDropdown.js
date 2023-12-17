@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { Dropdown, DropdownToggle, DropdownMenu, Row, Col } from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, Row, Col,UncontrolledTooltip } from "reactstrap";
 import SimpleBar from "simplebar-react";
 
 //Import images
@@ -22,7 +22,11 @@ const NotificationDropdown = props => {
         toggle={() => setMenu(!menu)}
         className="dropdown d-inline-block"
         tag="li"
+        id="notificationtooltip"
       >
+        <UncontrolledTooltip placement="left" target={`notificationtooltip`}>
+          Notification
+        </UncontrolledTooltip>
         <DropdownToggle
           className="btn header-item noti-icon position-relative"
           tag="button"

@@ -4,6 +4,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  UncontrolledTooltip,
 } from "reactstrap";
 import { get, map } from "lodash";
 import { withTranslation } from "react-i18next";
@@ -35,7 +36,7 @@ const LanguageDropdown = () => {
 
   return (
     <>
-      <Dropdown isOpen={menu} toggle={toggle} className="d-inline-block">
+      <Dropdown isOpen={menu} toggle={toggle} className="d-inline-block" id="languagetooltip">
         <DropdownToggle className="btn header-item " tag="button">
           <img
             src={get(languages, `${selectedLang}.flag`)}
@@ -44,6 +45,10 @@ const LanguageDropdown = () => {
             className="me-1"
           />
         </DropdownToggle>
+
+        <UncontrolledTooltip placement="left" target={`languagetooltip`}>
+          Language
+        </UncontrolledTooltip>
         <DropdownMenu className="language-switch dropdown-menu-end">
           {map(Object.keys(languages), key => (
             <DropdownItem

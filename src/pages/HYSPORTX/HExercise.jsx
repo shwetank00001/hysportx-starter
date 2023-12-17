@@ -20,6 +20,10 @@ import { useSelector, useDispatch } from "react-redux"
 
 // modality
 import { listModalityRequest } from "store/modality/actions"
+import { performanceListRequest } from "store/performance/actions"
+import { equipmentListRequest } from "store/equipment/actions"
+import { muscleListRequest } from "store/muscle/actions"
+import {benefitListRequest } from "store/benifit/actions"
 
 function HExercise() {
   const [selectedMulti, setselectedMulti] = useState(null)
@@ -33,17 +37,83 @@ function HExercise() {
   const dispatch = useDispatch()
 
   const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
+  const performance = useSelector(state => state.performanceReducer.performance)
+  const equipment = useSelector(state => state.equipmentReducer.equipment)
+  const muscles = useSelector(state => state.muscleReducer.muscle)
+  const benefit = useSelector(state => state.benefitReducer.benefit)
+
+console.log(benefit)
+
   const [modalityData, setModalityData] = useState()
+  const [performanceData, setperformanceData] = useState()
+  const [equipmentData, setequipmentData] = useState()
+  const [muscleData, setmuscleData] = useState()
+  const [benifitData, setbenifitData] = useState()
+
+ 
 
   useEffect(() => {
     dispatch(listModalityRequest())
+    dispatch(performanceListRequest())
+    dispatch(equipmentListRequest())
+    dispatch(muscleListRequest())
+    dispatch(benefitListRequest())
   }, [dispatch])
 
   useEffect(() => {
     if (modalityDispatch.exercise) {
       getModality()
     }
-  }, [modalityDispatch])
+    if (performance.ptag) {
+      getPerformance()
+    }
+    if (equipment.equipment
+      ) {
+      getEquipment()
+    }
+    if (muscles.muscle
+      ) {
+      getMuscles()
+    }
+    if (benefit.benifit
+      ) {
+      getBenifit()
+    }
+   
+  }, [modalityDispatch,performance,equipment,muscles,benefit])
+
+  //fetch Benifit data
+
+  function getBenifit() {
+    try {
+      const ele = benefit.benifit.map(function (item) {
+        return {
+          label: item.point,
+          value: item.id,
+        }
+      })
+      setbenifitData(ele)   
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //fetch muscles data
+
+  function getMuscles() {
+    try {
+      const ele = muscles.muscle.map(function (item) {
+        return {
+          label: item.name,
+          value: item.id,
+        }
+      })
+      setmuscleData(ele)   
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  //fetch modality data
 
   function getModality() {
     try {
@@ -53,8 +123,36 @@ function HExercise() {
           value: item.id,
         }
       })
-      setModalityData(ele)
-      console.log("ele is ", ele)
+      setModalityData(ele)   
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // fetch Equipment data
+  function getEquipment() {
+    try {
+      const ele = equipment.equipment.map(function (item) {
+        return {
+          label: item.name,
+          value: item.id,
+        }
+      })
+      setequipmentData(ele)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  // fetch performance data
+  function getPerformance() {
+    try {
+      const ele = performance.ptag.map(function (item) {
+        return {
+          label: item.name,
+          value: item.id,
+        }
+      })
+      setperformanceData(ele)
     } catch (error) {
       console.log(error)
     }
@@ -64,26 +162,7 @@ function HExercise() {
     console.log("clicked")
   }
 
-  console.log(modalityDispatch.exercise)
 
-  const performncetag = [
-    {
-      label: "Picnic",
-      options: [
-        { label: "Lift", value: "Lift" },
-        { label: "Time", value: "Time" },
-        { label: "Distance", value: "Distance" },
-      ],
-    },
-    // {
-    //   label: "Camping",
-    //   options: [
-    //     { label: "Tent", value: "Tent" },
-    //     { label: "Flashlight", value: "Flashlight" },
-    //     { label: "Toilet Paper", value: "Toilet Paper" }
-    //   ]
-    // }
-  ]
 
   const level = [
     {
@@ -112,16 +191,7 @@ function HExercise() {
     },
   ]
 
-  const equipment = [
-    {
-      label: "Picnic",
-      options: [
-        { label: "Barbell", value: "Barbell" },
-        { label: "Weight palate", value: "Weight palate" },
-        { label: "BODY WEIGHT", value: "BODY WEIGHT" },
-      ],
-    },
-  ]
+
 
   return (
     <div>
@@ -195,7 +265,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  options={performncetag}
+                  options={performanceData}
                   className="select2-selection col-sm-10 p-0"
                 />
                 <button
@@ -257,7 +327,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  options={equipment}
+                  options={equipmentData}
                   className="select2-selection col-sm-10 p-0"
                 />
                 <button
@@ -288,7 +358,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  options={modalityData}
+                  options={muscleData}
                   className="select2-selection m-0 p-0 col-sm-10"
                 />
                 <button
@@ -320,7 +390,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  options={modalityData}
+                  options={benifitData}
                   className="select2-selection m-0 p-0 col-sm-10"
                 />
 
