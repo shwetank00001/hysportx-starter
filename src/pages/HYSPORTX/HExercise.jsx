@@ -37,32 +37,44 @@ function HExercise() {
 
 
   const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
-  const [modalityData, setModalityData] = useState(modalityDispatch.exercise)
+  const [modalityData, setModalityData] = useState()
 
-    const modalityTest = [
-      {
-        label: modalityDispatch.exercise[0].name,
-        value: modalityDispatch.exercise[0].name,
-      },
-      { label: "Ketchup", value: "Ketchup" },
-      { label: "Relish", value: "Relish" },
-      { label: "Tent", value: "Tent" },
-      { label: "Flashlight", value: "Flashlight" },
-      { label: "Toilet Paper", value: "Toilet Paper" },
-    ]
+    // const modalityTest = [
+    //   {
+    //     label: modalityDispatch.exercise[0].name,
+    //     value: modalityDispatch.exercise[0].name,
+    //   },
+    //   { label: "Ketchup", value: "Ketchup" },
+    //   { label: "Relish", value: "Relish" },
+    //   { label: "Tent", value: "Tent" },
+    //   { label: "Flashlight", value: "Flashlight" },
+    //   { label: "Toilet Paper", value: "Toilet Paper" },
+    // ]
 
   useEffect( ()=> {
         dispatch(listModalityRequest())
+        getModality()
   }, [dispatch])
 
   console.log(modalityDispatch)
 
-  const ele = modalityDispatch.exercise.map(function(item){
-    return {
-      label : item.name,
-      value : item.id
+  function getModality(){
+    try {
+        const ele = modalityDispatch.exercise.map(function (item) {
+          return {
+            label: item.name,
+            value: item.id,
+          }
+        })
+        setModalityData(ele)
+        console.log("ele is ", ele)
+      
+    } catch (error) {
+      console.log(error)
     }
-  })
+  }
+
+
 
   console.log(modalityDispatch.exercise)
 
@@ -166,7 +178,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  options={ele}
+                  options={modalityData}
                   className="select2-selection col-sm-10 p-0"
                 />
                 <button
