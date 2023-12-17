@@ -23,7 +23,20 @@ import { listModalityRequest } from "store/modality/actions"
 import { performanceListRequest } from "store/performance/actions"
 import { equipmentListRequest } from "store/equipment/actions"
 import { muscleListRequest } from "store/muscle/actions"
-import {benefitListRequest } from "store/benifit/actions"
+import { benefitListRequest } from "store/benifit/actions"
+import { functionsIn } from "lodash"
+
+// actions
+import { addModalityRequest } from "../../store/modality/actions"
+import { addMuscleRequest } from "../../store/muscle/actions"
+import { addPerformanceRequest } from "../../store/performance/actions"
+import { addExerciseRequest } from "../../store/exercises/actions"
+import { addEquipmentRequest } from "../../store/equipment/actions"
+import { addBenefitRequest } from "../../store/benifit/actions"
+
+
+// toast success importing
+import { ToastContainer } from "react-toastify"
 
 function HExercise() {
   const [selectedMulti, setselectedMulti] = useState(null)
@@ -42,15 +55,13 @@ function HExercise() {
   const muscles = useSelector(state => state.muscleReducer.muscle)
   const benefit = useSelector(state => state.benefitReducer.benefit)
 
-console.log(benefit)
+  console.log(benefit)
 
   const [modalityData, setModalityData] = useState()
   const [performanceData, setperformanceData] = useState()
   const [equipmentData, setequipmentData] = useState()
   const [muscleData, setmuscleData] = useState()
   const [benifitData, setbenifitData] = useState()
-
- 
 
   useEffect(() => {
     dispatch(listModalityRequest())
@@ -67,20 +78,16 @@ console.log(benefit)
     if (performance.ptag) {
       getPerformance()
     }
-    if (equipment.equipment
-      ) {
+    if (equipment.equipment) {
       getEquipment()
     }
-    if (muscles.muscle
-      ) {
+    if (muscles.muscle) {
       getMuscles()
     }
-    if (benefit.benifit
-      ) {
+    if (benefit.benifit) {
       getBenifit()
     }
-   
-  }, [modalityDispatch,performance,equipment,muscles,benefit])
+  }, [modalityDispatch, performance, equipment, muscles, benefit])
 
   //fetch Benifit data
 
@@ -92,10 +99,20 @@ console.log(benefit)
           value: item.id,
         }
       })
-      setbenifitData(ele)   
+      setbenifitData(ele)
     } catch (error) {
       console.log(error)
     }
+  }
+  const handleAddBenefits = () => {
+    dispatch(
+      addBenefitRequest({
+        point: benefitsPoint,
+        description: benefitsDescription,
+      })
+    )
+    setBenefitsPoint("")
+    setBenefitsDescription("")
   }
 
   //fetch muscles data
@@ -108,13 +125,23 @@ console.log(benefit)
           value: item.id,
         }
       })
-      setmuscleData(ele)   
+      setmuscleData(ele)
     } catch (error) {
       console.log(error)
     }
   }
-  //fetch modality data
 
+    const handleAddMuscle = () => {
+      dispatch(
+        addMuscleRequest({ name: muscleName, description: muscleDescription })
+      )
+      setMuscleName("")
+      setMuscleDescription("")
+
+    }
+
+
+  //fetch modality data
   function getModality() {
     try {
       const ele = modalityDispatch.exercise.map(function (item) {
@@ -123,11 +150,28 @@ console.log(benefit)
           value: item.id,
         }
       })
-      setModalityData(ele)   
+      setModalityData(ele)
     } catch (error) {
       console.log(error)
     }
   }
+
+  const [modalityName, setModalityName] = useState("")
+  const [modalityDescription, setModalityDescription] = useState("")
+
+   const [performanceName, setPerformanceName] = useState("")
+   const [performanceDescription, setPerformanceDescription] = useState("")
+
+   const [equipmentName, setEquipmentName] = useState("")
+   const [equipmentDescription, setEquipmentDescription] = useState("")
+
+   const [muscleName, setMuscleName] = useState("")
+   const [muscleDescription, setMuscleDescription] = useState("")
+
+   const [benefitsPoint, setBenefitsPoint] = useState("")
+   const [benefitsDescription, setBenefitsDescription] = useState("")
+
+   
 
   // fetch Equipment data
   function getEquipment() {
@@ -142,6 +186,18 @@ console.log(benefit)
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handleAddEquipment = () => {
+    dispatch(
+      addEquipmentRequest({
+        name: equipmentName,
+        description: equipmentDescription,
+      })
+    )
+    setEquipmentName("")
+    setEquipmentDescription("")
+
   }
   // fetch performance data
   function getPerformance() {
@@ -158,11 +214,17 @@ console.log(benefit)
     }
   }
 
+  const handleAddPerformance = () => {
+    dispatch(addPerformanceRequest({ name: performanceName, description: performanceDescription }));
+
+
+    setPerformanceName('');
+    setPerformanceDescription('');
+  }
+
   function handleMulti() {
     console.log("clicked")
   }
-
-
 
   const level = [
     {
@@ -191,7 +253,18 @@ console.log(benefit)
     },
   ]
 
+  const submitModality = e => {
 
+    const modalityData = {
+      name: modalityName,
+      description: modalityDescription,
+    }
+
+    console.log("Submitting modality data:", modalityData)
+    dispatch(addModalityRequest(modalityData))
+    setModalityName("")
+    setModalityDescription("")
+  }
 
   return (
     <div>
@@ -507,6 +580,7 @@ console.log(benefit)
           </Row>
         </Form>
       </CardBody>
+
       <Modal
         isOpen={modal}
         autoFocus={true}
@@ -524,14 +598,26 @@ console.log(benefit)
             ADD Modality
           </ModalHeader>
           <ModalBody>
-            <form>
+            <form onSubmit={submitModality}>
               <div className="mb-3">
                 <Input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="New Modality"
+                  placeholder="Add Modality Name"
+                  value={modalityName}
+                  onChange={e => setModalityName(e.target.value)}
                 />
               </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Add Modality Description"
+                  value={modalityDescription}
+                  onChange={e => setModalityDescription(e.target.value)}
+                />
+              </div>
+              <button type="submit">Submit</button>
             </form>
           </ModalBody>
           <ModalFooter>
@@ -554,6 +640,7 @@ console.log(benefit)
           </ModalFooter>
         </div>
       </Modal>
+
       <Modal
         isOpen={modal1}
         autoFocus={true}
@@ -568,7 +655,7 @@ console.log(benefit)
               setmodal1(!modal1)
             }}
           >
-            ADD Proformance Tag
+            ADD Performance Tag
           </ModalHeader>
           <ModalBody>
             <form>
@@ -576,7 +663,18 @@ console.log(benefit)
                 <Input
                   type="email"
                   className="form-control"
-                  placeholder="New Modality"
+                  placeholder="Add Performance Name"
+                  value={performanceName}
+                  onChange={e => setPerformanceName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Add Performance Description"
+                  value={performanceDescription}
+                  onChange={e => setPerformanceDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -594,13 +692,17 @@ console.log(benefit)
             <Button
               type="button"
               color="primary"
-              onClick={() => setmodal1(!modal1)}
+              onClick={() => {
+                setmodal1(!modal1)
+                handleAddPerformance()
+              }}
             >
               ADD
             </Button>
           </ModalFooter>
         </div>
       </Modal>
+
       <Modal
         isOpen={modal2}
         autoFocus={true}
@@ -648,6 +750,7 @@ console.log(benefit)
           </ModalFooter>
         </div>
       </Modal>
+
       <Modal
         isOpen={modal3}
         autoFocus={true}
@@ -670,7 +773,18 @@ console.log(benefit)
                 <Input
                   type="email"
                   className="form-control"
-                  placeholder="New Modality"
+                  placeholder="Add Equipment Name"
+                  value={equipmentName}
+                  onChange={e => setEquipmentName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="email"
+                  className="form-control"
+                  placeholder="Add Equipment Description"
+                  value={equipmentDescription}
+                  onChange={e => setEquipmentDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -688,13 +802,17 @@ console.log(benefit)
             <Button
               type="button"
               color="primary"
-              onClick={() => setmodal3(!modal3)}
+              onClick={() => {
+                setmodal3(!modal3)
+                handleAddEquipment()
+              }}
             >
               ADD
             </Button>
           </ModalFooter>
         </div>
       </Modal>
+
       <Modal
         isOpen={modal4}
         autoFocus={true}
@@ -717,7 +835,18 @@ console.log(benefit)
                 <Input
                   type="email"
                   className="form-control"
-                  placeholder="New Modality"
+                  placeholder="Add Muscle Name"
+                  value={muscleName}
+                  onChange={e => setMuscleName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="email"
+                  className="form-control"
+                  placeholder="Add Muscle Description"
+                  value={muscleDescription}
+                  onChange={e => setMuscleDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -735,13 +864,17 @@ console.log(benefit)
             <Button
               type="button"
               color="primary"
-              onClick={() => setmodal4(!modal4)}
+              onClick={() => {
+                setmodal4(!modal4)
+                handleAddMuscle()
+              }}
             >
               ADD
             </Button>
           </ModalFooter>
         </div>
       </Modal>
+
       <Modal
         isOpen={modal5}
         autoFocus={true}
@@ -764,7 +897,18 @@ console.log(benefit)
                 <Input
                   type="email"
                   className="form-control"
-                  placeholder="New Modality"
+                  placeholder="Add Benefits Name"
+                  value={benefitsPoint}
+                  onChange={e => setBenefitsPoint(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="email"
+                  className="form-control"
+                  placeholder="Add Benefits Description"
+                  value={benefitsDescription}
+                  onChange={e => setBenefitsDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -782,13 +926,18 @@ console.log(benefit)
             <Button
               type="button"
               color="primary"
-              onClick={() => setmodal5(!modal5)}
+              onClick={() => {
+                setmodal5(!modal5)
+                handleAddBenefits()
+              }}
             >
               ADD
             </Button>
           </ModalFooter>
         </div>
       </Modal>
+
+      <ToastContainer />
     </div>
   )
 }
