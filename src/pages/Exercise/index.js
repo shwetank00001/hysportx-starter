@@ -1,12 +1,12 @@
-import React, { useState, useEffect,useMemo } from 'react'
-import { Link,useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react'
+import { Link, json, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 
 //components
 import Breadcrumbs from "components/Common/Breadcrumb";
 import DeleteModal from 'components/Common/DeleteModal';
 
-import { Col, Row, Card, CardBody, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip, Badge,Button  } from "reactstrap";
+import { Col, Row, Card, CardBody, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip, Badge, Button } from "reactstrap";
 import TableContainer from 'components/Common/TableContainer';
 import Spinners from "components/Common/Spinner";
 
@@ -28,65 +28,52 @@ const index = () => {
         })
     );
 
-    const [execiseData, setExeciseData]=useState();
 
     const {
         Execise, loading
     } = useSelector(ExeciseDataProperties);
 
 
-    console.log("execise data print front page",Execise);
+
+
 
     const [isLoading, setLoading] = useState(loading)
-   useEffect(() => {
-       
+    useEffect(() => {
+        const fetchData = () => {
+            setLoading(true);
+            dispatch(exerciseListRequest());
+            setLoading(true);
+            setTimeout(() => {
+                setLoading(false);
+            }, 1000);
+        };
         fetchData();
-      }, [execiseData]);
+    }, []);
 
-      const fetchData=()=>{
-        try {
-            const ele = fetchExeciseList.exercise.map(function (item) {
-                return {
-                  item
-                }
-              })
-              setExeciseData(ele) 
-                
-            
-        } catch (error) {
-            console.log(error);
-        }
-      }
-    //   const fetchData =  () => {
-    //     setLoading(true);
-    //     dispatch(exerciseListRequest());
-    //     setTimeout(() => {
-    //       setLoading(false);
-    //     }, 1000);
-    //   };
 
-       //coloums header start
-       const columns = useMemo(
+    //coloums header start
+    const columns = useMemo(
         () => [
             {
                 Header: 'No',
                 accessor: 'id',
                 Cell: (cellProps) => {
                     return (
-                      <>
-                         <p className="">{cellProps.row.index + 1}</p>          
-                      </>
+                        <>
+                            <p className="">{cellProps.row.index + 1}</p>
+                        </>
                     )
-                  },
+                },
             },
             {
                 Header: 'Exercise Name',
                 accessor: 'name',
+
             },
             {
                 Header: 'Description',
                 accessor: 'description',
-                
+
             },
             {
                 Header: 'Performance',
@@ -96,7 +83,7 @@ const index = () => {
                 Header: 'Level',
                 accessor: 'level',
             },
-            
+
             // {
             //     Header: 'Posted Date',
             //     accessor: 'duration_start',
@@ -114,16 +101,16 @@ const index = () => {
                     return (
                         <ul className="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                            <Button               
-                                    onClick={ ()=>
-                                        sendVeiwData(
-                                        cellProps.row.original.id,
-                                       )
-                                    }
+                                <Button
+                                    // onClick={ ()=>
+                                    //     sendVeiwData(
+                                    //     cellProps.row.original.id,
+                                    //    )
+                                    // }
                                     className="btn btn-sm btn-soft-primary"
-                                   
+
                                     id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
-                                    
+
                                 >
                                     <i className="mdi mdi-eye-outline" />
                                 </Button>
@@ -133,13 +120,13 @@ const index = () => {
                             </UncontrolledTooltip>
 
                             <li>
-                            <Button               
-                                    onClick={ ()=>
-                                       sendListData(
-                                        cellProps.row.original.id,
-                                      
-                                       )
-                                    }
+                                <Button
+                                    // onClick={ ()=>
+                                    //    sendListData(
+                                    //     cellProps.row.original.id,
+
+                                    //    )
+                                    // }
                                     className="btn btn-sm btn-soft-primary"
                                     id={`edittooltip-${cellProps.row.original.id}`}
                                 >
@@ -154,10 +141,10 @@ const index = () => {
                                 <Link
                                     to="#"
                                     className="btn btn-sm btn-soft-danger"
-                                    onClick={() => {
-                                        // const jobData = cellProps.row.original;
-                                        // // onClickDelete();
-                                    }}
+                                    // onClick={() => {
+                                    //     // const jobData = cellProps.row.original;
+                                    //     // // onClickDelete();
+                                    // }}
                                     id={`deletetooltip-${cellProps.row.original.id}`}
                                 >
                                     <i className="mdi mdi-delete-outline" />
@@ -176,7 +163,7 @@ const index = () => {
     );
 
     return (
-        <React.Fragment>
+        <React.Fragment >
             <div className="page-content">
                 <div className="container-fluid">
                     <Breadcrumbs title="" breadcrumbItem="Execise List" />
@@ -187,7 +174,7 @@ const index = () => {
                                     <div className="d-flex align-items-center">
                                         <h5 className="mb-0 card-title flex-grow-1">Execise Lists</h5>
                                         <div className="flex-shrink-0">
-                                            <Link to="/admin/jobpost" className="btn btn-primary me-1">Add New Job</Link>
+
                                             <Link to="#!" className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
                                             <UncontrolledDropdown className="dropdown d-inline-block me-1">
                                                 <DropdownToggle type="menu" className="btn btn-success" id="dropdownMenuButton1">
@@ -198,7 +185,7 @@ const index = () => {
                                                     <li><DropdownItem href="#">Something else here</DropdownItem></li>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
-                                            <Link to="/admin/job-grid" className="btn btn-danger me-1"><i className="bx bxs-grid"></i></Link>
+                                            <Link to="#" className="btn btn-danger me-1"><i className="bx bxs-grid"></i></Link>
                                         </div>
                                     </div>
                                 </CardBody>
@@ -208,11 +195,9 @@ const index = () => {
                                         <CardBody>
                                             <TableContainer
                                                 columns={columns}
-                                                data={execiseData}
+                                                data={Execise.exercise ? Execise.exercise :[{}] }
                                                 isGlobalFilter={true}
-                                                // isAddOptions={false}
-                                                // handleJobClicks={handleJobClicks}
-                                                isJobListGlobalFilter={true}
+
                                                 isPagination={true}
                                                 iscustomPageSizeOptions={true}
                                                 isShowingPageLength={true}
@@ -222,7 +207,7 @@ const index = () => {
                                                 pagination="pagination justify-content-end pagination-rounded"
                                             />
                                         </CardBody>
-                                } 
+                                }
                             </Card>
                         </Col>
                     </Row>
@@ -230,7 +215,7 @@ const index = () => {
 
                 </div>
             </div>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 

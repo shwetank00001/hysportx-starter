@@ -16,7 +16,7 @@ import {
 
 const initialState = {
   exercise: [],
-  loading: true,
+  loading: false,
   error: null,
 }
 
@@ -34,8 +34,8 @@ const exerciseReducer = (state = initialState, action) => {
     case EXERCISE_LIST_SUCCESS:
       return {
         ...state,
-        loading: false,
         exercise: action.payload,
+        loading: false,
       }
     case ADD_EXERCISE_SUCCESS:
     case EDIT_EXERCISE_SUCCESS:
@@ -50,8 +50,8 @@ const exerciseReducer = (state = initialState, action) => {
     case DELETE_EXERCISE_FAILURE:
       return {
         ...state,
-        loading: false,
         error: action.payload,
+        loading: false,
       }
     default:
       return state

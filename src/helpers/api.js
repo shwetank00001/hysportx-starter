@@ -9,121 +9,105 @@ export const demo = {
 // api for MODALITY
 export const modality = {
   add: data =>
-    post("/modality", data, { headers: { Authorization: `Bearer ${token}` } }),
+    post("/modality", data),
 
   edit: (id, data) =>
-    post(`/modality/${id}`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post(`/modality/${id}`, data),
 
   list: () => get("/modalities"),
-  // list: () => get("/modalities", { headers: { Authorization: `Bearer ${token}` } }),
+  // list: () => get("/modalities" ),
 
   details: id =>
-    get(`/modality/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/modality/${id}`),
 
   delete: id =>
-    del(`/modality/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/modality/${id}`),
 }
 
 // api for equipment 
 export const equipment= {
   add: (data, token) =>
-    post("/equipment", data, { headers: { Authorization: `Bearer ${token}` } }),
+    post("/equipment", data),
 
   edit: (id, data, token) =>
-    post(`/equipment/${id}`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post(`/equipment/${id}`, data),
 
   details: (id, token) =>
-    get(`/equipment/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/equipment/${id}`),
 	
   list: () =>
     get("/equipments", ),
 
   delete: (id, token) =>
-    del(`/equipment/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/equipment/${id}` ),
 }
 
 // api for BENIFIT
 export const benefit = {
-  add: (data, token) =>
-    post("/benifit", data, { headers: { Authorization: `Bearer ${token}` } }),
+  add: (data) =>
+    post("/benifit", data ),
 
   edit: (id, data, token) =>
-    post(`/benifit/${id}`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post(`/benifit/${id}`, data),
 
   details: (id, token) =>
-    get(`/benifit/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/benifit/${id}` ),
 
   list: () =>
     get("/benifits"),
 
   delete: (id, token) =>
-    del(`/benifit/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/benifit/${id}` ),
 }
 
 // api for muscle
 export const muscle = {
   add: (data, token) =>
-    post("/muscle", data, { headers: { Authorization: `Bearer ${token}` } }),
+    post("/muscle", data ),
 
   update: (data, token) =>
-    post("/muscle/update", data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post("/muscle/update", data),
 
   details: (id, token) =>
-    get(`/muscle/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/muscle/${id}` ),
 
   list: () => get("/muscles"),
 
   delete: (id, token) =>
-    del(`/muscle/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/muscle/${id}` ),
 }
 
 // api for performanceTags
 export const performance = {
   add: (data, token) =>
-    post("/performancetag", data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post("/performancetag", data),
 
   update: (data, token) =>
-    post("/performancetag/update", data, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    post("/performancetag/update", data),
 
   details: (id, token) =>
-    get(`/performancetag/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    get(`/performancetag/${id}`),
 
   list: () =>
     get("/performancetags"),
 
   delete: (id, token) =>
-    del(`/performancetag/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    }),
+    del(`/performancetag/${id}`),
 }
 
 // api for exercises
 
 export const exercise = {
   add: (data, token) =>
-    post("/exercise", data, { headers: { Authorization: `Bearer ${token}` } }),
+    post("/exercise", data ),
 
   details: (id, token) =>
-    get(`/exercise/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/exercise/${id}` ),
 
   list: () => get("/exercises"),
 
   delete: (id, token) =>
-    del(`/exercise/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/exercise/${id}` ),
 }
 
 
@@ -131,15 +115,15 @@ export const exercise = {
 
 export const activity = {
   add: (data, token) =>
-    post("/activity", data, { headers: { Authorization: `Bearer ${token}` } }),
+    post("/activity", data ),
 
   details: (id, token) =>
-    get(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    get(`/activity/${id}` ),
 
   list: () => get("/activities"),
 
   delete: (id, token) =>
-    del(`/activity/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+    del(`/activity/${id}` ),
 }
 
 // competition

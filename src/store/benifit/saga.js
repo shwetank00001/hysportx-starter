@@ -35,7 +35,7 @@ function* addBenefitSaga(action) {
   try {
     yield call(benefit.add, action.payload)
     yield put({ type: ADD_BENEFIT_SUCCESS })
-    toast.success("Benefit added successfully!", { autoClose: 2000 })
+    toast.success("Benefit added successfully! Kindly Reload", { autoClose: 2000 })
   } catch (error) {
     yield put({ type: ADD_BENEFIT_FAILURE, payload: error })
     toast.error("Failed to add benefit. Please try again.", { autoClose: 2000 })

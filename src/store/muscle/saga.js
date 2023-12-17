@@ -33,6 +33,7 @@ function* listMuscleSaga() {
 
 function* addMuscleSaga(action) {
   try {
+     console.log("Adding muscle:", action.payload)
     yield call(muscle.add, action.payload)
     yield put({ type: ADD_MUSCLE_SUCCESS })
     toast.success("Muscle added successfully!", { autoClose: 2000 })
