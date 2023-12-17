@@ -37,10 +37,9 @@ const ProfileMenu = props => {
     setToken(localStorage.getItem("_token"));
     get("/logout")
     .then((res)=>{
-      console.log(res);
-      // localStorage.removeItem("_token");
-      // localStorage.removeItem("userData");
-      // window.location.reload();
+      localStorage.removeItem("_token");
+      localStorage.removeItem("userData");
+      window.location.reload();
 
     },(e)=>{console.log(e)})
   }
