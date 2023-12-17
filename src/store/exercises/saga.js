@@ -20,8 +20,10 @@ import {
 } from "./actionTypes"
 
 function* listExerciseSaga() {
+  console.log("saga function run.......")
   try {
     const data = yield call(exercise.list)
+    console.log("all data fetch execise saga file",data.data)
     yield put({ type: EXERCISE_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: EXERCISE_LIST_FAIL, payload: error })
@@ -30,6 +32,8 @@ function* listExerciseSaga() {
     })
   }
 }
+
+
 
 function* addExerciseSaga(action) {
   try {

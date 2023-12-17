@@ -42,7 +42,7 @@ function HExercise() {
   const muscles = useSelector(state => state.muscleReducer.muscle)
   const benefit = useSelector(state => state.benefitReducer.benefit)
 
-console.log(benefit)
+
 
   const [modalityData, setModalityData] = useState()
   const [performanceData, setperformanceData] = useState()
