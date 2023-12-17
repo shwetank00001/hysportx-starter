@@ -55,7 +55,6 @@ function HExercise() {
   const muscles = useSelector(state => state.muscleReducer.muscle)
   const benefit = useSelector(state => state.benefitReducer.benefit)
 
-  console.log(benefit)
 
   const [modalityData, setModalityData] = useState()
   const [performanceData, setperformanceData] = useState()
@@ -266,6 +265,24 @@ function HExercise() {
     setModalityDescription("")
   }
 
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const exerciseData = {
+      name: "Shubham TEst 123",
+      level: "biggner",
+      description: "Testing main feautre",
+      modalities: [1,2,3],
+      ptags: [5],
+      equipments: [2],
+      muscles: [2],
+      benifits: [3],
+    }
+    
+  dispatch(addExerciseRequest(exerciseData))
+
+  }
   return (
     <div>
       <CardBody>
@@ -572,7 +589,7 @@ function HExercise() {
           <Row className="justify-content-start">
             <Col sm={8}>
               <div>
-                <Button type="submit" color="primary" className="w-md">
+                <Button type="submit" color="primary" className="w-md" onClick={handleSubmit}>
                   Submit
                 </Button>
               </div>
@@ -598,7 +615,7 @@ function HExercise() {
             ADD Modality
           </ModalHeader>
           <ModalBody>
-            <form onSubmit={submitModality}>
+            <form>
               <div className="mb-3">
                 <Input
                   type="text"
@@ -617,7 +634,6 @@ function HExercise() {
                   onChange={e => setModalityDescription(e.target.value)}
                 />
               </div>
-              <button type="submit">Submit</button>
             </form>
           </ModalBody>
           <ModalFooter>
@@ -633,7 +649,11 @@ function HExercise() {
             <Button
               type="button"
               color="primary"
-              onClick={() => setmodal(!modal)}
+              onClick={() => 
+              {setmodal(!modal)
+              submitModality()
+              }
+              }
             >
               ADD
             </Button>
