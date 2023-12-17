@@ -37,6 +37,7 @@ function* listExerciseSaga() {
 
 function* addExerciseSaga(action) {
   try {
+    console.log("EXERCISE DATA IS :_", action.payload)
     yield call(exercise.add, action.payload)
     yield put({ type: ADD_EXERCISE_SUCCESS })
     toast.success("Exercise added successfully!", { autoClose: 2000 })
