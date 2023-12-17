@@ -34,59 +34,37 @@ function HExercise() {
 
   const dispatch = useDispatch()
 
-    const modalityDispatch = useSelector(
-      state => state.ModalityReducer.modality
-    )
-    const [modalityData, setModalityData] = useState([
-      modalityDispatch.exercise,
-    ])
 
 
-  useEffect(() => {
-    dispatch(listModalityRequest())
+  const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
+  const [modalityData, setModalityData] = useState(modalityDispatch.exercise)
 
-    const ele = modalityData.map(function (item) {
-      return {
-        label: item.name,
-        value: item.id,
-      }
-    })
-    console.log("ele is ", ele)
-    setModalityData(ele)
-  }, [dispatch, modalityDispatch.exercise])
+    const modalityTest = [
+      {
+        label: modalityDispatch.exercise[0].name,
+        value: modalityDispatch.exercise[0].name,
+      },
+      { label: "Ketchup", value: "Ketchup" },
+      { label: "Relish", value: "Relish" },
+      { label: "Tent", value: "Tent" },
+      { label: "Flashlight", value: "Flashlight" },
+      { label: "Toilet Paper", value: "Toilet Paper" },
+    ]
 
+  useEffect( ()=> {
+        dispatch(listModalityRequest())
+  }, [dispatch])
 
-    // const modalityTest = [
-    //   {
-    //     label: modalityDispatch.exercise[0].name,
-    //     value: modalityDispatch.exercise[0].name,
-    //   },
-    //   { label: "Ketchup", value: "Ketchup" },
-    //   { label: "Relish", value: "Relish" },
-    //   { label: "Tent", value: "Tent" },
-    //   { label: "Flashlight", value: "Flashlight" },
-    //   { label: "Toilet Paper", value: "Toilet Paper" },
-    // ]
+  console.log(modalityDispatch)
 
+  const ele = modalityDispatch.exercise.map(function(item){
+    return {
+      label : item.name,
+      value : item.id
+    }
+  })
 
-
-  // function getModality() {
-  //   const ele =  modalityDispatch.exercise.map(function(item) {
-  //     return {
-  //       label: item.name,
-  //       value: item.id,
-  //     }
-  //   })
-  //   setModalityData(ele)
-  //   console.log( "ele is :- ",ele)
-  // }
-
-
-   function getModality(){
-
-  }
-
-  console.log("modality dispatch", modalityDispatch)
+  console.log(modalityDispatch.exercise)
 
   
 
@@ -188,7 +166,7 @@ function HExercise() {
                   onChange={() => {
                     handleMulti()
                   }}
-                  // options={modalityData}
+                  options={ele}
                   className="select2-selection col-sm-10 p-0"
                 />
                 <button
