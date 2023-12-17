@@ -34,7 +34,6 @@ import { addExerciseRequest } from "../../store/exercises/actions"
 import { addEquipmentRequest } from "../../store/equipment/actions"
 import { addBenefitRequest } from "../../store/benifit/actions"
 
-
 // toast success importing
 import { ToastContainer } from "react-toastify"
 
@@ -54,7 +53,6 @@ function HExercise() {
   const equipment = useSelector(state => state.equipmentReducer.equipment)
   const muscles = useSelector(state => state.muscleReducer.muscle)
   const benefit = useSelector(state => state.benefitReducer.benefit)
-
 
   const [modalityData, setModalityData] = useState()
   const [performanceData, setperformanceData] = useState()
@@ -130,15 +128,13 @@ function HExercise() {
     }
   }
 
-    const handleAddMuscle = () => {
-      dispatch(
-        addMuscleRequest({ name: muscleName, description: muscleDescription })
-      )
-      setMuscleName("")
-      setMuscleDescription("")
-
-    }
-
+  const handleAddMuscle = () => {
+    dispatch(
+      addMuscleRequest({ name: muscleName, description: muscleDescription })
+    )
+    setMuscleName("")
+    setMuscleDescription("")
+  }
 
   //fetch modality data
   function getModality() {
@@ -158,19 +154,20 @@ function HExercise() {
   const [modalityName, setModalityName] = useState("")
   const [modalityDescription, setModalityDescription] = useState("")
 
-   const [performanceName, setPerformanceName] = useState("")
-   const [performanceDescription, setPerformanceDescription] = useState("")
+  const [performanceName, setPerformanceName] = useState("")
+  const [performanceDescription, setPerformanceDescription] = useState("")
 
-   const [equipmentName, setEquipmentName] = useState("")
-   const [equipmentDescription, setEquipmentDescription] = useState("")
+  const [equipmentName, setEquipmentName] = useState("")
+  const [equipmentDescription, setEquipmentDescription] = useState("")
 
-   const [muscleName, setMuscleName] = useState("")
-   const [muscleDescription, setMuscleDescription] = useState("")
+  const [muscleName, setMuscleName] = useState("")
+  const [muscleDescription, setMuscleDescription] = useState("")
 
-   const [benefitsPoint, setBenefitsPoint] = useState("")
-   const [benefitsDescription, setBenefitsDescription] = useState("")
+  const [benefitsPoint, setBenefitsPoint] = useState("")
+  const [benefitsDescription, setBenefitsDescription] = useState("")
 
-   
+  const [exerciseName, setExerciseName] = useState("")
+  const [descriptionName, setDescriptionName] = useState("")
 
   // fetch Equipment data
   function getEquipment() {
@@ -196,7 +193,6 @@ function HExercise() {
     )
     setEquipmentName("")
     setEquipmentDescription("")
-
   }
   // fetch performance data
   function getPerformance() {
@@ -214,11 +210,15 @@ function HExercise() {
   }
 
   const handleAddPerformance = () => {
-    dispatch(addPerformanceRequest({ name: performanceName, description: performanceDescription }));
+    dispatch(
+      addPerformanceRequest({
+        name: performanceName,
+        description: performanceDescription,
+      })
+    )
 
-
-    setPerformanceName('');
-    setPerformanceDescription('');
+    setPerformanceName("")
+    setPerformanceDescription("")
   }
 
   function handleMulti() {
@@ -253,7 +253,6 @@ function HExercise() {
   ]
 
   const submitModality = e => {
-
     const modalityData = {
       name: modalityName,
       description: modalityDescription,
@@ -265,24 +264,23 @@ function HExercise() {
     setModalityDescription("")
   }
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
 
     const exerciseData = {
-      name: "Shubham TEst 123",
+      name: exerciseName,
       level: "biggner",
-      description: "Testing main feautre",
-      modalities: [1,2,3],
+      description: descriptionName,
+      modalities: [1, 2, 3],
       ptags: [5],
       equipments: [2],
       muscles: [2],
       benifits: [3],
     }
-    
-  dispatch(addExerciseRequest(exerciseData))
 
+    dispatch(addExerciseRequest(exerciseData))
   }
+
   return (
     <div>
       <CardBody>
@@ -302,6 +300,8 @@ function HExercise() {
                   className="form-control px-0 "
                   id="horizontal-firstname-Input"
                   placeholder="Enter Your"
+                  value={exerciseName}
+                  onChange={e => setExerciseName(e.target.value)}
                 />
               </Row>
             </Col>
@@ -516,6 +516,8 @@ function HExercise() {
                   autoComplete="off"
                   className="form-control"
                   id="horizontal-password-Input"
+                  value={descriptionName}
+                  onChange={e => setDescriptionName(e.target.value)}
                 />
               </Row>
             </Col>
@@ -589,7 +591,12 @@ function HExercise() {
           <Row className="justify-content-start">
             <Col sm={8}>
               <div>
-                <Button type="submit" color="primary" className="w-md" onClick={handleSubmit}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  className="w-md"
+                  onClick={handleSubmit}
+                >
                   Submit
                 </Button>
               </div>
@@ -649,11 +656,10 @@ function HExercise() {
             <Button
               type="button"
               color="primary"
-              onClick={() => 
-              {setmodal(!modal)
-              submitModality()
-              }
-              }
+              onClick={() => {
+                setmodal(!modal)
+                submitModality()
+              }}
             >
               ADD
             </Button>
