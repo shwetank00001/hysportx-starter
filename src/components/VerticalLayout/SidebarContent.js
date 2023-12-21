@@ -140,6 +140,21 @@ const SidebarContent = props => {
     }
   }
 
+  // const roleID = "communityMember3"
+
+  // const selectors = roleID ? "communityMember" : "none"
+
+  const [ roleID, setRoleID ] = React.useState([])
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"))
+    setRoleID(userData.role.role_id)
+  }, [])
+
+  console.log(roleID)
+
+
+
   return (
     <React.Fragment>
       <SimpleBar className="h-100" ref={ref}>
@@ -164,13 +179,18 @@ const SidebarContent = props => {
                 <span>{props.t("HExercise List")}</span>
               </Link>
             </li>
-
-
+                  <li>
+                    <Link to="/participators" className="">
+                      <i className="bx bx-home-circle"></i>
+                      <span>{props.t("Participators")}</span>
+                    </Link>
+                  </li>
+             
           </ul>
         </div>
       </SimpleBar>
     </React.Fragment>
-  );
+  )
 };
 
 SidebarContent.propTypes = {
