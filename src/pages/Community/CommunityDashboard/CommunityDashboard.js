@@ -19,7 +19,7 @@ const CommunityDashboard = () => {
   return (
     <React.Fragment>
       <div className="page-content">
-        <p>Community Dashboard</p>
+        <p>Community Dashboard Working</p>
       </div>
     </React.Fragment>
   )
