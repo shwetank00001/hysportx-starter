@@ -91,8 +91,16 @@ const publicRoutes = [
 
 // const communityRoutes = [
 //   {
-//     path: `${Constant.rolePrefix.community}/dashboard`,
+//     path: `/community/dashboard`,
 //     component: <CommunityDashboard />,
+//   },
+//   {
+//     path: `/community/participator-list`,
+//     component: <ParticipatorList />,
+//   },
+//   {
+//     path: `/community/create-competition`,
+//     component: <CreateCompetition />,
 //   },
 // ]
 
