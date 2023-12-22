@@ -16,6 +16,13 @@ import Hysport from "pages/HYSPORTX";
 
 import Exercise from "pages/Exercise"
 
+// community folder
+import CommunityDashboard from "pages/Community/CommunityDashboard/CommunityDashboard";
+
+
+// ERROR
+import Error from "components/VerticalLayout/Error";
+
 
 
 // Dashboard
@@ -47,14 +54,15 @@ const authProtectedRoutes = [
   // { path: "/condition", component: <HCondition /> },
   { path: "/hysport", component: <Hysport /> },
   { path: "/exercise", component: <Exercise /> },
+  { path: "/error", component: <Error /> },
 ]
 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
   { path: "/logout", component: <Logout /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
-  { path: "/register", component: <Register /> },
-];
+  { path: "/register", component: <Register /> }
+]
 
 
 // copied routes
@@ -89,20 +97,20 @@ const publicRoutes = [
 //   { path: `${Constant.rolePrefix.admin}/chat`, component: <Chat /> },
 // ]
 
-// const communityRoutes = [
-//   {
-//     path: `/community/dashboard`,
-//     component: <CommunityDashboard />,
-//   },
-//   {
-//     path: `/community/participator-list`,
-//     component: <ParticipatorList />,
-//   },
-//   {
-//     path: `/community/create-competition`,
-//     component: <CreateCompetition />,
-//   },
-// ]
+const communityRoutes = [
+  {
+    path: `/community/dashboard`,
+    component: <CommunityDashboard />,
+  },
+  // {
+  //   path: `/community/participator-list`,
+  //   component: <ParticipatorList />,
+  // },
+  // {
+  //   path: `/community/create-competition`,
+  //   component: <CreateCompetition />,
+  // },
+]
 
 // const participatorRoutes = [
 //   {
@@ -130,4 +138,4 @@ const publicRoutes = [
 
 
 
-export { authProtectedRoutes, publicRoutes };
+export { authProtectedRoutes, publicRoutes, communityRoutes }

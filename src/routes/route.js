@@ -17,6 +17,7 @@ export const Authmiddleware = (props) => {
           let response=await get("/validate");
           if (response.message=='authenticated') {        
             localStorage.setItem('userData',JSON.stringify(response.data.user));
+            console.log({"data": response.data.user})
             setIsAuthenticated(true);
           } else {
             localStorage.removeItem("_token");
@@ -64,6 +65,12 @@ export const GuestMiddleware = (props) => {
   else return <React.Fragment>{props.children}</React.Fragment>;
   
 };
+
+export const Communitymiddleware = (props) => {
+
+}
+
+
 
 
 // const RoleMiddleware = (props, roleType) => {
