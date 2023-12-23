@@ -21,42 +21,28 @@ import CommunityDashboard from "pages/Community/CommunityDashboard/CommunityDash
 
 
 // ERROR
-import Error from "components/VerticalLayout/Error";
+import Error from "pages/Errors/NotFound";
 
 
 
 // Dashboard
 import Dashboard from "../pages/Dashboard/index";
-
-//----import route path-----
-
-import DemoPage from "pages/DemoPage"
-import ModalityPage from "pages/Modality"
-
-
-import HActiviy from "pages/HYSPORTX/HActivity";
-import HCondition from "pages/HYSPORTX/HCondition";
-import HExercise from "pages/HYSPORTX/HExercise";
+import ParticipatorList from "pages/Community/ParticipatorList/index"
 
 
 
 // main routes
-const authProtectedRoutes = [
-  { path: "/dashboard", component: <Dashboard /> },
-  // //profile
-  { path: "/profile", component: <UserProfile /> },
+const authProtectedRoutes =[
+    { label:"Dashboard", path: "/community/dashboard", component: <Exercise />, user:'community' },
+    { label:"Competition", path: "/community/competition", component: <Dashboard />, user:'community' },
+    { label:"Participator", path: "/community/participators", component: <ParticipatorList /> , user:'community'},
+    { label:"Exercise List", path: "/community/exercise", component: <Exercise />, user:'community'  },
 
-  // ---start create route----
-  { path: "/Demo", component: <DemoPage /> },
-  { path: "/modality", component: <ModalityPage /> },
-  // { path: "/exercise", component: <HExercise /> },
-  // { path: "/activity", component: <HActiviy /> },
-  // { path: "/condition", component: <HCondition /> },
-  { path: "/hysport", component: <Hysport /> },
-  { path: "/exercise", component: <Exercise /> },
-  { path: "/error", component: <Error /> },
-]
 
+    { label:"Dashboard", path: "Admin/dashboard", component: <Dashboard />, user:'Admin' },
+    { label:"Activity", path: "Admin/hysport", component: <Hysport />, user:'Admin'  },
+    { label:"Exercise List", path: "Admin/exercise", component: <Exercise />, user:'Admin'  },
+]; 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
   { path: "/logout", component: <Logout /> },
@@ -65,77 +51,8 @@ const publicRoutes = [
 ]
 
 
-// copied routes
-
-// const adminRoutes = [
-//   {
-//     path: `${Constant.rolePrefix.admin}/dashboard`,
-//     component: <AdminDashboard />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.admin}/email-read1`,
-//     component: <ShortcutHub />,
-//   },
-//   { path: `${Constant.rolePrefix.admin}/kyc`, component: <Read /> },
-//   {
-//     path: `${Constant.rolePrefix.admin}/email-inbox`,
-//     component: <EmailInbox />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.admin}/email-billing`,
-//     ciomponent: <EmailBilling />,
-//   },
-//   { path: `${Constant.rolePrefix.admin}/read1`, ciomponent: <Read /> },
-//   { path: `${Constant.rolePrefix.admin}/email-read`, component: <EmailRead /> },
-//   { path: `${Constant.rolePrefix.admin}/HYSPORTX`, component: <HYSPORTX /> },
-//   {
-//     path: `${Constant.rolePrefix.admin}/HYSPORTX category`,
-//     component: <HCategory />,
-//   },
-//   // { path: `${Constant.rolePrefix.admin}/communitylist`, component: <CommunityList /> },
-//   { path: `${Constant.rolePrefix.admin}/calender`, component: <Calendar /> },
-//   { path: `${Constant.rolePrefix.admin}/chat`, component: <Chat /> },
-// ]
-
-const communityRoutes = [
-  {
-    path: `/community/dashboard`,
-    component: <CommunityDashboard />,
-  },
-  // {
-  //   path: `/community/participator-list`,
-  //   component: <ParticipatorList />,
-  // },
-  // {
-  //   path: `/community/create-competition`,
-  //   component: <CreateCompetition />,
-  // },
-]
-
-// const participatorRoutes = [
-//   {
-//     path: `${Constant.rolePrefix.participator}/dashboard`,
-//     component: <ParticipaterDashboard />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.participator}/productservice`,
-//     component: <Product />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.participator}/participatoremailhistory`,
-//     component: <PHistory />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.participator}/participatorsession`,
-//     component: <PSession />,
-//   },
-//   {
-//     path: `${Constant.rolePrefix.participator}/participatornotification`,
-//     component: <PNotification />,
-//   },
-// ]
 
 
 
 
-export { authProtectedRoutes, publicRoutes, communityRoutes }
+export { authProtectedRoutes, publicRoutes }

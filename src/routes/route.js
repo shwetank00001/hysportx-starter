@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { get, setToken } from "../helpers/api_helper";
 import Spinners from "components/Common/Spinner";
+import NotFound from "pages/Errors/NotFound";
 
 
 
-export const Authmiddleware = (props) => {
+export const Authmiddleware = ({ user, children }) => {
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [userRoleType, setUserRoleType] = useState();
   useEffect(() => {
     const checkAuthentication = async () => {
       if (localStorage.getItem("_token")) {
@@ -16,8 +18,8 @@ export const Authmiddleware = (props) => {
         try {
           let response=await get("/validate");
           if (response.message=='authenticated') {        
+            setUserRoleType(response.data.user.role.type);
             localStorage.setItem('userData',JSON.stringify(response.data.user));
-            console.log({"data": response.data.user})
             setIsAuthenticated(true);
           } else {
             localStorage.removeItem("_token");
@@ -35,21 +37,26 @@ export const Authmiddleware = (props) => {
     checkAuthentication();
   }, []);
 
-  if (isAuthenticated === null) return  (  isLoading ? <Spinners setLoading={setLoading} />: 'Loding....');
-  else if (isAuthenticated) return <React.Fragment>{props.children}</React.Fragment>;
-  else return ( <Navigate to={{ pathname: "/", state: { from: props.location } }} /> );
+  if (isAuthenticated === null) 
+    return  (  isLoading ? <Spinners setLoading={setLoading} />: 'Loding....');
+  else if (isAuthenticated) {
+    return  (user === userRoleType)? <React.Fragment>{children}</React.Fragment>:<NotFound/>;
+  }
+  else return ( <Navigate to={{ pathname: "/" }} /> );
 };
 
 export const GuestMiddleware = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [userRoleType, setUserRoleType] = useState();
   useEffect(() => {
     const checkAuthentication = async () => {
       if (localStorage.getItem("_token")) {
         let token = localStorage.getItem("_token");
         setToken(token);
         try {
-          await get("/validate");
+          let response = await get("/validate");
+          setUserRoleType(response.data.user.role.type);
           setIsAuthenticated(true);
         } catch (error) {
           setIsAuthenticated(false);
@@ -61,14 +68,11 @@ export const GuestMiddleware = (props) => {
   }, []);
 
   if (isAuthenticated === null) return (  isLoading ? <Spinners setLoading={setLoading} />: 'Loding....')
-  else if (isAuthenticated) return ( <Navigate to={{ pathname: "/dashboard", state: { from: props.location } }} /> );
+  else if (isAuthenticated) return ( <Navigate to={{ pathname: userRoleType +"/dashboard", state: { from: props.location } }} /> );
   else return <React.Fragment>{props.children}</React.Fragment>;
   
 };
 
-export const Communitymiddleware = (props) => {
-
-}
 
 
 

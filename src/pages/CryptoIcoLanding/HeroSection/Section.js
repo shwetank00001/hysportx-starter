@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 
 //Import Countdown
 import Countdown from "react-countdown";
+import { LoginButton } from 'components/Common/LoginButton';
+import { SignupButton } from "components/Common/SignupButton";
 
 const Section = () => {
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -58,8 +60,8 @@ const Section = () => {
                 <p className="font-size-14">HySportx offers a user-friendly experience, making it as straightforward as it can be. To an English speaker, it will feel as clear and intuitive as a critical thinker at Cambridge University</p>
 
                 <div className="d-flex flex-wrap gap-2 mt-4">
-                  <Link to="#" className="btn btn-success">Get Whitepaper</Link>
-                  <Link to="#" className="btn btn-light">How it work</Link>
+                  <LoginButton/>
+                  <SignupButton/>
                 </div>
               </div>
             </Col>

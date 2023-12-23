@@ -110,25 +110,10 @@ const Navbar_Page = props => {
                Full Screen
               </UncontrolledTooltip>
             </div>
-
-            <LoginButton />
-
-            {"  "}
-
-            <RegstrationButton />
-
-            {" "}
-            <div className="dropdown d-inline-block">
-              <button
-                // onClick={() => {
-                //   props.showRightSidebarAction(!props.showRightSidebar);
-                // }}
-                type="button"
-                className="btn header-item noti-icon right-bar-toggle "
-              >
-                <i className="bx bx-cog bx-spin" />
-              </button>
+            <div className="ms-3 d-lg-inline-block">
+              <LoginButton />
             </div>
+
           </div>
         </div>
       </nav>

@@ -8,13 +8,10 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 
 //i18n
 import { withTranslation } from "react-i18next"
-
-import Error from "components/VerticalLayout/Error"
 import { useNavigate } from "react-router"
-
 const Dashboard = props => {
   //meta title
-  document.title = "Dashboard | Skote - React Admin & Dashboard Template"
+  document.title = "Dashboard | Admin"
 
   const [roleType, setRoleType] = React.useState([])
 
@@ -23,12 +20,12 @@ const Dashboard = props => {
     setRoleType(userData.role.type)
   }, [])
 
-  console.log("Admin dash", roleType)
+  // console.log("Admin dash", roleType)
   
-  if(roleType !== "Admin"){
-      const nav = useNavigate()
-      nav('/error')
-  }
+  // if(roleType !== "Admin"){
+  //     const nav = useNavigate()
+  //     nav('/error')
+  // }
 
   return (
     <React.Fragment>
