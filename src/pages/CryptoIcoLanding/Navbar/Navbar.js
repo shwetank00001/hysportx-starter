@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
-import React from "react";
+import React, { useState } from "react";
+
 import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Nav,
   Collapse,
   UncontrolledTooltip,
@@ -26,7 +31,8 @@ import { RegstrationButton } from 'components/Common/RegstrationButton';
 
 const Navbar_Page = props => {
 
-  
+  const [menu, setMenu] = useState(false);
+
   function toggleFullscreen() {
     if (
       !document.fullscreenElement &&
@@ -57,8 +63,10 @@ const Navbar_Page = props => {
   return (
     <React.Fragment>
       <nav
-        className={"navbar navbar-expand-lg  navigation fixed-top bg-dark" }>
-      
+        className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}
+
+      >
+
         <div className="container-fluid">
 
           <Collapse id="topnav-menu-content" navbar>
@@ -85,10 +93,32 @@ const Navbar_Page = props => {
               </div>
             </form>
 
-          </Collapse>
-          <div className="me-lg-5">
-            <LanguageDropdown />
+            <Dropdown
+              className="dropdown-mega d-none d-lg-block ms-2"
+             
+              isOpen={menu}
+              toggle={() => setMenu(!menu)}
+              direction="right"
+            >
+              <DropdownToggle
+                className="btn header-item text-light"
+                caret
+                tag="button"
+              >
+                Quick Menu <i className="mdi mdi-chevron-down" />
+              </DropdownToggle>
+              <DropdownMenu >
+              <Link  to="#" className="dropdown-item">Find/Post Job</Link>
+              <Link  to="#" className="dropdown-item">Find Network</Link>
+              <Link  to="#" className="dropdown-item">Get Scholarship</Link>
+              <Link  to="#" className="dropdown-item">Get Your Hysportx</Link>
+              <Link  to="#" className="dropdown-item">Share Your Story</Link>
+              </DropdownMenu>
+            </Dropdown>
 
+          </Collapse>
+          <div className="me-lg-5" >
+            <LanguageDropdown />
             <NotificationDropdown />
 
             <AppsDropdown />
@@ -103,11 +133,11 @@ const Navbar_Page = props => {
                 data-toggle="fullscreen"
                 id='fullscreentooltip'
               >
-                <i className="bx bx-fullscreen" />
+                <i className="bx bx-fullscreen text-light" />
               </button>
 
               <UncontrolledTooltip placement="left" target={`fullscreentooltip`}>
-               Full Screen
+                Full Screen
               </UncontrolledTooltip>
             </div>
 
@@ -115,7 +145,7 @@ const Navbar_Page = props => {
 
             {"  "}
 
-            <RegstrationButton />
+            {/* <RegstrationButton /> */}
 
             {" "}
             <div className="dropdown d-inline-block">
@@ -126,7 +156,7 @@ const Navbar_Page = props => {
                 type="button"
                 className="btn header-item noti-icon right-bar-toggle "
               >
-                <i className="bx bx-cog bx-spin" />
+                <i className="bx bx-cog bx-spin text-light" />
               </button>
             </div>
           </div>

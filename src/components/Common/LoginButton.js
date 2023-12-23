@@ -12,7 +12,7 @@ export const LoginButton = () => {
           color="success"
           outline
           onClick={login}>
-        <i className='bx bx-lock-alt'  />  SignUp
+        <i className='bx bx-lock-alt'  />  Login
         </Button>
       
     </React.Fragment>

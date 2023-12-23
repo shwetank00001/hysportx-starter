@@ -20,7 +20,7 @@ const NotificationDropdown = props => {
       <Dropdown
         isOpen={menu}
         toggle={() => setMenu(!menu)}
-        className="dropdown d-inline-block"
+        className="dropdown d-inline-block "
         tag="li"
         id="notificationtooltip"
       >
@@ -28,11 +28,11 @@ const NotificationDropdown = props => {
           Notification
         </UncontrolledTooltip>
         <DropdownToggle
-          className="btn header-item noti-icon position-relative"
+          className="btn header-item noti-icon position-relative "
           tag="button"
           id="page-header-notifications-dropdown"
         >
-          <i className="bx bx-bell bx-tada" />
+          <i className="bx bx-bell bx-tada text-light" />
           <span className="badge bg-danger rounded-pill">3</span>
         </DropdownToggle>
 

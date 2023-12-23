@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hysportx | Login </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="custom_css.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-lg-8 col-md-8 bg-overlay">
+                <div class="">
+                    <div class="">
+                      <div class="d-flex h-100 flex-column">
+                        <div class="p-4 mt-auto">
+                          <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                              <div class="text-center">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="auth-full-page-content p-md-5 p-4">
+                    <div class="w-100">
+                        <div class="d-flex flex-column h-100">
+
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <div class="mb-4 mb-md-4">
+                                        <a href="/register" class="d-block card-logo">
+                                            <img src="image/fw-logo.png" alt="" width="100" height="30" class="logo-dark-element">
+                                            <img src="image/fw-logo.png" alt="" width="20" height="18" class="logo-light-element">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <i class="bi bi-arrow-right text-center fs-3"></i> 
+                                </div>
+                                <div class="col-lg-5 col-md-5">
+                                    <div class="mb-4 mb-md-4">
+                                        <a href="/register" class="d-block card-logo">
+                                            <img src="image/logo/hysportx.jpg" alt="" width="100" height="30" class="logo-dark-element">
+                                            <img src="image/logo/hysportx.jpg" alt="" width="20" height="18" class="logo-light-element">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="my-auto mt-3">
+                                <div>
+                                    <h5 class="text-primary">Register account</h5>
+                                    <p class="text-muted">Create your Fw-Game account now</p>
+                                </div>
+
+                                <div class="mt-4">
+                                    <form class="form-horizontal">
+                                        <!-- <Alert color="danger">Invalid UserName and password</Alert>  null} -->
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="fname">First Name</label>
+                                            <input name="first_name" id="fname" class="form-control" placeholder="Enter First Name"type="text"> 
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="lname">Last Name</label>
+                                            <input name="last_name" id="lname" class="form-control" placeholder="Enter Last Name"type="text"> 
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="phone">Last Name</label>
+                                            <input name="phone" id="phone" class="form-control" placeholder="Enter moblie number"type="number"> 
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input name="email" id="email" class="form-control" placeholder="Enter Email"type="email"> 
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="user_role">User Role</label>
+                                            <select class="form-select" name="user_role" id="user_role">
+                                                <option selected>--select user--</option>
+                                                <option value="1">participator</option>
+                                                <option value="2">Client</option>
+                                                <option value="3">Admin</option>
+                                              </select> 
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="user_cat">User Category</label>
+                                            <select class="form-select" name="user_cat" id="user_cat">
+                                                <option selected>--select Category--</option>
+                                                <option value="1">participator</option>
+                                                
+                                              </select> 
+                                        </div>
+
+
+
+                                        <div class="mb-3">
+                                            <label  class="form-label">Password</label>
+                                            <input name="password" value="" type="password" class="form-control" placeholder="Enter Password">   
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label  class="form-label">Confirm Password</label>
+                                            <input name="c_password" value="" type="c_password" class="form-control" placeholder="Enter Password">   
+                                        </div>
+
+                                    
+
+                                        <div class="mt-3 d-grid">
+                                            <button class="btn btn-primary " type="submit">Register</button>
+                                        </div>
+
+                                      
+
+                                    
+                                    </form>
+
+                                    <div class="mt-3 text-center">
+                                        <p> Already have an account ?
+                                            <a href="#" class="fw-medium text-primary" > Login </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="  text-center">
+                                <p class="mb-0">
+                                    © 2024 Fw-Game. Crafted with &nbsp;
+                                    <i class="mdi mdi-heart text-danger"></i> by
+                                    our Teams
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+</body>
+</html>

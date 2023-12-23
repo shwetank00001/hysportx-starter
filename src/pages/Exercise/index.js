@@ -101,16 +101,8 @@ const index = () => {
                     return (
                         <ul className="list-unstyled hstack gap-1 mb-0">
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                <Button
-                                    // onClick={ ()=>
-                                    //     sendVeiwData(
-                                    //     cellProps.row.original.id,
-                                    //    )
-                                    // }
-                                    className="btn btn-sm btn-soft-primary"
-
-                                    id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
-
+                                <Button className="btn btn-sm btn-soft-primary"
+                                id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
                                 >
                                     <i className="mdi mdi-eye-outline" />
                                 </Button>
@@ -118,15 +110,8 @@ const index = () => {
                             <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
                                 View
                             </UncontrolledTooltip>
-
                             <li>
                                 <Button
-                                    // onClick={ ()=>
-                                    //    sendListData(
-                                    //     cellProps.row.original.id,
-
-                                    //    )
-                                    // }
                                     className="btn btn-sm btn-soft-primary"
                                     id={`edittooltip-${cellProps.row.original.id}`}
                                 >
@@ -141,10 +126,6 @@ const index = () => {
                                 <Link
                                     to="#"
                                     className="btn btn-sm btn-soft-danger"
-                                    // onClick={() => {
-                                    //     // const jobData = cellProps.row.original;
-                                    //     // // onClickDelete();
-                                    // }}
                                     id={`deletetooltip-${cellProps.row.original.id}`}
                                 >
                                     <i className="mdi mdi-delete-outline" />

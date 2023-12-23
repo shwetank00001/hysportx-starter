@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import withRouter from "components/Common/withRouter";
 import classname from "classnames";
 
-//i18n
+//i18n 
 import { withTranslation } from "react-i18next";
 
 import { connect } from "react-redux";
+import { competition } from "helpers/api";
 
 const Navbar = props => {
 
@@ -16,24 +17,8 @@ const Navbar = props => {
   const [ui, setui] = useState(false);
   const [app, setapp] = useState(false);
   const [email, setemail] = useState(false);
-  const [ecommerce, setecommerce] = useState(false);
-  const [crypto, setcrypto] = useState(false);
-  const [project, setproject] = useState(false);
-  const [task, settask] = useState(false);
-  const [contact, setcontact] = useState(false);
-  const [blog, setBlog] = useState(false);
-  const [job, setJob] = useState(false);
-  const [candidate, setCandidate] = useState(false);
-  const [component, setcomponent] = useState(false);
-  const [form, setform] = useState(false);
-  const [table, settable] = useState(false);
-  const [chart, setchart] = useState(false);
-  const [icon, seticon] = useState(false);
-  const [map, setmap] = useState(false);
-  const [extra, setextra] = useState(false);
-  const [invoice, setinvoice] = useState(false);
-  const [auth, setauth] = useState(false);
-  const [utility, setutility] = useState(false);
+  const [competition, setcompetition] = useState(false);
+
 
   useEffect(() => {
     var matchingMenuItem = null;
@@ -97,7 +82,7 @@ const Navbar = props => {
   return (
     <React.Fragment>
       <div className="topnav">
-        <div className="container">
+        <div className="container-fluid ms-5">
           <nav
             className="navbar navbar-light navbar-expand-lg topnav-menu"
             id="navigation"
@@ -118,142 +103,36 @@ const Navbar = props => {
                     to="#"
                   >
                     <i className="bx bx-home-circle me-2"></i>
-                    {props.t("Home")} {props.menuOpen}
+                    {props.t("Know Us")} {props.menuOpen}
                     <div className="arrow-down"></div>
                   </Link>
                   <div
                     className={classname("dropdown-menu", { show: dashboard })}
                   >
                     <Link to="#" className="dropdown-item">
-                      {props.t("Default")}
+                      {props.t("HSX- Hybrid Sports")}
                     </Link>
                     <Link to="#" className="dropdown-item">
-                      {props.t("Saas")}
+                      {props.t("HSX-Sports Eco System")}
                     </Link>
-                    <Link to="/dashboard-crypto" className="dropdown-item">
-                      {props.t("Crypto")}
+                    <Link to="#" className="dropdown-item">
+                      {props.t("Rules")}
                     </Link>
-                    <Link to="/blog" className="dropdown-item">
-                      {props.t("Blog")}
+                    <Link to="#" className="dropdown-item">
+                      {props.t("Invest")}
                     </Link>
-                    <Link to="/dashboard-job" className="dropdown-item">
-                      {props.t("Jobs")}
+                    <Link to="#" className="dropdown-item">
+                      {props.t("Scholarship")}
+                    </Link>
+                    <Link to="#" className="dropdown-item">
+                      {props.t("Start your HYSPORTX")}
+                    </Link>
+                    <Link to="#" className="dropdown-item">
+                      {props.t("Faqs")}
                     </Link>
                   </div>
                 </li>
 
-                <li className="nav-item dropdown">
-                  <Link
-                    to="/#"
-                    onClick={e => {
-                      e.preventDefault();
-                      setui(!ui);
-                    }}
-                    className="nav-link dropdown-toggle arrow-none"
-                  >
-                    <i className="bx bx-tone me-2"></i>
-                    {props.t("Consultancy")} <div className="arrow-down"></div>
-                  </Link>
-                  <div
-                    className={classname(
-                      "dropdown-menu mega-dropdown-menu dropdown-menu-left dropdown-mega-menu-xl",
-                      { show: ui }
-                    )}
-                  >
-                    <Row>
-                      <Col lg={4}>
-                        <div>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Alerts")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Buttons")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Cards")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Carousel")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Dropdowns")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Grid")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Images")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Lightbox")}
-                          </Link>
-                        </div>
-                      </Col>
-                      <Col lg={4}>
-                        <div>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Modals")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Offcanvas")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Range Slider")}
-                          </Link>
-                          <Link
-                            to="#"
-                            className="dropdown-item"
-                          >
-                            {props.t("Session Timeout")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Progress Bars")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Placeholders")}
-                          </Link>
-                          {/* <Link to="#t" className="dropdown-item">
-                              {props.t("Sweet-Alert")}
-                            </Link> */}
-                          <Link
-                            to="#"
-                            className="dropdown-item"
-                          >
-                            {props.t("Tabs & Accordions")}
-                          </Link>
-                        </div>
-                      </Col>
-                      <Col lg={4}>
-                        <div>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Typography")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Toasts")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Video")}
-                          </Link>
-                          <Link to="#l" className="dropdown-item">
-                            {props.t("General")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Colors")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Rating")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Notifications")}
-                          </Link>
-                          <Link to="#" className="dropdown-item">
-                            {props.t("Utilities")}
-                          </Link>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </li>
 
                 <li className="nav-item dropdown">
                   <Link
@@ -265,18 +144,13 @@ const Navbar = props => {
                     className="nav-link dropdown-togglez arrow-none"
                   >
                     <i className="bx bx-customize me-2"></i>
-                    {props.t("Jobs")} <div className="arrow-down"></div>
+                    {props.t("Community")} <div className="arrow-down"></div>
                   </Link>
                   <div className={classname("dropdown-menu", { show: app })}>
                     <Link to="#" className="dropdown-item">
-                      {props.t("Calendar")}
+                      {props.t("Find Community")}
                     </Link>
-                    <Link to="#" className="dropdown-item">
-                      {props.t("Chat")}
-                    </Link>
-                    <Link to="#" className="dropdown-item">
-                      {props.t("File Manager")}
-                    </Link>
+
                     <div className="dropdown">
                       <Link
                         to="/#"
@@ -286,59 +160,885 @@ const Navbar = props => {
                           setemail(!email);
                         }}
                       >
-                        {props.t("Email")} <div className="arrow-down"></div>
+                        {props.t("Join Community")} <div className="arrow-down"></div>
                       </Link>
                       <div
                         className={classname("dropdown-menu", { show: email })}
                       >
                         <Link to="#" className="dropdown-item">
-                          {props.t("Inbox")}
+                          {props.t("Education")}
                         </Link>
                         <Link to="#" className="dropdown-item">
-                          {props.t("Read Email")}
+                          {props.t("Read Wellness & Health")}
                         </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Gym & Fitness Club")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Services")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Private Sector")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Celebrities")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Sports Professionals")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Vendors")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Supporter/Volunteer")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Brands & Investors")}
+                        </Link>
+                        <Link to="#" className="dropdown-item">
+                          {props.t("Others")}
+                        </Link>
+                      </div>
+                    </div>
+
+                  </div>
+                </li>
+
+              {/* Competition */}
+
+                <li className="nav-item dropdown">
+                  <Link
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setapp(!app);
+                    }}
+                    className="nav-link dropdown-togglez arrow-none"
+                  >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Competition")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className={classname("dropdown-menu", { show: app })}>
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("About Competition")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Introduction page")}</Link>
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Create Own Competition")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Direct Create Page")}</Link>
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Challenge 1 to 1")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Invite Challenge")}</Link>
+                      </div>
+                    </div>
+
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setcompetition(!competition);
+                        }}
+                      >
+                        {props.t("Hysportx Competition")} <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", { show: competition })}
+                      >
+
                         <div className="dropdown">
                           <Link
                             className="dropdown-item dropdown-toggle arrow-none"
                             to="/#"
                             onClick={e => {
                               e.preventDefault();
-                              setemail(!email);
+                              setcompetition(!competition);
                             }}
                           >
-                            <span key="t-email-templates">Templates</span>{" "}
+                            <span key="t-email-templates">Inter Competition</span>{" "}
                             <div className="arrow-down"></div>
                           </Link>
                           <div
                             className={classname("dropdown-menu", {
-                              show: email,
+                              show: competition,
                             })}
                           >
                             <Link
                               to="#"
                               className="dropdown-item"
                             >
-                              {props.t("Basic Action")}
+                              {props.t("Inter School")}
                             </Link>
                             <Link
                               to="#"
                               className="dropdown-item"
                             >
-                              {props.t("Alert Email")}
+                              {props.t("Inter College/University")}
                             </Link>
                             <Link
                               to="#"
                               className="dropdown-item"
                             >
-                              {props.t("Billing Email")}
+                              {props.t("Inter Services")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Inter Corporate")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Inter Gym")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Inter Celebrities")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Inter Open")}
                             </Link>
                           </div>
                         </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">National Competition</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("District")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("State")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("National")}
+                            </Link>
+                           
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">International Competition</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Survival of the Fittest")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("HSX Champiors Trophy")}
+                            </Link>
+                           
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("HSX World Cup")}
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Leagues</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Other")}
+                            </Link>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
-             
+
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Find Competitions")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Competitors Search Page")}</Link>
+                      </div>
+                    </div>
+
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Recent Competitions")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Auto Drop Recent Page")}</Link>
+                      </div>
+                    </div>
+
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Live Competitions")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Which is running today")}</Link>
+                      </div>
+                    </div>
+
                   </div>
                 </li>
+
+              {/* Sports Eco System		 */}
+
+                <li className="nav-item dropdown">
+                  <Link
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setapp(!app);
+                    }}
+                    className="nav-link dropdown-togglez arrow-none"
+                  >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Sports Eco System")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className={classname("dropdown-menu", { show: app })}>
+                  
+
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setcompetition(!competition);
+                        }}
+                      >
+                        {props.t("Eco Services")} <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", { show: competition })}
+                      >
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Jobs</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("For Employer")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("For Employee")}
+                            </Link>
+                           
+                           
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Consultancy</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Get Appointment")}
+                            </Link>
+                           
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Hire Professional</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Book Schedule")}
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Exercises</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("View Exercises")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Create Exercise")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Preset Exercises")}
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Diets</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("View Diet")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Create Diet")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Preset Diet")}
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Fitness Calculator</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Direct to page")}
+                            </Link>
+                            
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Workout</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Plan/Schedule")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Today's Workout")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Preset Workout")}
+                            </Link>
+                            
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Coaching/Training</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Analyse Test")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Plan/Schedule")}
+                            </Link>
+                            
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Sports Events</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Organisers")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Participators")}
+                            </Link>
+                            
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Certification</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Course Page")}
+                            </Link>
+
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Networking/Connections</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Social media")}
+                            </Link>
+
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Promotions</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Online Web/App/Dashboards")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Social - Insta/Linkedin/Facebook/Youtube")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("In Competitions")}
+                            </Link>
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("In Sports Events")}
+                            </Link>
+
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Live</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Live your Games & Events")}
+                            </Link>
+                          </div>
+                        </div>
+
+                        <div className="dropdown">
+                          <Link
+                            className="dropdown-item dropdown-toggle arrow-none"
+                            to="/#"
+                            onClick={e => {
+                              e.preventDefault();
+                              setcompetition(!competition);
+                            }}
+                          >
+                            <span key="t-email-templates">Gym Management</span>{" "}
+                            <div className="arrow-down"></div>
+                          </Link>
+                          <div
+                            className={classname("dropdown-menu", {
+                              show: competition,
+                            })}
+                          >
+                            <Link
+                              to="#"
+                              className="dropdown-item"
+                            >
+                              {props.t("Manage your Gym")}
+                            </Link>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Eco Hub")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("athelete/participator")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("supporter/Vendor")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("volunteers")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Referee/judge")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Coach/Trainer")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("partner gym")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Mentors")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Incubation")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Investors")}</Link>
+                      </div>
+                    </div>
+
+                  </div>
+                </li>
+
+
+              
+
+                <li className="nav-item dropdown">
+                  <Link to="/#" className="nav-link dropdown-togglez arrow-none" >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Courses")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className="dropdown-menu">
+                    
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Explore Courses")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Trainer Course")}</Link>
+                        <Link to="#" className="dropdown-item"> {props.t("Referee Course")}</Link>
+                      </div>
+                    </div>
+                    
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Resources")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Take to the page")}</Link>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <Link to="/#" className="nav-link dropdown-togglez arrow-none" >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Community")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className="dropdown-menu">
+                    <Link to="#" className="dropdown-item"> {props.t("Find Community")}</Link>
+                    <div className="dropdown">
+                      <Link to="/#" className="dropdown-item dropdown-toggle arrow-none" >
+                        {props.t("Join Community")} <div className="arrow-down"></div>
+                      </Link>
+                      <div className="dropdown-menu" >
+                        <Link to="#" className="dropdown-item"> {props.t("Education")}</Link>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <Link to="/#" className="nav-link dropdown-togglez arrow-none" >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Leaderboard")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className="dropdown-menu">
+                    <Link to="#" className="dropdown-item"> {props.t("Find Your Leaderboard")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("Challenge Leaderboard")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("Inter Competition L")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("National Competition L")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("International L")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("Leagues L")}</Link>
+                  </div>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <Link to="/#" className="nav-link dropdown-togglez arrow-none" >
+                    <i className="bx bx-customize me-2"></i>
+                    {props.t("Blogs")} <div className="arrow-down"></div>
+                  </Link>
+                  <div className="dropdown-menu">
+                    <Link to="#" className="dropdown-item"> {props.t("Create Blogs")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("Recent Blogs")}</Link>
+                    <Link to="#" className="dropdown-item"> {props.t("Find Blogs")}</Link>
+                  </div>
+                </li>
+
+
+
+
+
 
               </ul>
             </Collapse>

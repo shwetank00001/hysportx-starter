@@ -49,7 +49,7 @@ const LanguageDropdown = () => {
         <UncontrolledTooltip placement="left" target={`languagetooltip`}>
           Language
         </UncontrolledTooltip>
-        <DropdownMenu className="language-switch dropdown-menu-end">
+        <DropdownMenu className="language-switch dropdown-menu-end text-light">
           {map(Object.keys(languages), key => (
             <DropdownItem
               key={key}

@@ -7,8 +7,9 @@ import Section from "./HeroSection/Section"
 
 
 import Footer from "./Footer/footer"
+// import OurTeam from "./CarouselTypes/OurTeam";
 
-const CryptoIcoLanding = () => {
+const CryptoIcoLanding = (props) => {
 
   //meta title
   document.title = "Hysport Landing | HySport";
@@ -42,7 +43,8 @@ const CryptoIcoLanding = () => {
         <Navbar  />
       {/* Hero section */}
       <Section />
-
+        
+      {/* <OurTeam /> */}
 
 
       {/* footer */}

@@ -54,7 +54,7 @@ export const AppsDropdown = () => {
                 caret
                 tag="button"
               >
-                <i className="bx bx-customize" />
+                <i className="bx bx-customize text-light" />
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-lg dropdown-menu-end">
                 <SimpleBar style={{ maxHeight: "300px", maxWidth: "1000px", overflowX: "hidden" }}>

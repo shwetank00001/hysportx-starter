@@ -8,30 +8,31 @@ import FooterLink from "./footer-link"
 const Features = () => {
   const footerLinks = [
     {
-      title: "Company",
+      title: "Knows",
       links: [
-        { title: "About Us", link: "#" },
-        { title: "Features", link: "#" },
+        { title: "Hybrid sport", link: "#" },
+        { title: "Rules", link: "#" },
         { title: "Team", link: "#" },
         { title: "News", link: "#" },
         { title: "FAQs", link: "#" },
       ],
     },
     {
-      title: "Resources",
+      title: "Quick Menu",
       links: [
-        { title: "Whitepaper", link: "#" },
-        { title: "Token sales", link: "#" },
-        { title: "Privacy Policy", link: "#" },
-        { title: "Terms & Conditions", link: "#" },
+        { title: "Find/Post Job ", link: "#" },
+        { title: "Find Network", link: "#" },
+        { title: "Get Scholarship", link: "#" },
+        { title: "Get Your Hysportx", link: "#" },
+        { title: "Share Your Story", link: "#" },
       ],
     },
     {
-      title: "Links",
+      title: "Competitions",
       links: [
-        { title: "Tokens", link: "#" },
-        { title: "Roadmap", link: "#" },
-        { title: "FAQs", link: "#" },
+        { title: "About Competition", link: "#" },
+        { title: "Create Own Competition ", link: "#" },
+        { title: "Hysportx Competition", link: "#" },
       ],
     },
   ]
@@ -58,24 +59,24 @@ const Features = () => {
 
             <Col lg="3" sm="6">
               <div className="mb-4 mb-lg-0">
-                <h5 className="mb-3 footer-list-title">Latest News</h5>
+                <h5 className="mb-3 footer-list-title">Address</h5>
                 <div className="blog-post">
                   <Link to="#" className="post">
-                    <div className="badge badge-soft-success font-size-11 mb-3">
-                      Cryptocurrency
+                    <div className="badge badge-soft-primary font-size-12 mb-3">
+                    3ree6ix Advertising & marketing pvt ltd
                     </div>
-                    <h5 className="post-title">Donec pede justo aliquet nec</h5>
+                    <h5 className="post-title">118/A, T-Extension, Gali No. 6 Vipin Garden, Uttam Nagar </h5>
                     <p className="mb-0">
-                      <i className="bx bx-calendar me-1"/> 04 Mar, 2020
+                      <i className="bx bx-map-pin me-1"/> New Delhi New Delhi DL 110059 IN
                     </p>
                   </Link>
                   <Link to="#" className="post">
-                    <div className="badge badge-soft-success font-size-11 mb-3">
-                      Cryptocurrency
+                    <div className="badge badge-soft-primary font-size-12 mb-3">
+                    3ree6ix Company
                     </div>
-                    <h5 className="post-title">In turpis, Pellentesque</h5>
+                    <h5 className="post-title">118/A, T-Extension, Gali No. 6 Vipin Garden, Uttam Nagar</h5>
                     <p className="mb-0">
-                      <i className="bx bx-calendar me-1"/> 12 Mar, 2020
+                      <i className="bx bx-map-pin me-1"/> New Delhi New Delhi DL 110059 IN
                     </p>
                   </Link>
                 </div>
@@ -83,7 +84,7 @@ const Features = () => {
             </Col>
           </Row>
 
-          <hr className="footer-border my-5" />
+          <hr className="footer-border my-3" />
 
           <FooterLink />
         </Container>

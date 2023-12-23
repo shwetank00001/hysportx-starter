@@ -11,7 +11,7 @@ export const RegstrationButton = () => {
        className="btn btn-soft-success waves-effect waves-light"
           // onClick={login}
           >
-         <i className='bx bxs-user-minus' /> SignIn
+         <i className='bx bxs-user-minus' /> SignUp
         </Button>
       
     </React.Fragment>
