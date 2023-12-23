@@ -14,31 +14,17 @@ import { Authmiddleware, GuestMiddleware } from "./routes/route";
 import VerticalLayout from "./components/VerticalLayout/";
 import HorizontalLayout from "./components/HorizontalLayout/";
 import NonAuthLayout from "./components/NonAuthLayout";
+import NotFound from 'pages/Errors/NotFound';
 
 // Import scss
 import "./assets/scss/theme.scss";
 
-// Import Firebase Configuration file
-// import { initFirebaseBackend } from "./helpers/firebase_helper";
 
 import fakeBackend from "./helpers/AuthType/fakeBackend";
 
 // Activating fake backend
 fakeBackend();
 
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_APIKEY,
-//   authDomain: process.env.REACT_APP_AUTHDOMAIN,
-//   databaseURL: process.env.REACT_APP_DATABASEURL,
-//   projectId: process.env.REACT_APP_PROJECTID,
-//   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-//   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-//   appId: process.env.REACT_APP_APPID,
-//   measurementId: process.env.REACT_APP_MEASUREMENTID,
-// };
-
-// init firebase backend
-// initFirebaseBackend(firebaseConfig);
 
 
 const getLayout = (layoutType) => {
@@ -52,13 +38,12 @@ const getLayout = (layoutType) => {
       break;
     default:
       break;
-  }
+  } 
   return Layout;
 };
 
 const App = () => {
-
-
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const selectLayoutState = (state) => state.Layout;
   const LayoutProperties = createSelector(
     selectLayoutState,
@@ -95,13 +80,14 @@ const App = () => {
           <Route
             path={route.path}
             element={
-              <Authmiddleware>
+              <Authmiddleware user={route.user}>
                 <Layout>{route.component}</Layout>
               </Authmiddleware>}
             key={idx}
             exact={true}
           />
         ))}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </React.Fragment>
   );
@@ -112,3 +98,7 @@ App.propTypes = {
 };
 
 export default App;
+
+const chintu = () =>{
+  return <h1>CHINTU</h1>
+}

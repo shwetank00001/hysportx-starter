@@ -38,7 +38,8 @@ import { addBenefitRequest } from "../../store/benifit/actions"
 import { ToastContainer } from "react-toastify"
 
 function HExercise() {
-  const [selectedMulti, setselectedMulti] = useState(null)
+  
+  
   const [modal, setmodal] = useState(false)
   const [modal1, setmodal1] = useState(false)
   const [modal2, setmodal2] = useState(false)
@@ -222,35 +223,16 @@ function HExercise() {
     setPerformanceDescription("")
   }
 
-  function handleMulti() {
-    console.log("clicked")
-  }
+  
+
+  
+  
+
 
   const level = [
-    {
-      label: "Easy Level",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-      ],
-    },
-    {
-      label: "Normal Level",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-      ],
-    },
-    {
-      label: "Difficulty Level",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-      ],
-    },
+   {label:'Beginner',value:'beginner'},
+   {label:'Intermediate',value:'intermediate'},
+   {label:'Advanced',value:'advanced'},
   ]
 
   const submitModality = e => {
@@ -264,21 +246,25 @@ function HExercise() {
     setModalityName("")
     setModalityDescription("")
   }
-
+  const [selectedModality, setselectedModality] = useState(null)
+  const [selectedPtag, setselectedPtag] = useState(null)
+  const [selectedEquipment, setselectedEquipment] = useState(null)
+  const [selectedMuscleUsed, setselectedMuscleUsed] = useState(null)
+  const [selectedBenefits, setselectedBenefits] = useState(null)
+  const [selectedDifficultyLevel, setselectedDifficultyLevel] = useState(null)
+  const set = s => s.map(e=>e.value)
   const handleSubmit = e => {
     e.preventDefault()
-
     const exerciseData = {
       name: exerciseName,
-      level: "biggner",
       description: descriptionName,
-      modalities: [1, 2, 3],
-      ptags: [5],
-      equipments: [2],
-      muscles: [2],
-      benifits: [3],
+      level: selectedDifficultyLevel.value,
+      modalities: set(selectedModality),
+      ptags: set(selectedPtag),
+      equipments: set(selectedEquipment),
+      muscles: set(selectedMuscleUsed),
+      benifits: set(selectedBenefits),
     }
-
     dispatch(addExerciseRequest(exerciseData))
   }
 
@@ -308,23 +294,13 @@ function HExercise() {
             </Col>
           </Row>
           <Row className="mb-4">
-            <Label
-              htmlFor="horizontal-email-Input"
-              className="col-sm-4 col-form-label"
-            >
-              Modality :
-            </Label>
-
-            {/* MODALITY */}
-
+            <Label htmlFor="horizontal-email-Input" className="col-sm-4 col-form-label" >Modality : </Label>
             <Col sm={8}>
               <Row className="input-group">
                 <Select
-                  value={selectedMulti}
+                  value={selectedModality}
                   isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  onChange={(e) =>setselectedModality(e)}
                   options={modalityData}
                   className="select2-selection col-sm-10 p-0"
                 />
@@ -351,11 +327,9 @@ function HExercise() {
             <Col sm={8}>
               <Row className="input-group">
                 <Select
-                  value={selectedMulti}
+                  value={selectedPtag}
                   isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  onChange={(e) =>setselectedPtag(e)}
                   options={performanceData}
                   className="select2-selection col-sm-10 p-0"
                 />
@@ -382,11 +356,8 @@ function HExercise() {
             <Col sm={8}>
               <Row className="input-group">
                 <Select
-                  value={selectedMulti}
-                  isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  value={selectedDifficultyLevel}
+                  onChange={(e) => setselectedDifficultyLevel(e)}
                   options={level}
                   className="select2-selection col-sm-10 p-0"
                 />
@@ -413,11 +384,9 @@ function HExercise() {
             <Col sm={8}>
               <Row className="input-group">
                 <Select
-                  value={selectedMulti}
+                  value={selectedEquipment}
                   isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  onChange={(e) =>setselectedEquipment(e)}
                   options={equipmentData}
                   className="select2-selection col-sm-10 p-0"
                 />
@@ -444,11 +413,9 @@ function HExercise() {
             <Col sm={8}>
               <Row className="input-group">
                 <Select
-                  value={selectedMulti}
+                  value={selectedMuscleUsed}
                   isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  onChange={(e) =>setselectedMuscleUsed(e)}
                   options={muscleData}
                   className="select2-selection m-0 p-0 col-sm-10"
                 />
@@ -476,11 +443,9 @@ function HExercise() {
               <Row className="input-group">
                 {/* <Col className='m-0 p-0' sm={10}> */}
                 <Select
-                  value={selectedMulti}
+                  value={selectedBenefits}
                   isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
+                  onChange={(e) =>setselectedBenefits(e)}
                   options={benifitData}
                   className="select2-selection m-0 p-0 col-sm-10"
                 />
@@ -523,71 +488,7 @@ function HExercise() {
               </Row>
             </Col>
           </Row>
-          <Row className="mb-4">
-            <Label
-              htmlFor="horizontal-password-Input"
-              className="col-sm-4 col-form-label"
-            >
-              Image Upload/Link :
-            </Label>
-            <Col sm={8}>
-              <Row className="col-sm-12">
-                <Select
-                  value={selectedMulti}
-                  isMulti={true}
-                  onChange={() => {
-                    handleMulti()
-                  }}
-                  options={modalityData}
-                  className="select2-selection p-0"
-                />
-
-                <Row className="my-2 p-0">
-                  <Col>
-                    <Row className="text-center">
-                      <Col className="font-size-12 m-0 p-0">
-                        <h6>Upload Image </h6>
-                      </Col>
-                      <Col className="font-size-10">
-                        <Button className="font-size-10 m-0 p-0">
-                          + ADD MORE
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row className="text-center">
-                      <Col>
-                        <Button className="btn-soft-primary font-size-11 m-0 p-0">
-                          <div>+</div>
-                          <span>ADD MORE</span>
-                        </Button>
-                      </Col>
-                      <Col className="font-size-10">Upload Image </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Row>
-            </Col>
-          </Row>
-          <Row className="mb-4">
-            <Label
-              htmlFor="horizontal-password-Input"
-              className="col-sm-4 col-form-label"
-            >
-              Video Link :
-            </Label>
-            <Col sm={8}>
-              <Row className="col-sm-12">
-                <Input
-                  type="password"
-                  autoComplete="off"
-                  className="form-control px-0"
-                  id="horizontal-password-Input"
-                />
-              </Row>
-            </Col>
-          </Row>
+        
 
           <Row className="justify-content-start">
             <Col sm={8}>

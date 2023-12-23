@@ -140,6 +140,7 @@ const Navbar_Page = props => {
                 Full Screen
               </UncontrolledTooltip>
             </div>
+<<<<<<< HEAD
 
             <LoginButton />
 
@@ -158,7 +159,12 @@ const Navbar_Page = props => {
               >
                 <i className="bx bx-cog bx-spin text-light" />
               </button>
+=======
+            <div className="ms-3 d-lg-inline-block">
+              <LoginButton />
+>>>>>>> e8dffe4ad0634a3a61bb6c947478f40b24ce2dd2
             </div>
+
           </div>
         </div>
       </nav>
