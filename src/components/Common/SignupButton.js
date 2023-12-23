@@ -1,19 +1,20 @@
 import React from 'react'
 import { Button } from 'reactstrap'
-export const LoginButton = () => {
-  function login() {
+import { Link } from "react-router-dom";
+export const SignupButton = () => {
+  function signup() {
     window.location.href = "https://hysportx.com/application/login";
   }
   return (
     <React.Fragment>
     
-        <Button
-        className=''
+        <Link
+            className="btn btn-light"
           color="success"
           outline
-          onClick={login}>
-        <i className='bx bx-lock-alt'  />  Log In
-        </Button>
+          onClick={signup}>
+        <i className='bx bx-lock-alt'  />  Sign Up
+        </Link>
       
     </React.Fragment>
   )

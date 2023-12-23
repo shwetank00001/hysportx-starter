@@ -487,69 +487,7 @@ function HExercise() {
               </Row>
             </Col>
           </Row>
-          <Row className="mb-4">
-            <Label
-              htmlFor="horizontal-password-Input"
-              className="col-sm-4 col-form-label"
-            >
-              Image Upload/Link :
-            </Label>
-            <Col sm={8}>
-              <Row className="col-sm-12">
-                <Select
-                  value={selectedModality}
-                  isMulti={true}
-                  onChange={e=>setselectedModality(e)}
-                  options={modalityData}
-                  className="select2-selection p-0"
-                />
-
-                <Row className="my-2 p-0">
-                  <Col>
-                    <Row className="text-center">
-                      <Col className="font-size-12 m-0 p-0">
-                        <h6>Upload Image </h6>
-                      </Col>
-                      <Col className="font-size-10">
-                        <Button className="font-size-10 m-0 p-0">
-                          + ADD MORE
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col>
-                    <Row className="text-center">
-                      <Col>
-                        <Button className="btn-soft-primary font-size-11 m-0 p-0">
-                          <div>+</div>
-                          <span>ADD MORE</span>
-                        </Button>
-                      </Col>
-                      <Col className="font-size-10">Upload Image </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Row>
-            </Col>
-          </Row>
-          <Row className="mb-4">
-            <Label
-              htmlFor="horizontal-password-Input"
-              className="col-sm-4 col-form-label"
-            >
-              Video Link :
-            </Label>
-            <Col sm={8}>
-              <Row className="col-sm-12">
-                <Input
-                  type="password"
-                  autoComplete="off"
-                  className="form-control px-0"
-                  id="horizontal-password-Input"
-                />
-              </Row>
-            </Col>
-          </Row>
+        
 
           <Row className="justify-content-start">
             <Col sm={8}>
