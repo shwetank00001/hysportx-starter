@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { useState } from "react";
+import PropTypes from "prop-types"
+import React, { useState } from "react"
 
 import {
   Dropdown,
@@ -9,29 +9,22 @@ import {
   Nav,
   Collapse,
   UncontrolledTooltip,
-} from "reactstrap";
-import { Link } from "react-router-dom";
-
-
+} from "reactstrap"
+import { Link } from "react-router-dom"
 
 //Import Images
-import logo from 'assets/images/logo/hysportsdark.svg'
-
+import logo from "assets/images/logo/hysportsdark.svg"
 
 //Import Component
-import LanguageDropdown from "components/CommonForBoth/TopbarDropdown/LanguageDropdown";
-import NotificationDropdown from "components/CommonForBoth/TopbarDropdown/NotificationDropdown";
-import { AppsDropdown } from 'components/CommonForBoth/TopbarDropdown/AppsDropdown';
+import LanguageDropdown from "components/CommonForBoth/TopbarDropdown/LanguageDropdown"
+import NotificationDropdown from "components/CommonForBoth/TopbarDropdown/NotificationDropdown"
+import { AppsDropdown } from "components/CommonForBoth/TopbarDropdown/AppsDropdown"
 
-import { LoginButton } from 'components/Common/LoginButton';
-import { RegstrationButton } from 'components/Common/RegstrationButton';
-
-
-
+import { LoginButton } from "components/Common/LoginButton"
+import { RegstrationButton } from "components/Common/RegstrationButton"
 
 const Navbar_Page = props => {
-
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(false)
 
   function toggleFullscreen() {
     if (
@@ -41,36 +34,30 @@ const Navbar_Page = props => {
     ) {
       // current working methods
       if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen()
       } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
+        document.documentElement.mozRequestFullScreen()
       } else if (document.documentElement.webkitRequestFullscreen) {
         document.documentElement.webkitRequestFullscreen(
           Element.ALLOW_KEYBOARD_INPUT
-        );
+        )
       }
     } else {
       if (document.cancelFullScreen) {
-        document.cancelFullScreen();
+        document.cancelFullScreen()
       } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
+        document.mozCancelFullScreen()
       } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
+        document.webkitCancelFullScreen()
       }
     }
   }
 
   return (
     <React.Fragment>
-      <nav
-        className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}
-
-      >
-
+      <nav className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}>
         <div className="container-fluid">
-
           <Collapse id="topnav-menu-content" navbar>
-
             <Nav className="ms-2 navbar-nav" id="topnav-menu">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
@@ -80,7 +67,6 @@ const Navbar_Page = props => {
                   <img src={logo} alt="" height="70" />
                 </span>
               </Link>
-
             </Nav>
             <form className="app-search d-none d-lg-block ms-5">
               <div className="position-relative">
@@ -95,7 +81,6 @@ const Navbar_Page = props => {
 
             <Dropdown
               className="dropdown-mega d-none d-lg-block ms-2"
-             
               isOpen={menu}
               toggle={() => setMenu(!menu)}
               direction="right"
@@ -107,17 +92,26 @@ const Navbar_Page = props => {
               >
                 Quick Menu <i className="mdi mdi-chevron-down" />
               </DropdownToggle>
-              <DropdownMenu >
-              <Link  to="#" className="dropdown-item">Find/Post Job</Link>
-              <Link  to="#" className="dropdown-item">Find Network</Link>
-              <Link  to="#" className="dropdown-item">Get Scholarship</Link>
-              <Link  to="#" className="dropdown-item">Get Your Hysportx</Link>
-              <Link  to="#" className="dropdown-item">Share Your Story</Link>
+              <DropdownMenu>
+                <Link to="#" className="dropdown-item">
+                  Find/Post Job
+                </Link>
+                <Link to="#" className="dropdown-item">
+                  Find Network
+                </Link>
+                <Link to="#" className="dropdown-item">
+                  Get Scholarship
+                </Link>
+                <Link to="#" className="dropdown-item">
+                  Get Your Hysportx
+                </Link>
+                <Link to="#" className="dropdown-item">
+                  Share Your Story
+                </Link>
               </DropdownMenu>
             </Dropdown>
-
           </Collapse>
-          <div className="me-lg-5" >
+          <div className="me-lg-5">
             <LanguageDropdown />
             <NotificationDropdown />
 
@@ -128,27 +122,22 @@ const Navbar_Page = props => {
                 type="button"
                 className="btn header-item noti-icon"
                 onClick={() => {
-                  toggleFullscreen();
+                  toggleFullscreen()
                 }}
                 data-toggle="fullscreen"
-                id='fullscreentooltip'
+                id="fullscreentooltip"
               >
                 <i className="bx bx-fullscreen text-light" />
               </button>
 
-              <UncontrolledTooltip placement="left" target={`fullscreentooltip`}>
+              <UncontrolledTooltip
+                placement="left"
+                target={`fullscreentooltip`}
+              >
                 Full Screen
               </UncontrolledTooltip>
             </div>
-<<<<<<< HEAD
 
-            <LoginButton />
-
-            {"  "}
-
-            {/* <RegstrationButton /> */}
-
-            {" "}
             <div className="dropdown d-inline-block">
               <button
                 // onClick={() => {
@@ -159,22 +148,20 @@ const Navbar_Page = props => {
               >
                 <i className="bx bx-cog bx-spin text-light" />
               </button>
-=======
-            <div className="ms-3 d-lg-inline-block">
-              <LoginButton />
->>>>>>> e8dffe4ad0634a3a61bb6c947478f40b24ce2dd2
+              <div className="ms-3 d-lg-inline-block">
+                <LoginButton />
+              </div>
             </div>
-
           </div>
         </div>
       </nav>
     </React.Fragment>
-  );
-};
+  )
+}
 
 Navbar_Page.propTypes = {
   imglight: PropTypes.any,
-  navClass: PropTypes.string
-};
+  navClass: PropTypes.string,
+}
 
-export default Navbar_Page;
+export default Navbar_Page

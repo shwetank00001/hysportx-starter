@@ -3,37 +3,28 @@ import {
   Container,
   Row,
   Col,
-  Card,
-  CardBody,
-  CardHeader,
-  Button,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+
 
 //Import Countdown
-<<<<<<< HEAD
 import SlideMain from "../CarouselTypes/SlideMain";
 import OurTeam from "../CarouselTypes/OurTeam";
 import Competition from "../CarouselTypes/competition";
-
-=======
-import Countdown from "react-countdown";
 import { LoginButton } from 'components/Common/LoginButton';
 import { SignupButton } from "components/Common/SignupButton";
->>>>>>> e8dffe4ad0634a3a61bb6c947478f40b24ce2dd2
+
 
 const Section = () => {
  
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
+
       <div className="mb-5">
       <SlideMain /> 
       <OurTeam />
       <Competition />
      </div>
-=======
       <section className="section hero-section " id="home">
         <div className="bg-overlay bg-dark"></div>
 
@@ -54,7 +45,6 @@ const Section = () => {
           </Row>
         </Container>
       </section>
->>>>>>> e8dffe4ad0634a3a61bb6c947478f40b24ce2dd2
     </React.Fragment>
   );
 };

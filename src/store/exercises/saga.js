@@ -20,18 +20,10 @@ import {
 } from "./actionTypes"
 
 function* listExerciseSaga() {
-<<<<<<< HEAD
 
-  try {
-    const data = yield call(exercise.list)
-   
-
-    yield put({ type: EXERCISE_LIST_SUCCESS, payload: data.data})
-=======
   try {
     const data = yield call(exercise.list)
     yield put({ type: EXERCISE_LIST_SUCCESS, payload: data.data })
->>>>>>> e8dffe4ad0634a3a61bb6c947478f40b24ce2dd2
   } catch (error) {
     yield put({ type: EXERCISE_LIST_FAIL, payload: error })
     toast.error("Failed to fetch exercise data. Please try again.", {
