@@ -27,8 +27,9 @@ function GlobalFilter({
 
   return (
     <React.Fragment>
-      <Col md={4}>
-        <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+      {isJobListGlobalFilter && <JobListGlobalFilter setGlobalFilter={setGlobalFilter} />}
+      <Col >
+        <div className="search-box   my-xxl-0 d-inline-block">
           <div className="position-relative">
             <label htmlFor="search-bar-0" className="search-label">
               <span id="search-bar-0-label" className="sr-only">
@@ -50,7 +51,6 @@ function GlobalFilter({
           </div>
         </div>
       </Col>
-      {isJobListGlobalFilter && <JobListGlobalFilter setGlobalFilter={setGlobalFilter} />}
     </React.Fragment>
   )
 }
@@ -127,9 +127,10 @@ const TableContainer = ({
 
   return (
     <Fragment>
-      <Row className="mb-2">
+      
+      <Row className="mb-2 mx-auto">
         {iscustomPageSizeOptions &&
-          <Col md={customPageSizeOptions ? 2 : 1}>
+          <Col md={customPageSizeOptions ? customPageSizeOptions : 1}>
             <select
               className="form-select"
               value={pageSize}
@@ -153,7 +154,7 @@ const TableContainer = ({
           />
         )}
         {isAddOptions && (
-          <Col sm="7">
+          <Col sm="12">
             <div className="text-sm-end">
               <Button
                 type="button"

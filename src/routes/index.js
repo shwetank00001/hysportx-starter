@@ -28,6 +28,7 @@ import Error from "pages/Errors/NotFound";
 // Dashboard
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
+import LeaderBoard from "pages/LeaderBoard";
 
 
 
@@ -44,6 +45,7 @@ const authProtectedRoutes =[
     { label:"Exercise List", path: "Admin/exercise", component: <Exercise />, user:'Admin'  },
 ]; 
 const publicRoutes = [
+  { path: "/Leaderboard", component: <LeaderBoard/> },
   { path: "/", component: <CryptoIcoLanding /> },
   { path: "/logout", component: <Logout /> },
   { path: "/forgot-password", component: <ForgetPwd /> },

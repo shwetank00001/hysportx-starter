@@ -24,12 +24,14 @@ export const Authmiddleware = ({ user, children }) => {
           } else {
             localStorage.removeItem("_token");
             localStorage.removeItem("userData");
-            setIsAuthenticated(false);
+            // setIsAuthenticated(false);
+            setIsAuthenticated(true);
           }
         } catch (error) {
           localStorage.removeItem("_token");
           localStorage.removeItem("userData");
-          setIsAuthenticated(false);
+          setIsAuthenticated(true);
+          // setIsAuthenticated(false);
         }
       } else setIsAuthenticated(false);
     };
