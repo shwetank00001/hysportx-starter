@@ -80,11 +80,7 @@ export const exercise = {
 
   list: () => get("/exercises"),
 
-<<<<<<< HEAD
   delete: (id) =>del(`/exercise/${id}/delete` ),
-=======
-  delete: (id, token) => del(`/exercise/${id}`),
->>>>>>> a794b97e0978fbe8b1ab7f8c23e5e8edf3769f0a
 }
 
 // activity apis
