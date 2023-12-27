@@ -11,8 +11,11 @@ import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 
 
 // import images
-import logo from "assets/images/fw-logo.png";
-import logoLightSvg from "assets/images/fw-logo.png";
+import logo from "../../assets/images/logo/hysportslight.svg";
+import logoDark from "../../assets/images/logo/hysportslight.svg";
+
+import logoLight from "../../assets/images/logo/hysportsdark.svg";
+import logoLightSvg from "../../assets/images/logo/hysportsdark.svg";
 
 //i18n
 import { withTranslation } from "react-i18next";
