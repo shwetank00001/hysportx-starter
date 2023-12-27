@@ -29,7 +29,7 @@ import Error from "pages/Errors/NotFound";
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
 
-
+import Demo from "pages/DemoPage/Demo";
 
 // main routes
 const authProtectedRoutes =[
@@ -47,7 +47,8 @@ const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
   { path: "/logout", component: <Logout /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
-  { path: "/register", component: <Register /> }
+  { path: "/register", component: <Register /> },
+  { path: "/Demo", component: <Demo /> }
 ]
 
 
