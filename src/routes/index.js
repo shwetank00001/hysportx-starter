@@ -19,7 +19,7 @@ import Error from "pages/Errors/NotFound";
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
 
-
+import Demo from "pages/DemoPage/Demo";
 
 // main routes
 const authProtectedRoutes =[

@@ -14,7 +14,7 @@ import { performanceListRequest } from "store/performance/actions"
 import { exerciseListRequest } from "store/exercises/actions"
 import { competitionListRequest } from "store/competition/actions"
 
-const index = () => {
+const Demo = () => {
   const dispatch = useDispatch();
   const list = useSelector(state => state.DemoReducer.demo);
   const modality = useSelector(state => state.ModalityReducer.modality);
@@ -63,4 +63,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Demo
