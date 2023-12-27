@@ -115,14 +115,14 @@ export const competition = {
     }),
 }
 
-// export const participator = {
-//   listParticipatorRequests: () => get("/participator-requests"),
+export const participator = {
+  listParticipatorRequests: () => get("/participator-requests"),
 
-//   confirmParticipatorRequest: id => get(`/confirm-participator-request/${id}`),
+  confirmParticipatorRequest: id => get(`/confirm-participator-request/${id}`),
 
-//   removeParticipator: id => get(`/remove-participator/${id}`),
+  removeParticipator: id => get(`/remove-participator/${id}`),
 
-//   listParticipators: () => get("/list-participators"),
+  listParticipators: () => get("/list-participators"),
 
-//   createParticipator: data => post("/create-participator"),
-// }
+  createParticipator: data => post("/create-participator"),
+}

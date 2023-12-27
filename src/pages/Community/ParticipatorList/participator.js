@@ -20,8 +20,6 @@ import Breadcrumbs from 'components/Common/Breadcrumb';
 
 import { participatorListRequest } from '../../../store/participator/actions'
 
-import axios from "axios"
-
 
 const participatorList = [
   {
@@ -70,32 +68,13 @@ const participatorList = [
 
 const Participator = () => {
 
-  // const dispatch = useDispatch()
-  // const parti = useSelector(state => state.participatorReducer.participator)
-  // console.log("parti data", parti)
+  const dispatch = useDispatch()
+  const parti = useSelector(state => state.participatorReducer.participator)
+  console.log("participator data", parti)
 
-  // useEffect( () => {
-  //   dispatch(participatorListRequest())
-  // }, [dispatch])
-
-  const [ participatorData, setParticipatorData ] = useState()
-
-  useEffect(() => {
-    getAllParticipatorData()
-  }, [])
-
-  async function getAllParticipatorData(){
-    const response = await axios.get(
-      "https://fittestwarrior.com/api/participator-requests",
-      {
-        headers: {
-          Accept: "application/json"
-        },
-      }
-    )
-    console.log(response)
-  }
-
+  useEffect( () => {
+    dispatch(participatorListRequest())
+  }, [dispatch])
 
 
 

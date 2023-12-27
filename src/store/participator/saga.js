@@ -18,9 +18,10 @@ import {
   DELETE_PARTICIPATOR_FAILURE,
 } from "./actionTypes"
 
-function* listParticipatorSaga() {
+function* listParticipatorRequestsSaga() {
   try {
-    const data = yield call(participator.list)
+    const data = yield call(participator.listParticipatorRequests)
+    console.log("Saga working", data)
     yield put({ type: PARTICIPATOR_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_FAIL, payload: error })
@@ -45,6 +46,7 @@ function* addParticipatorSaga(action) {
 
 function* editParticipatorSaga(action) {
   try {
+
     yield call(participator.edit, action.payload.id, action.payload.data)
     yield put({ type: EDIT_PARTICIPATOR_SUCCESS })
     toast.success("Participator edited successfully!", { autoClose: 2000 })
@@ -70,9 +72,8 @@ function* deleteParticipatorSaga(action) {
 }
 
 export default function* participatorSaga() {
-  yield takeLatest(PARTICIPATOR_LIST_REQUEST, listParticipatorSaga)
+  yield takeLatest(PARTICIPATOR_LIST_REQUEST, listParticipatorRequestsSaga)
   yield takeLatest(ADD_PARTICIPATOR_REQUEST, addParticipatorSaga)
   yield takeLatest(EDIT_PARTICIPATOR_REQUEST, editParticipatorSaga)
   yield takeLatest(DELETE_PARTICIPATOR_REQUEST, deleteParticipatorSaga)
-  // Add additional takeLatest for other actions if needed
 }

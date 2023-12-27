@@ -152,8 +152,6 @@ const index = () => {
 
 
 
-
-
     //delete exercise list start
     const [deleteModal, setDeleteModal] = useState(false);
     const [exercise, setExercise] = useState(null);
