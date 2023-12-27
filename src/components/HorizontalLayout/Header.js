@@ -16,11 +16,11 @@ import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDr
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 
 import megamenuImg from "../../assets/images/megamenu-img.png";
-import logo from "assets/images/logo/hysportslight.svg";
-import logoDark from "assets/images/logo/hysportslight.svg";
+import logo from "../../assets/images/logo/hysportslight.svg";
+import logoDark from "../../assets/images/logo/hysportslight.svg";
 
-import logoLight from "assets/images/logo/hysportsdark.svg";
-import logoLightSvg from "assets/images/logo/hysportsdark.svg";
+import logoLight from "../../assets/images/logo/hysportsdark.svg";
+import logoLightSvg from "../../assets/images/logo/hysportsdark.svg";
 
 // import images
 import github from "../../assets/images/brands/github.png";
