@@ -106,8 +106,7 @@ export const exercise = {
 
   list: () => get("/exercises"),
 
-  delete: (id, token) =>
-    del(`/exercise/${id}` ),
+  delete: (id) =>del(`/exercise/${id}/delete` ),
 }
 
 

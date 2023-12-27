@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import {
     Card,
     CardBody,
@@ -18,21 +18,75 @@ import {
     UncontrolledCollapse
 } from "reactstrap";
 
+// simple bar
+import SimpleBar from "simplebar-react";
+import 'simplebar-react/dist/simplebar.min.css';
+
 import { Link } from "react-router-dom";
 import classnames from "classnames";
-import img1 from "assets/images/small/img-1.jpg";
-import img2 from "assets/images/small/img-2.jpg";
-import img3 from "assets/images/small/img-3.jpg";
-import img4 from "assets/images/small/img-4.jpg";
+
+import img1 from "assets/images/slider/img1.jpg";
+import img2 from "assets/images/slider/img2.jpg";
+import img3 from "assets/images/slider/img3.jpg";
+import img5 from "assets/images/slider/img5.jpg";
+import img6 from "assets/images/slider/img6.jpg";
+import img7 from "assets/images/slider/img7.jpg";
+const competitioninter = [
+    {
+        image: img5,
+        title: "inter school",
+        desc: "inter  school competition start",
+        date: ""
+    },
+    {
+        image: img6,
+        title: "intermediate ",
+        desc: "intermediate level competition start",
+        date: ""
+    },
+    {
+        image: img7,
+        title: "High level",
+        desc: "High level school competition start",
+        date: ""
+    },
+];
+const competitiondistrict = [
+    {
+        image: img1,
+        title: "inter school",
+        desc: "inter  school competition start",
+        date: ""
+    },
+    {
+        image: img2,
+        title: "intermediate ",
+        desc: "intermediate level competition start",
+        date: ""
+    },
+    {
+        image: img3,
+        title: "High level",
+        desc: "High level school competition start",
+        date: ""
+    },
+];
 
 const CompetitionRightSide = () => {
     const [customActiveTab, setcustomActiveTab] = useState("1");
-
+  // scroll simple bar
+     const scroollRef = useRef(null);
+     useEffect(() => {
+        if (scroollRef.current) {
+          scroollRef.current.getScrollElement().scrollTop = scroollRef.current.getScrollElement().scrollHeight;
+        }
+      }, [competitiondistrict])
     const toggleCustom = tab => {
         if (customActiveTab !== tab) {
             setcustomActiveTab(tab);
         }
     };
+   
     return (
         <React.Fragment>
 
@@ -124,112 +178,159 @@ const CompetitionRightSide = () => {
                 className="p-3 text-muted"
             >
                 <TabPane tabId="1">
-                    
-          <Row>
-            <Col lg={12}>
-              <Card>
-                <Row className="no-gutters align-items-center">
-                  <Col md={4}>
-                    <CardImg className="img-fluid" src={img2} alt="Skote" />
-                  </Col>
-                  <Col md={8}>
-                    <CardBody>
-                      <CardTitle>intermediate school</CardTitle>
-                      <CardText>
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content.
-                      </CardText>
-                      <CardText>
-                        <small className="text-muted">
-                          Last updated 3 mins ago
-                        </small>
-                      </CardText>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col lg={12}>
-              <Card>
-                <Row className="no-gutters align-items-center">
-                  <Col md={4}>
-                    <CardImg className="img-fluid" src={img2} alt="Skote" />
-                  </Col>
-                  <Col md={8}>
-                    <CardBody>
-                      <CardTitle>Card edit</CardTitle>
-                      <CardText>
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content.
-                      </CardText>
-                      <CardText>
-                        <small className="text-muted">
-                          Last updated 3 mins ago
-                        </small>
-                      </CardText>
-                    </CardBody>
-                  </Col>
-                </Row>
-              </Card>
-            </Col>
-           
-          </Row>
+
+                    <Row >
+                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                        {competitioninter.map(item => (
+                            <Col lg={12} key={item.id}>
+                                <Card>
+                                    <Row className="no-gutters align-items-center">
+                                        <Col md={4}>
+                                            <CardImg className="img-fluid" src={item.image} alt="image" />
+                                        </Col>
+                                        <Col md={8}>
+                                            <CardBody>
+                                                <CardTitle>{item.title}</CardTitle>
+                                                <CardText>
+                                                    {item.desc}
+                                                </CardText>
+                                                <CardText>
+                                                    <small className="text-muted">
+                                                        Last updated 3 mins ago
+                                                    </small>
+                                                </CardText>
+                                            </CardBody>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+
+                        ))}
+                        </SimpleBar>
+                    </Row>
                 </TabPane>
                 <TabPane tabId="2">
                     <Row>
-                        <Col sm="12">
-                            <CardText className="mb-0">
-                                Food truck fixie locavore, accusamus mcsweeney&apos;s
-                                marfa nulla single-origin coffee squid. Exercitation
-                                +1 labore velit, blog sartorial PBR leggings next
-                                level wes anderson artisan four loko farm-to-table
-                                craft beer twee. Qui photo booth letterpress,
-                                commodo enim craft beer mlkshk aliquip jean shorts
-                                ullamco ad vinyl cillum PBR. Homo nostrud organic,
-                                assumenda labore aesthetic magna delectus mollit.
-                                Keytar helvetica VHS salvia yr, vero magna velit
-                                sapiente labore stumptown. Vegan fanny pack odio
-                                cillum wes anderson 8-bit.
-                            </CardText>
-                        </Col>
+                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                        {competitiondistrict.map(item => (
+                            <Col lg={12} key={item.id}>
+                                <Card>
+                                    <Row className="no-gutters align-items-center">
+                                        <Col md={4}>
+                                            <CardImg className="img-fluid" src={item.image} alt="image" />
+                                        </Col>
+                                        <Col md={8}>
+                                            <CardBody>
+                                                <CardTitle>{item.title}</CardTitle>
+                                                <CardText>
+                                                    {item.desc}
+                                                </CardText>
+                                                <CardText>
+                                                    <small className="text-muted">
+                                                        Last updated 3 mins ago
+                                                    </small>
+                                                </CardText>
+                                            </CardBody>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+
+                        ))}
+                        </SimpleBar>
                     </Row>
                 </TabPane>
                 <TabPane tabId="3">
                     <Row>
-                        <Col sm="12">
-                            <CardText className="mb-0">
-                                Etsy mixtape wayfarers, ethical wes anderson tofu
-                                before they sold out mcsweeney&apos;s organic lomo retro
-                                fanny pack lo-fi farm-to-table readymade. Messenger
-                                bag gentrify pitchfork tattooed craft beer, iphone
-                                skateboard locavore carles etsy salvia banksy hoodie
-                                helvetica. DIY synth PBR banksy irony. Leggings
-                                gentrify squid 8-bit cred pitchfork. Williamsburg
-                                banh mi whatever gluten-free, carles pitchfork
-                                biodiesel fixie etsy retro mlkshk vice blog.
-                                Scenester cred you probably haven&apos;t heard of them,
-                                vinyl craft beer blog stumptown. Pitchfork
-                                sustainable tofu synth chambray yr.
-                            </CardText>
-                        </Col>
+                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                        {competitioninter.map(item => (
+                            <Col lg={12} key={item.id}>
+                                <Card>
+                                    <Row className="no-gutters align-items-center">
+                                        <Col md={4}>
+                                            <CardImg className="img-fluid" src={item.image} alt="image" />
+                                        </Col>
+                                        <Col md={8}>
+                                            <CardBody>
+                                                <CardTitle>{item.title}</CardTitle>
+                                                <CardText>
+                                                    {item.desc}
+                                                </CardText>
+                                                <CardText>
+                                                    <small className="text-muted">
+                                                        Last updated 3 mins ago
+                                                    </small>
+                                                </CardText>
+                                            </CardBody>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+
+                        ))}
+                        </SimpleBar>
                     </Row>
                 </TabPane>
                 <TabPane tabId="4">
                     <Row>
-                        <Col sm="12">
-                            <CardText className="mb-0">
-                                Trust fund seitan letterpress, keytar raw denim
-                                keffiyeh etsy art party before they sold out master
-                                cleanse gluten-free squid scenester freegan cosby
-                                sweater. Fanny pack portland seitan DIY, art party
-                                locavore wolf cliche high life echo park Austin.
-                                Cred vinyl keffiyeh DIY salvia PBR, banh mi before
-                                they sold out farm-to-table VHS viral locavore cosby
-                                sweater. Lomo wolf viral, mustache readymade
-                                thundercats keffiyeh craft beer marfa ethical. Wolf
-                                salvia freegan, sartorial keffiyeh echo park vegan.
-                            </CardText>
-                        </Col>
+                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                        {competitiondistrict.map(item => (
+                            <Col lg={12} key={item.id}>
+                                <Card>
+                                    <Row className="no-gutters align-items-center">
+                                        <Col md={4}>
+                                            <CardImg className="img-fluid" src={item.image} alt="image" />
+                                        </Col>
+                                        <Col md={8}>
+                                            <CardBody>
+                                                <CardTitle>{item.title}</CardTitle>
+                                                <CardText>
+                                                    {item.desc}
+                                                </CardText>
+                                                <CardText>
+                                                    <small className="text-muted">
+                                                        Last updated 3 mins ago
+                                                    </small>
+                                                </CardText>
+                                            </CardBody>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+
+                        ))}
+                        </SimpleBar>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="5">
+                    <Row>
+                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                        {competitioninter.map(item => (
+                            <Col lg={12} key={item.id}>
+                                <Card>
+                                    <Row className="no-gutters align-items-center">
+                                        <Col md={4}>
+                                            <CardImg className="img-fluid" src={item.image} alt="image" />
+                                        </Col>
+                                        <Col md={8}>
+                                            <CardBody>
+                                                <CardTitle>{item.title}</CardTitle>
+                                                <CardText>
+                                                    {item.desc}
+                                                </CardText>
+                                                <CardText>
+                                                    <small className="text-muted">
+                                                        Last updated 3 mins ago
+                                                    </small>
+                                                </CardText>
+                                            </CardBody>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+
+                        ))}
+                        </SimpleBar>
                     </Row>
                 </TabPane>
             </TabContent>

@@ -38,7 +38,7 @@ export const Authmiddleware = ({ user, children }) => {
   }, []);
 
   if (isAuthenticated === null) 
-    return  (  isLoading ? <Spinners setLoading={setLoading} />: 'Loding....');
+    return  (  isLoading ? <Spinners setLoading={setLoading} />: "Loading....");
   else if (isAuthenticated) {
     return  (user === userRoleType)? <React.Fragment>{children}</React.Fragment>:<NotFound/>;
   }
@@ -67,7 +67,7 @@ export const GuestMiddleware = (props) => {
     checkAuthentication();
   }, []);
 
-  if (isAuthenticated === null) return (  isLoading ? <Spinners setLoading={setLoading} />: 'Loding....')
+  if (isAuthenticated === null) return (  isLoading ? <Spinners setLoading={setLoading} />: "Loading...")
   else if (isAuthenticated) return ( <Navigate to={{ pathname: userRoleType +"/dashboard", state: { from: props.location } }} /> );
   else return <React.Fragment>{props.children}</React.Fragment>;
   

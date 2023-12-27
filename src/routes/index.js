@@ -39,9 +39,9 @@ const authProtectedRoutes =[
     { label:"Exercise List", path: "/community/exercise", component: <Exercise />, user:'community'  },
 
 
-    { label:"Dashboard", path: "Admin/dashboard", component: <Dashboard />, user:'Admin' },
-    { label:"Activity", path: "Admin/hysport", component: <Hysport />, user:'Admin'  },
-    { label:"Exercise List", path: "Admin/exercise", component: <Exercise />, user:'Admin'  },
+    { label:"Dashboard", path: "/Admin/dashboard", component: <Dashboard />, user:'Admin' },
+    { label:"Activity", path: "/Admin/hysport", component: <Hysport />, user:'Admin'  },
+    { label:"Exercise List", path: "/Admin/exercise", component: <Exercise />, user:'Admin'  },
 ]; 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
