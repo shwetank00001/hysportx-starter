@@ -64,6 +64,13 @@ const reports = [
     { title: "Statics", iconClass: "bx-copy-alt", description: "Brands" },
     
   ]
+  const fwgbm =[
+    { title: "ERP", iconClass: "bx-copy-alt", description: "ERP" },
+    { title: "CRM", iconClass: "bx-copy-alt", description: "CRM" },
+    { title: "ACCOUNTS", iconClass: "bx-copy-alt", description: "ACCOUNTS" },
+    { title: "HRM", iconClass: "bx-copy-alt", description: "HRM" },
+    
+  ]
 
   const competition =[
     { title: "EventList", iconClass: "bx-copy-alt", description: "Event lists" },
@@ -101,5 +108,5 @@ const reports = [
   ]
 
   export {
-    event, competition,inetrSchool, national,reports, broadcast, kyc
+    event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm
   }

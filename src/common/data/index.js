@@ -1,6 +1,6 @@
 // import React from "react"
 import { cryptoOrders, wallet, productData, cryptoOrderData, icoLandingTeam, blogs, orderbookData } from "./crypto";
-import{event, competition, national, inetrSchool, reports} from './participator'
+import{event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm} from './participator'
 
 export {
   orderbookData,
@@ -15,4 +15,12 @@ export {
   reports,
   blogs,
   cryptoOrders,
+  broadcast,
+  kyc,
+  fitness,
+  support,
+  app,
+  connect,
+  post,
+  fwgbm
 };
