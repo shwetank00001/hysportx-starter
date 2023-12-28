@@ -9,8 +9,8 @@ import Breadcrumbs from "../../components/Common/Breadcrumb"
 //i18n
 import { withTranslation } from "react-i18next"
 import { useNavigate } from "react-router"
-import WelcomeComp from "./WelcomeComp"
-import Navcards from "./Navcards"
+import WelcomeComp from "../../components/Common/WelcomeComp"
+import Navcards from "../../components/Common/Navcards"
 const Dashboard = props => {
   //meta title
   document.title = "Dashboard | Admin"

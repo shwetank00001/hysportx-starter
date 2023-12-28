@@ -43,10 +43,10 @@ function Navcards(props) {
     className=""
    
   >
-    <CardHeader className="px-2" >
-      <Row xl={12} className='  d-flex  justify-between'>
-        <span className=" h6 mx-3">{props.Heading}</span>
-        <div style={{fontSize:'0.8vw'}} className=" ">       
+    <CardHeader className="" >
+      <Row  className='  d-flex  justify-content-evenly'>
+        <div className=" h6  "><b>{props.Heading}</b></div>
+        <div style={{fontSize:'0.8vw'}} className="  ">       
         <Nav tabs  className=""  >
       {index.map((key)=><>
         <NavItem key={key} className="m-0 p-0 ">
@@ -69,7 +69,7 @@ function Navcards(props) {
           
             </>)}
     </Nav>
-    </div>
+        </div>
   </Row>
     {/* <Col className='text-end'>{props.icon}</Col> */}
      </CardHeader>

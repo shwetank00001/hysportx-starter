@@ -1,14 +1,20 @@
 import Breadcrumb from 'components/Common/Breadcrumb'
 import React from 'react'
-import { Container } from 'reactstrap'
+import { Button, Card, CardBody, Col, Container, Row } from 'reactstrap'
 import PropTypes from "prop-types"
 //i18n
 import { withTranslation } from "react-i18next"
+import WelcomeComp from "components/Common/WelcomeComp"
+import Navcards from 'components/Common/Navcards'
+import {event, inetrSchool, reports, competition, national} from '../../../common/data'
 
 
 const Dashboard = props => {
     //meta title
     document.title = "Dashboard | Participator"
+
+   
+
   return (
     <React.Fragment>
     <div className="page-content">
@@ -18,8 +24,73 @@ const Dashboard = props => {
               title={props.t("Participator")}
               breadcrumbItem={props.t("Dashboard")}
             />
-            <div>Participator</div>
         </Container>
+     
+      
+        <Row className='text-center mb-3 rounded- bg-info my-2'>
+             <Col className='text-center py-5'>
+              <div className=" my-5 py-5">
+  
+               Advertisment Contents
+              </div>
+             </Col>
+         </Row>
+
+             <Container>
+            
+            <Row>
+              <Col lg='8'>
+              <WelcomeComp/>
+              <Row>
+                <Col>
+                <Navcards index={national}  Heading="FWG National" icon={<><Button /><Button /></>}/>
+                </Col>
+                <Col>
+                  <Navcards index={inetrSchool}  Heading="FWG InterSchool" icon={<><Button /><Button /></>}/>
+                </Col>
+              </Row>
+              </Col>
+                <Col>
+                <Row>
+  
+                {reports.map((report, key)=>(
+                  <Col xl='6' key={key}>
+                    <Card className="mini-stats-wid">
+                      <CardBody>
+                        <div className="d-flex">
+                          <div className=" justify-evenly">
+                          <p className="text-muted fw-medium">
+                                {report.title}
+                              </p>
+                             
+                              <h5 className="mb-0">{report.description}</h5>
+                           
+                          </div>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                ))}
+                </Row>
+              
+                <Navcards index={event}  Heading="Broadcast" icon={<><Button /><Button /></>}/>
+                <Navcards index={event}  Heading="Organise Your Sport Event" icon={<><Button /><Button /></>}/>
+                </Col>
+            </Row>
+                <Navcards index={competition}  Heading={<h2 className='  text-danger'> FW Comptitions </h2>} icon={<><Button /><Button /></>}/>
+                
+  
+  
+            </Container>
+            <Row className='text-center mb-3 rounded mx-1 bg-info my-2'>
+             <Col className='text-center py-5'>
+              <div className=" my-5 py-5">
+  
+               Advertisment Contents
+              </div>
+             </Col>
+            </Row>
+            
     </div>
     </React.Fragment>
   )
