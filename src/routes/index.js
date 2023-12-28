@@ -6,6 +6,9 @@ import Hysport from "pages/HYSPORTX";
 
 import Exercise from "pages/Exercise"
 
+// Partcipator folder
+import ParticipatorDashboard from '../pages/Participator/Dashboard'
+
 // community folder
 import CommunityDashboard from "pages/Community/CommunityDashboard/CommunityDashboard";
 
@@ -19,6 +22,7 @@ import Error from "pages/Errors/NotFound";
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
 import LeaderBoard from "pages/LeaderBoard";
+import Community from "pages/Participator/CommunityList";
 
 
 
@@ -36,7 +40,9 @@ const authProtectedRoutes =[
     { label:"Exercise List", path: "/Admin/exercise", component: <Exercise />, user:'Admin'  },
 
     // Participator routes
-    { label:"Dashboard", path: "/Participator/dashboard", component: <Dashboard />, user:'Participator' },
+    { label:"Dashboard", path: "/Participator/dashboard", component: <ParticipatorDashboard />, user:'Participator' },
+    { label:"Community", path: "/Participator/communities", component: <Community/>, user:'Participator' },
+    { label:"Comptitions", path: "/Participator/comptitions", component: <ParticipatorDashboard />, user:'Participator' },
 ]; 
 const publicRoutes = [
   { path: "/Leaderboard", component: <LeaderBoard/> },
