@@ -56,9 +56,9 @@ export const editExerciseFailure = error => ({
   payload: error,
 })
 
-export const deleteExerciseRequest = id => ({
+export const deleteExerciseRequest = data => ({
   type: DELETE_EXERCISE_REQUEST,
-  payload: id,
+  payload: data,
 })
 
 export const deleteExerciseSuccess = () => ({
@@ -69,3 +69,4 @@ export const deleteExerciseFailure = error => ({
   type: DELETE_EXERCISE_FAILURE,
   payload: error,
 })
+

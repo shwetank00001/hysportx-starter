@@ -12,36 +12,44 @@ import OurTeam from "../CarouselTypes/OurTeam";
 import Competition from "../CarouselTypes/competition";
 import { LoginButton } from 'components/Common/LoginButton';
 import { SignupButton } from "components/Common/SignupButton";
+import Vacancy from "../CarouselTypes/Vacancy";
+import LeftSlideCompetition from "../CarouselTypes/LeftSlideCompetition";
+import CompetitionRightSide from "../CarouselTypes/CompetitionRightSide";
 
 
 const Section = () => {
- 
+
 
   return (
     <React.Fragment>
 
-      <div className="mb-5">
-      <SlideMain /> 
-      <OurTeam />
-      <Competition />
-     </div>
-      <section className="section hero-section " id="home">
-        <div className="bg-overlay bg-dark"></div>
+      <div className="">
+        <SlideMain />
+        <OurTeam />
+        <Competition />
+        <Vacancy />
+      </div>
+      <section className="section  " id="home">
+        <div className="bg-overlay bg-light"></div>
 
-        <Container> 
-          <Row className="align-items-center">
-            <Col lg={5}>
-              <div className="text-white-50">
-                <h1 className="text-white fw-semibold mb-3 hero-title">HySportx - Iconic Landing Page for a Sports and Fitness Platform</h1>
-                <p className="font-size-14">HySportx offers a user-friendly experience, making it as straightforward as it can be. To an English speaker, it will feel as clear and intuitive as a critical thinker at Cambridge University</p>
-
-                <div className="d-flex flex-wrap gap-2 mt-4">
-                  <LoginButton/>
-                  <SignupButton/>
-                </div>
+        <Container fluid>
+          <Row>
+            <Col lg="12">
+              <div className="text-center mb-5">
+                <div className="small-title text-dark">Activity</div>
+                <h4>Key Activity of the Details</h4>
               </div>
             </Col>
-           
+          </Row>
+          <Row className="align-items-center mx-5">
+            <Col lg={1}></Col>
+            <Col lg={4} >
+              <LeftSlideCompetition />
+            </Col>
+            <Col lg={7} className="">
+              <CompetitionRightSide />
+            </Col>
+
           </Row>
         </Container>
       </section>

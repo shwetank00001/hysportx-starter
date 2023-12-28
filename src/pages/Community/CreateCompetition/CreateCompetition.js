@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import {
   Col,
@@ -16,12 +15,9 @@ import {
 } from "reactstrap"
 import TableContainer from "components/Common/TableContainer"
 //import components
-import Breadcrumbs from 'components/Common/Breadcrumb';
+import Breadcrumbs from "components/Common/Breadcrumb"
 
-import { participatorListRequest } from '../../../store/participator/actions'
-
-
-const participatorList = [
+const CreateCompetitionList = [
   {
     id: 1,
     index: 1,
@@ -64,21 +60,7 @@ const participatorList = [
   },
 ]
 
-
-
-const Participator = () => {
-
-  const dispatch = useDispatch()
-  const parti = useSelector(state => state.participatorReducer.participator)
-  console.log("participator data", parti)
-
-  useEffect( () => {
-    dispatch(participatorListRequest())
-  }, [dispatch])
-
-
-
-
+const CreateCompetition = () => {
   const [open, setOpen] = useState(false)
 
   function removeBodyCss() {
@@ -187,25 +169,36 @@ const Participator = () => {
       <Container fluid>
         {/* Render Breadcrumbs */}
         <Breadcrumbs title="fwgames" breadcrumbItem="hyposports" />
-        
-        <Card>
 
+        <Card>
           <Col xl={12}>
             <Card>
               <CardBody className="border-bottom">
                 <div className="d-flex align-items-center">
-                  <h5 className="mb-0 card-title flex-grow-1">Participator Lists</h5>
+                  <h5 className="mb-0 card-title flex-grow-1">
+                    CreateCompetition Lists
+                  </h5>
                   <div className="flex-shrink-0">
-                    <Link to="#!" className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
-                    <button className="btn btn-primary" onClick={() => {setOpen(!open), removeBodyCss() }}> <i className="mdi mdi-plus me-1" />Create Participator</button>
-
+                    <Link to="#!" className="btn btn-light me-1">
+                      <i className="mdi mdi-refresh"></i>
+                    </Link>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        setOpen(!open), removeBodyCss()
+                      }}
+                    >
+                      {" "}
+                      <i className="mdi mdi-plus me-1" />
+                      Create CreateCompetition
+                    </button>
                   </div>
                 </div>
               </CardBody>
               <CardBody>
                 <TableContainer
                   columns={columns}
-                  data={participatorList}
+                  data={CreateCompetitionList}
                   isGlobalFilter={true}
                   customPageSizeOptions={3}
                   isPagination={true}
@@ -227,7 +220,7 @@ const Participator = () => {
               >
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">
-                    Add New Participator{" "}
+                    Add New CreateCompetition{" "}
                   </h5>
                   <button
                     type="button"
@@ -324,8 +317,6 @@ const Participator = () => {
                         />
                       </Col>
                     </Row>
-
-                  
                   </div>
                   <div className="modal-footer">
                     <button
@@ -350,4 +341,4 @@ const Participator = () => {
   )
 }
 
-export default Participator
+export default CreateCompetition

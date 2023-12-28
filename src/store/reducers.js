@@ -27,6 +27,8 @@ import performanceReducer from "./performance/reducer";
 import exerciseReducer from "./exercises/reducer";
 import competitionReducer from "./competition/reducer";
 
+import participatorReducer from "./participator/reducer";
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -43,7 +45,8 @@ const rootReducer = combineReducers({
   muscleReducer,
   performanceReducer,
   exerciseReducer,
-  competitionReducer
+  competitionReducer,
+  participatorReducer,
 })
 
 export default rootReducer;
