@@ -16,6 +16,9 @@ import {
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
+  PARTICIPATOR_LIST_MAIN_REQUEST,
+  PARTICIPATOR_LIST_MAIN_SUCCESS,
+  PARTICIPATOR_LIST_MAIN_FAIL,
 } from "./actionTypes"
 
 function* listParticipatorRequestsSaga() {
@@ -25,6 +28,18 @@ function* listParticipatorRequestsSaga() {
     yield put({ type: PARTICIPATOR_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_FAIL, payload: error })
+    toast.error("Failed to fetch participator data. Please try again.", {
+      autoClose: 2000,
+    })
+  }
+}
+function* listParticipatorMainListSaga() {
+  try {
+    const data = yield call(participator.listParticipators)
+    console.log("Saga working", data)
+    yield put({ type: PARTICIPATOR_LIST_MAIN_SUCCESS, payload: data.data })
+  } catch (error) {
+    yield put({ type: PARTICIPATOR_LIST_MAIN_FAIL, payload: error })
     toast.error("Failed to fetch participator data. Please try again.", {
       autoClose: 2000,
     })
@@ -76,4 +91,5 @@ export default function* participatorSaga() {
   yield takeLatest(ADD_PARTICIPATOR_REQUEST, addParticipatorSaga)
   yield takeLatest(EDIT_PARTICIPATOR_REQUEST, editParticipatorSaga)
   yield takeLatest(DELETE_PARTICIPATOR_REQUEST, deleteParticipatorSaga)
+  yield takeLatest(PARTICIPATOR_LIST_MAIN_REQUEST, listParticipatorMainListSaga)
 }

@@ -24,6 +24,8 @@ import ParticipatorList from "pages/Community/ParticipatorList/index"
 import LeaderBoard from "pages/LeaderBoard";
 import Community from "pages/Participator/CommunityList";
 
+import ParticipatorMainList from "pages/Community/ParticipatorMainList/ParticipatorMainList";
+
 
 
 // main routes
@@ -31,7 +33,8 @@ const authProtectedRoutes =[
     // Community routes
     { label:"Dashboard", path: "/community/dashboard", component: <CommunityDashboard />, user:'community' },
     { label:"Competition", path: "/community/competition", component: <Exercise />, user:'community' },
-    { label:"Participator", path: "/community/participators", component: <ParticipatorList /> , user:'community'},
+    { label:"Participator Request", path: "/community/participator-request", component: <ParticipatorList /> , user:'community'},
+    { label:"Participator List", path: "/community/participator-main-list", component: <ParticipatorMainList /> , user:'community'},
     { label:"Exercise List", path: "/community/exercise", component: <Exercise />, user:'community' },
     
     // Admin routes

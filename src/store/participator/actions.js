@@ -11,6 +11,9 @@ import {
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
+  PARTICIPATOR_LIST_MAIN_REQUEST,
+  PARTICIPATOR_LIST_MAIN_SUCCESS,
+  PARTICIPATOR_LIST_MAIN_FAIL,
 } from "./actionTypes"
 
 export const participatorListRequest = () => ({
@@ -26,6 +29,19 @@ export const participatorListFail = error => ({
   type: PARTICIPATOR_LIST_FAIL,
   payload: error,
 })
+export const participatorMainListRequest = () => ({
+  type: PARTICIPATOR_LIST_MAIN_REQUEST,
+})
+
+export const participatorMainListSuccess = data => ({
+  type: PARTICIPATOR_LIST_MAIN_SUCCESS,
+  payload: data,
+})
+
+export const participatorMainListFail = error => ({
+  type: PARTICIPATOR_LIST_FAIL,
+  payload: error,
+})
 
 export const addParticipatorRequest = data => ({
   type: ADD_PARTICIPATOR_REQUEST,
@@ -33,7 +49,7 @@ export const addParticipatorRequest = data => ({
 })
 
 export const addParticipatorSuccess = () => ({
-  type: ADD_PARTICIPATOR_SUCCESS,
+  type: PARTICIPATOR_LIST_MAIN_FAIL,
 })
 
 export const addParticipatorFailure = error => ({
