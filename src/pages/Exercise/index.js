@@ -13,7 +13,7 @@ import DeleteModal from 'components/Common/DeleteModal';
 import { ToastContainer } from "react-toastify";
 
 
-import { Col, Row, Card, CardBody, Label, Form, Input, Modal, ModalHeader, ModalBody,  UncontrolledTooltip, Badge, Button } from "reactstrap";
+import { Col, Row, Card, CardBody, Label, Form, Input, Modal, ModalHeader, ModalBody, UncontrolledTooltip, Badge, Button } from "reactstrap";
 import TableContainer from 'components/Common/TableContainer';
 import Spinners from "components/Common/Spinner";
 
@@ -36,7 +36,7 @@ const index = () => {
 
     const { Execise, loading } = useSelector(ExeciseDataProperties)
     const [isLoading, setLoading] = useState(loading)
-    
+
     useEffect(() => {
         const fetchData = () => {
             setLoading(true);
@@ -52,101 +52,136 @@ const index = () => {
 
     //coloums header start
     const columns = useMemo(
-        () => [
-            {
-                Header: 'No',
-                accessor: 'id',
-                Cell: (cellProps) => {
-                    return (
-                        <>
-                            <p className="">{cellProps.row.index + 1}</p>
-                        </>
-                    )
+        () => {
+            let columnArray = [
+                {
+                    Header: 'No',
+                    accessor: 'id',
+                    Cell: (cellProps) => {
+                        return (
+                            <>
+                                <p className="">{cellProps.row.index + 1}</p>
+                            </>
+                        )
+                    },
                 },
-            },
-            {
-                Header: 'Exercise Name',
-                accessor: 'name',
+                {
+                    Header: 'Exercise Name',
+                    accessor: 'name',
 
-            },
-            {
-                Header: 'Description',
-                accessor: 'description',
+                },
+                {
+                    Header: 'Description',
+                    accessor: 'description',
 
-            },
-            {
-                Header: 'Level',
-                accessor: 'level',
-            },
-            {
-                Header: 'Date',
-                accessor: 'created_at',
-                // Cell: (cellProps) => {
-                //   const formattedDate = format(new Date(cellProps), 'dd MMM, yyyy');
-                //   return <span>{formattedDate}</span>;
-                // },
-              },
+                },
+                {
+                    Header: 'Level',
+                    accessor: 'level',
+                },
+                {
+                    Header: 'Date',
+                    accessor: 'created_at',
+                    Cell: (cellProps) => (cellProps.row.original.created_at) ? format(new Date(cellProps.row.original.created_at), 'dd MMM, yyyy') : ""
+                },
+            ];
+            const userRole = JSON.parse(localStorage.getItem('userData')).role.type;
+            if (userRole == "Admin") {
+                columnArray.push({
 
-       
+                    Header: 'Action',
+                    accessor: 'action',
+                    disableFilters: true,
+                    Cell: (cellProps) => {
+                        return (
+                            <ul className="list-unstyled hstack gap-1 mb-0">
+                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                    <Button className="btn btn-sm btn-soft-primary"
+                                        id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickView(exercise_id);
+                                            setModal(true);
+                                        }}
+                                    >
+                                        <i className="mdi mdi-eye-outline" />
+                                    </Button>
+                                </li>
+                                <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
+                                    View
+                                </UncontrolledTooltip>
+                                <li>
+                                    <Button
+                                        className="btn btn-sm btn-soft-primary"
+                                        onClick={() => sendListData(cellProps.row.original, "Edit Exercise")}
+                                        id={`edittooltip-${cellProps.row.original.id}`}
+                                    >
+                                        <i className="mdi mdi-pencil-outline" />
+                                        <UncontrolledTooltip placement="top" target={`edittooltip-${cellProps.row.original.id}`} >
+                                            Edit
+                                        </UncontrolledTooltip>
+                                    </Button>
+                                </li>
 
-            {
-                Header: 'Action',
-                accessor: 'action',
-                disableFilters: true,
-                Cell: (cellProps) => {
-                    return (
-                        <ul className="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                <Button className="btn btn-sm btn-soft-primary"
-                                    id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
-                                    onClick={() => {
-                                        const exercise_id = cellProps.row.original;
-                                        onClickView(exercise_id);
-                                        setModal(true);
-                                    }}
-                                >
-                                    <i className="mdi mdi-eye-outline" />
-                                </Button>
-                            </li>
-                            <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
-                                View
-                            </UncontrolledTooltip>
-                            <li>
-                                <Button
-                                    className="btn btn-sm btn-soft-primary"
-                                    onClick={ ()=> sendListData( cellProps.row.original,"Edit Exercise")}
-                                    id={`edittooltip-${cellProps.row.original.id}`}
-                                >
-                                    <i className="mdi mdi-pencil-outline" />
-                                    <UncontrolledTooltip placement="top" target={`edittooltip-${cellProps.row.original.id}`} >
-                                        Edit
-                                    </UncontrolledTooltip>
-                                </Button>
-                            </li>
+                                <li>
+                                    <Link
+                                        to="#"
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickDelete(exercise_id);
+                                        }}
+                                        className="btn btn-sm btn-soft-danger"
+                                        id={`deletetooltip-${cellProps.row.original.id}`}
 
-                            <li>
-                                <Link
-                                    to="#"
-                                    onClick={() => {
-                                        const exercise_id = cellProps.row.original;
-                                        onClickDelete(exercise_id);
-                                    }}
-                                    className="btn btn-sm btn-soft-danger"
-                                    id={`deletetooltip-${cellProps.row.original.id}`}
+                                    >
+                                        <i className="mdi mdi-delete-outline" />
+                                        <UncontrolledTooltip placement="top" target={`deletetooltip-${cellProps.row.original.id}`}>
+                                            Delete
+                                        </UncontrolledTooltip>
+                                    </Link>
+                                </li>
+                            </ul>
+                        );
+                    }
 
-                                >
-                                    <i className="mdi mdi-delete-outline" />
-                                    <UncontrolledTooltip placement="top" target={`deletetooltip-${cellProps.row.original.id}`}>
-                                        Delete
-                                    </UncontrolledTooltip>
-                                </Link>
-                            </li>
-                        </ul>
-                    );
-                }
-            },
-        ],
+                })
+            }else{
+                columnArray.push({
 
+                    Header: 'Action',
+                    accessor: 'action',
+                    disableFilters: true,
+                    Cell: (cellProps) => {
+                        return (
+                            <ul className="list-unstyled hstack gap-1 mb-0">
+                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                    <Button className="btn btn-sm btn-soft-primary"
+                                        id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickView(exercise_id);
+                                            setModal(true);
+                                        }}
+                                    >
+                                        <i className="mdi mdi-eye-outline" />
+                                    </Button>
+                                </li>
+                                <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
+                                    View
+                                </UncontrolledTooltip>
+                               
+
+                            </ul>
+                        );
+                    }
+
+                })
+
+            }
+            return columnArray;
+
+        },
+     
         []
     );
 
@@ -180,10 +215,10 @@ const index = () => {
     }
 
     //Edit send data navigate
-    const navigate=useNavigate();
-    function sendListData(data,EditTitleName="Edit Exercise Application"){
-        navigate(`/Admin/hysport`,{
-            state:{ data,EditTitleName,}
+    const navigate = useNavigate();
+    function sendListData(data, EditTitleName = "Edit Exercise Application") {
+        navigate(`/Admin/hysport`, {
+            state: { data, EditTitleName, }
         })
     }
 
@@ -194,13 +229,13 @@ const index = () => {
             exercise_name: viewexercisedata && viewexercisedata.name || "",
             exercise_description: viewexercisedata && viewexercisedata.description || "",
             exercise_level: viewexercisedata && viewexercisedata.level || "",
-            exercise_modality:viewexercisedata && viewexercisedata.modalities.map(item => item.name).join(' , ') || "",
-            exercise_equipments:viewexercisedata && viewexercisedata.equipments.map(item => item.name).join(' , ') || "",
-            exercise_muscles:viewexercisedata && viewexercisedata.muscles.map(item => item.name).join(' , ') || "",
-            exercise_benifits:viewexercisedata && viewexercisedata.benifits.map(item => item.point).join(' , ') || "",
-            exercise_ptags:viewexercisedata && viewexercisedata.ptags.map(item => item.name).join(' , ') || "",
+            exercise_modality: viewexercisedata && viewexercisedata.modalities.map(item => item.name).join(' , ') || "",
+            exercise_equipments: viewexercisedata && viewexercisedata.equipments.map(item => item.name).join(' , ') || "",
+            exercise_muscles: viewexercisedata && viewexercisedata.muscles.map(item => item.name).join(' , ') || "",
+            exercise_benifits: viewexercisedata && viewexercisedata.benifits.map(item => item.point).join(' , ') || "",
+            exercise_ptags: viewexercisedata && viewexercisedata.ptags.map(item => item.name).join(' , ') || "",
         },
-       
+
         onSubmit: (values) => {
 
         }
@@ -322,7 +357,7 @@ const index = () => {
                                         />
                                     </div>
                                 </div>
-                       
+
                                 <div className="row mb-3">
                                     <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
                                         <Label htmlFor="exercise_equipments" className="mt-2">Equipments</Label>
@@ -394,7 +429,7 @@ const index = () => {
                                             value={validation.values.exercise_description || ""}
                                             readOnly
                                         />
-                                       
+
                                     </div>
                                 </div>
 

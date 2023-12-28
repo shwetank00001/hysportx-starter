@@ -284,7 +284,7 @@ function HExercise() {
               <Row className="col-sm-12">
                 <Input
                   type="text"
-                  className="form-control px-0 "
+                  className="form-control"
                   id="horizontal-firstname-Input"
                   placeholder="Enter Your"
                   value={exerciseName}
@@ -308,11 +308,11 @@ function HExercise() {
                   onClick={() => {
                     setmodal(!modal)
                   }}
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
-                  id="inputGroupFileAddon03"
+                  id=""
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
               </Row>
             </Col>
@@ -334,14 +334,14 @@ function HExercise() {
                   className="select2-selection col-sm-10 p-0"
                 />
                 <button
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
                   onClick={() => {
                     setmodal1(!modal1)
                   }}
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
-                  id="inputGroupFileAddon03"
+                  id=""
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
               </Row>
             </Col>
@@ -365,11 +365,11 @@ function HExercise() {
                   onClick={() => {
                     setmodal2(!modal2)
                   }}
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
                   id="inputGroupFileAddon03"
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
               </Row>
             </Col>
@@ -394,11 +394,11 @@ function HExercise() {
                   onClick={() => {
                     setmodal3(!modal3)
                   }}
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
-                  id="inputGroupFileAddon03"
+                  id=""
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
               </Row>
             </Col>
@@ -423,11 +423,11 @@ function HExercise() {
                   onClick={() => {
                     setmodal4(!modal4)
                   }}
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
-                  id="inputGroupFileAddon03"
+                  id=""
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
               </Row>
             </Col>
@@ -456,13 +456,12 @@ function HExercise() {
                   onClick={() => {
                     setmodal5(!modal5)
                   }}
-                  className="btn btn-primary col-sm-2  m-0 px-1 font-size-12"
+                  className="btn btn-primary col-lg-2 col-md-2 col-sm-2  m-0 px-1"
                   type="button"
-                  id="inputGroupFileAddon03"
+                  id=""
                 >
-                  + ADD
+                  <i className="mdi mdi-plus" />
                 </button>
-                {/* </Col> */}
               </Row>
             </Col>
           </Row>
@@ -490,13 +489,13 @@ function HExercise() {
           </Row>
         
 
-          <Row className="justify-content-start">
+          <Row className="justify-content-center pt-4">
             <Col sm={8}>
               <div>
                 <Button
                   type="submit"
                   color="primary"
-                  className="w-md"
+                  className="w-100"
                   onClick={handleSubmit}
                 >
                   Submit
@@ -546,18 +545,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+            
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal(!modal)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => {
                 setmodal(!modal)
                 submitModality()
@@ -608,18 +599,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+           
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal1(!modal1)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => {
                 setmodal1(!modal1)
                 handleAddPerformance()
@@ -659,18 +642,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+           
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal2(!modal2)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => setmodal2(!modal2)}
             >
               ADD
@@ -718,18 +693,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+          
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal3(!modal3)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => {
                 setmodal3(!modal3)
                 handleAddEquipment()
@@ -780,18 +747,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+        
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal4(!modal4)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => {
                 setmodal4(!modal4)
                 handleAddMuscle()
@@ -842,18 +801,10 @@ function HExercise() {
             </form>
           </ModalBody>
           <ModalFooter>
+       
             <Button
               type="button"
-              color="secondary"
-              onClick={() => {
-                setmodal5(!modal5)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
+              color="success"
               onClick={() => {
                 setmodal5(!modal5)
                 handleAddBenefits()

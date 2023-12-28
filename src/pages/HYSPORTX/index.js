@@ -28,9 +28,9 @@ function index() {
     // Exercise fetch single data for edit  start
       const location = useLocation();
       const editdata = location.state === null ? null : location.state;
-      let editTitleName = "HYSPORTX CREATE";
+      let editTitleName = "Create Exercise | Activity | Competition ";
       if (editdata) {
-        editTitleName = editdata.EditTitleName || "Edit Activity ";
+        editTitleName = editdata.EditTitleName || "Edit Exercise | Activity | Competition ";
       }
 
 
@@ -131,7 +131,7 @@ function index() {
                               >
                                 <span className="number">1.</span>
                                 <span className="font-size-10">
-                                  CREATE HYSPORTX EXERCISE
+                                  Create Execise
                                 </span>
                               </NavLink>
                             </NavItem>
@@ -150,7 +150,7 @@ function index() {
                               >
                                 <span className="number">2.</span>{" "}
                                 <span className="font-size-10">
-                                  CREATE HYSPORTX CONDITIONS
+                                  Create Condition
                                 </span>
                               </NavLink>
                             </NavItem>
@@ -172,7 +172,7 @@ function index() {
                               >
                                 <span className="number">3.</span>
                                 <span className="font-size-10">
-                                  CREATE HYSPORTX ACTIVITIES
+                                  Create Acitivity 
                                 </span>
                               </NavLink>
                             </NavItem>
@@ -194,7 +194,7 @@ function index() {
                               >
                                 <span className="number">4.</span>
                                 <span className="font-size-10">
-                                SHARE & CONNECTIONS
+                                Create Competition
                                 </span>
                               </NavLink>
                             </NavItem>
