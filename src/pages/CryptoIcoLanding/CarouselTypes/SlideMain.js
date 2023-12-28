@@ -7,7 +7,7 @@ import {
     CarouselControl,
     CarouselIndicators,
     CarouselCaption,
-    Button,
+    // Button,
 } from "reactstrap"
 
 // Carousel images
@@ -113,7 +113,9 @@ class SlideMain extends Component {
                     <CarouselControl
                         direction="prev"
                         directionText="Show"
+
                     // onClickHandler={this.previous}
+
                     />
                     <div className="carousel-button-container">
                         <Button color="success" size="sm" >

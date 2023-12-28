@@ -18,6 +18,7 @@ import Error from "pages/Errors/NotFound";
 // Dashboard
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
+import LeaderBoard from "pages/LeaderBoard";
 
 import Demo from "pages/DemoPage/Demo";
 
@@ -37,6 +38,7 @@ const authProtectedRoutes =[
     // Participator routes
 ]; 
 const publicRoutes = [
+  { path: "/Leaderboard", component: <LeaderBoard/> },
   { path: "/", component: <CryptoIcoLanding /> },
   { path: "/leaderboard", component: <CryptoIcoLanding /> },
 ]

@@ -32,6 +32,7 @@ export const Authmiddleware = ({ user, children }) => {
   const [loading,setLoading] = useState(true);
   const [userRoleType, setUserRoleType] = useState();
 
+
   useEffect(() => {validate(setTokenIsValid,setUserRoleType);}, []);
   return (tokenIsValid)?((user === userRoleType)? <React.Fragment>{children}</React.Fragment>:<NotFound/>)
   :((tokenIsValid === null)?(<Spinners setLoading={setLoading}></Spinners>):(<Navigate to={{ pathname: "/"}} />));
