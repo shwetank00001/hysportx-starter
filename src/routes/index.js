@@ -38,6 +38,7 @@ const authProtectedRoutes =[
 ]; 
 const publicRoutes = [
   { path: "/", component: <CryptoIcoLanding /> },
+  { path: "/leaderboard", component: <CryptoIcoLanding /> },
 ]
 
 
