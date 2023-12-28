@@ -18,8 +18,9 @@ import Error from "pages/Errors/NotFound";
 // Dashboard
 import Dashboard from "../pages/Dashboard/index";
 import ParticipatorList from "pages/Community/ParticipatorList/index"
+import LeaderBoard from "pages/LeaderBoard";
 
-import Demo from "pages/DemoPage/Demo";
+
 
 // main routes
 const authProtectedRoutes =[
@@ -35,10 +36,11 @@ const authProtectedRoutes =[
     { label:"Exercise List", path: "/Admin/exercise", component: <Exercise />, user:'Admin'  },
 
     // Participator routes
+    { label:"Dashboard", path: "/Participator/dashboard", component: <Dashboard />, user:'Participator' },
 ]; 
 const publicRoutes = [
+  { path: "/Leaderboard", component: <LeaderBoard/> },
   { path: "/", component: <CryptoIcoLanding /> },
-  { path: "/leaderboard", component: <CryptoIcoLanding /> },
 ]
 
 
