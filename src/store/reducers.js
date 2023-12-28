@@ -27,7 +27,7 @@ import performanceReducer from "./performance/reducer";
 import exerciseReducer from "./exercises/reducer";
 import competitionReducer from "./competition/reducer";
 
-// import participatorReducer from "./participator/reducer";
+import participatorReducer from "./participator/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -46,6 +46,7 @@ const rootReducer = combineReducers({
   performanceReducer,
   exerciseReducer,
   competitionReducer,
+  participatorReducer,
 })
 
 export default rootReducer;

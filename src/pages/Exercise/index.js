@@ -36,6 +36,7 @@ const index = () => {
 
     const { Execise, loading } = useSelector(ExeciseDataProperties)
     const [isLoading, setLoading] = useState(loading)
+    
     useEffect(() => {
         const fetchData = () => {
             setLoading(true);
@@ -148,8 +149,6 @@ const index = () => {
 
         []
     );
-
-
 
 
 

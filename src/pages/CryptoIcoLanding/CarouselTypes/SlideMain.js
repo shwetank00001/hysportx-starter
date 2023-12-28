@@ -114,6 +114,7 @@ class SlideMain extends Component {
                         direction="prev"
                         directionText="Show"
                     // onClickHandler={this.previous}
+                        onClickHandler={this.previous}
                     />
                     <div className="carousel-button-container">
                         <Button color="success" size="sm" >

@@ -12,6 +12,9 @@ import {
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
+  PARTICIPATOR_LIST_MAIN_REQUEST,
+  PARTICIPATOR_LIST_MAIN_SUCCESS,
+  PARTICIPATOR_LIST_MAIN_FAIL,
 } from "./actionTypes"
 
 const initialState = {
@@ -23,6 +26,7 @@ const initialState = {
 const participatorReducer = (state = initialState, action) => {
   switch (action.type) {
     case PARTICIPATOR_LIST_REQUEST:
+    case PARTICIPATOR_LIST_MAIN_REQUEST:
     case ADD_PARTICIPATOR_REQUEST:
     case EDIT_PARTICIPATOR_REQUEST:
     case DELETE_PARTICIPATOR_REQUEST:
@@ -32,6 +36,7 @@ const participatorReducer = (state = initialState, action) => {
         error: null,
       }
     case PARTICIPATOR_LIST_SUCCESS:
+    case PARTICIPATOR_LIST_MAIN_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -45,6 +50,7 @@ const participatorReducer = (state = initialState, action) => {
         loading: false,
       }
     case PARTICIPATOR_LIST_FAIL:
+    case PARTICIPATOR_LIST_MAIN_FAIL:
     case ADD_PARTICIPATOR_FAILURE:
     case EDIT_PARTICIPATOR_FAILURE:
     case DELETE_PARTICIPATOR_FAILURE:

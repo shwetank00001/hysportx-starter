@@ -24,11 +24,11 @@ import DeleteModal from "components/Common/DeleteModal"
 import { ToastContainer } from "react-toastify"
 import { createSelector } from "reselect"
 import {
-  participatorListRequest,
+  participatorMainListRequest,
   deleteParticipatorRequest,
 } from "../../../store/participator/actions"
 
-const Participator = () => {
+const ParticipatorMainList = () => {
   const dispatch = useDispatch()
   const [modal, setModal] = useState(false)
 
@@ -47,7 +47,7 @@ const Participator = () => {
   useEffect(() => {
     const fetchData = () => {
       setLoading(true)
-      dispatch(participatorListRequest())
+      dispatch(participatorMainListRequest())
       setTimeout(() => {
         setLoading(false)
       }, 1000)
@@ -55,7 +55,7 @@ const Participator = () => {
     fetchData()
   }, [dispatch])
 
-  console.log("Participator here", Participator.requests)
+  console.log("Participator here", Participator.participators)
 
   const columns = useMemo(
     () => [
@@ -167,7 +167,7 @@ const Participator = () => {
       dispatch(deleteParticipatorRequest(participator.id))
       setDeleteModal(false)
       setTimeout(() => {
-        dispatch(participatorListRequest())
+        dispatch(participatorMainListRequest())
         setLoading(false)
       }, 1000)
     }
@@ -245,7 +245,9 @@ const Participator = () => {
                     <TableContainer
                       columns={columns}
                       data={
-                        Participator.requests ? Participator.requests : [{}]
+                        Participator.participators
+                          ? Participator.participators
+                          : [{}]
                       }
                       isGlobalFilter={true}
                       isPagination={true}
@@ -365,4 +367,4 @@ const Participator = () => {
   )
 }
 
-export default Participator
+export default ParticipatorMainList
