@@ -45,7 +45,7 @@ function Navcards(props) {
   >
     <CardHeader className="px-2" >
       <Row xl={12} className='  d-flex  justify-between'>
-        <span className="bg-light h6 mx-3">{props.Heading}</span>
+        <span className=" h6 mx-3">{props.Heading}</span>
         <div style={{fontSize:'0.8vw'}} className=" ">       
         <Nav tabs  className=""  >
       {index.map((key)=><>

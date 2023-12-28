@@ -75,14 +75,17 @@ const Dashboard = props => {
               title={props.t("Dashboards")}
               breadcrumbItem={props.t("Dashboard")}
             />
+          </Container>
              <Row className='text-center mb-3 rounded- bg-info my-2'>
               <Col className='text-center py-5'>
-              <div className="">
+              <div className="my-5 py-5">
 
             Advertisment Contents
               </div>
               </Col>
           </Row>
+          <Container>
+            
           <Row>
             <Col lg='7'>
             <WelcomeComp/>
@@ -124,6 +127,14 @@ const Dashboard = props => {
 
 
           </Container>
+          <Row className='text-center mb-3 rounded- bg-info my-2'>
+           <Col className='text-center py-5'>
+            <div className=" my-5 py-5">
+
+             Advertisment Contents
+            </div>
+           </Col>
+          </Row>
         </div>
 
     </React.Fragment>
