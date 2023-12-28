@@ -215,26 +215,20 @@ const Participator = () => {
         onCloseClick={() => setDeleteModal(false)}
       />
       {/*  Modal view and edit */}
-      <div className="page-content">
-        <div className="container-fluid">
-          <Breadcrumbs title="" breadcrumbItem="Participator List" />
+
           <Row>
             <Col lg="12">
               <Card>
                 <CardBody className="border-bottom">
                   <div className="d-flex align-items-center">
                     <h5 className="mb-0 card-title flex-grow-1">
-                      Participator Lists
+                      Request List
                     </h5>
                     <div className="flex-shrink-0">
                       <Link to="#!" className="btn btn-light me-1">
                         <i className="mdi mdi-refresh"></i>
                       </Link>
-                      <button className="btn btn-primary">
-                        {" "}
-                        <i className="mdi mdi-plus me-1" />
-                        Create Participator
-                      </button>
+                      
                     </div>
                   </div>
                 </CardBody>
@@ -262,8 +256,7 @@ const Participator = () => {
             </Col>
           </Row>
           <ToastContainer />
-        </div>
-      </div>
+     
       <Modal
         isOpen={modal}
         toggle={() => {

@@ -24,6 +24,7 @@ import { exerciseListRequest, deleteExerciseRequest as onDeleteExerciseList } fr
 const index = () => {
     const dispatch = useDispatch();
     const [modal, setModal] = useState(false)
+    const [userRole, setUserRole] = useState(null)
 
     const fetchExeciseList = state => state.exerciseReducer
     const ExeciseDataProperties = createSelector(
@@ -47,6 +48,8 @@ const index = () => {
             }, 1000);
         };
         fetchData();
+
+        setUserRole(JSON.parse(localStorage.getItem('userData')).role.type)
     }, []);
 
 
@@ -85,7 +88,7 @@ const index = () => {
                     Cell: (cellProps) => (cellProps.row.original.created_at) ? format(new Date(cellProps.row.original.created_at), 'dd MMM, yyyy') : ""
                 },
             ];
-            const userRole = JSON.parse(localStorage.getItem('userData')).role.type;
+           
             if (userRole == "Admin") {
                 columnArray.push({
 
@@ -262,7 +265,8 @@ const index = () => {
                                         <div className="flex-shrink-0">
 
                                             <Link to="#!" className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
-                                            <Link to="/Admin/hysport" className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Execise</Link>
+                                            {userRole=="Admin"? <Link to="/Admin/hysport" className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Execise</Link> :""}
+                                            
 
                                         </div>
                                     </div>
