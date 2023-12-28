@@ -89,7 +89,7 @@ const Dashboard = props => {
                 </Row>
               
                 <Navcards index={broadcast}  Heading="Broadcast" icon={<><Button /><Button /></>}/>
-                <Navcards index={event}  Heading="Organise Your Sport Event" icon={<><Button /><Button /></>}/>
+                <Navcards index={event}  Heading="Organise Your Sport Event" />
                 <Navcards index={connect}  Heading="Connect" icon={<><Button /><Button /></>}/>
                 <Navcards index={fitness}  Heading="Fitness $ Health" icon={<><Button /><Button /></>}/>
                 <Navcards index={fitness}  Heading="Activity" icon={<><Button /><Button /></>}/>
