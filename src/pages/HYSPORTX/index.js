@@ -4,7 +4,7 @@ import Breadcrumb from '../../components/Common/Breadcrumb'
 import { Button, Card, CardBody, CardText, CardTitle, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Nav, NavItem, NavLink, Row, Spinner, TabContent, TabPane } from 'reactstrap';
 import classNames from 'classnames';
 import Select from "react-select";
-import { Await, Link, Route, redirect, useNavigate } from 'react-router-dom';
+import { Await, Link, Route, redirect, useLocation, useNavigate } from 'react-router-dom';
 import TableContainer from 'components/Common/TableContainer';
 import HExercise from './HExercise';
 import HCondition from './HCondition';
@@ -24,7 +24,14 @@ function index() {
     const [selectedMulti, setselectedMulti] = useState(null);
     const [activeTab, setactiveTab] = useState(1);
     const [verticalActiveTab, setverticalActiveTab] = useState("1");
-    
+
+    // Exercise fetch single data for edit  start
+      const location = useLocation();
+      const editdata = location.state === null ? null : location.state;
+      let editTitleName = "HYSPORTX CREATE";
+      if (editdata) {
+        editTitleName = editdata.EditTitleName || "Edit Activity ";
+      }
 
 
       function toggleTabVertical(tab) {
@@ -109,7 +116,7 @@ function index() {
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">
-                        <h4>HYSPORTX CREATE</h4>
+                        <h4>{editTitleName}</h4>
                       </CardTitle>
                       <div className="vertical-wizard wizard clearfix vertical">
                         <div className="steps clearfix ">
