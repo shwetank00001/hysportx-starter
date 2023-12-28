@@ -89,7 +89,7 @@ const index = () => {
                 },
             ];
            
-            if (userRole == "Admin") {
+            if (JSON.parse(localStorage.getItem('userData')).role.type == "Admin") {
                 columnArray.push({
 
                     Header: 'Action',
