@@ -103,12 +103,7 @@ function index() {
             </>
           ) : (
             <>
-              <Row>
-               
-
-       
-
-               
+              <Row> 
                 
               </Row>
               <Row>

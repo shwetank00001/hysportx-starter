@@ -268,7 +268,7 @@ const index = () => {
             >
                 <div className="modal-content">
                     <ModalHeader toggle={() => setModal()} id="exerciseLabel" className="modal-header">
-                        View Execise
+                        Exercise Detail
                     </ModalHeader>
                     <ModalBody>
                         <Form
