@@ -164,7 +164,6 @@ const ParticipatorMainList = () => {
 
 const handleDeleteParticipator = () => {
   setDeleteModal(false)
-  setLoading(true)
   dispatch(deleteParticipatorRequest(participator.id))
 }
 
@@ -238,28 +237,25 @@ const handleDeleteParticipator = () => {
                     </div>
                   </div>
                 </CardBody>
-                {isLoading ? (
-                  <Spinners setLoading={setLoading} />
-                ) : (
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={
-                        Participator.participators
-                          ? Participator.participators
-                          : [{}]
-                      }
-                      isGlobalFilter={true}
-                      isPagination={true}
-                      iscustomPageSizeOptions={true}
-                      isShowingPageLength={true}
-                      customPageSize={5}
-                      tableClass="table-bordered align-middle nowrap mt-2"
-                      paginationDiv="col-sm-12 col-md-7"
-                      pagination="pagination justify-content-end pagination-rounded"
-                    />
-                  </CardBody>
-                )}
+                
+                <CardBody>
+                  <TableContainer
+                    columns={columns}
+                    data={
+                      Participator.participators
+                        ? Participator.participators
+                        : [{}]
+                    }
+                    isGlobalFilter={true}
+                    isPagination={true}
+                    iscustomPageSizeOptions={true}
+                    isShowingPageLength={true}
+                    customPageSize={5}
+                    tableClass="table-bordered align-middle nowrap mt-2"
+                    paginationDiv="col-sm-12 col-md-7"
+                    pagination="pagination justify-content-end pagination-rounded"
+                  />
+                </CardBody>
               </Card>
             </Col>
           </Row>
