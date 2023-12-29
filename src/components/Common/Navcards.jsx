@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import {
     Button,
@@ -14,10 +14,18 @@ import {
   import classnames from "classnames";
   
 function Navcards({icon ,index, Heading}) {
-    const [tab, setTab] = useState(index[0].title);
+    const [tab, setTab] = useState();
+    const [tabs, setTabs] = useState([]);
     const [tabActiv, settabActiv] = useState()
         // tab.className= 'active'
-        // index ? setTab(index[0].title):;
+        useEffect(() => {
+        
+         index ?  setTabs(index):setTabs([{ description :'data'}]);
+         index ?  setTab(index[0].title):'';
+        
+         
+        }, [])
+        
   const toggle = e => {
     if (tab !== e) {
       setTab(e);
@@ -46,10 +54,10 @@ function Navcards({icon ,index, Heading}) {
     <CardHeader className=" d-flex justify-content-between col-lg-12  mx-0 px-0" >
       <div className='  d-flex mx-3 w-100 justify-content-between'>
         <div className=" h6  "><b>{Heading ? Heading : ''}</b></div>
-        {index ?
+        {index ? 
         <div  className=" d-flex   ">       
         <Nav tabs  className=" d-flex"  >
-      {index.map((key)=><>
+      {tabs.map((key)=><>
         <NavItem key={key} className="m-0 p-0 ">
         <NavLink 
              ref={tabActive}
@@ -80,7 +88,7 @@ function Navcards({icon ,index, Heading}) {
     <CardBody>
     <TabContent activeTab={tab}>
         {
-            index.map((e)=><><TabPane key={e} tabId={e.title}>
+            tabs.map((e)=><><TabPane key={e} tabId={e.title}>
             <Row>
               <Col sm="12">
              
