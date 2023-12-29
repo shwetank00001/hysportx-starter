@@ -57,8 +57,6 @@ const ParticipatorMainList = () => {
     fetchData()
   }, [dispatch])
 
-  console.log("Participator here", Participator.participators)
-
   const columns = useMemo(
     () => [
       {
@@ -160,25 +158,14 @@ const ParticipatorMainList = () => {
 
   const onClickDelete = participator => {
      console.log("Delete Participator:", participator)
-    // setParticipator(participator)
+    setParticipator(participator)
     setDeleteModal(true)
   }
 
-const handleDeleteParticipator = async () => {
-  console.log("Delete Participator:", participator)
-  if (participator && participator.id) {
-    setLoading(true)
-    try {
-      await dispatch(deleteParticipatorRequest(participator.id))
-      setDeleteModal(false)
-      await dispatch(participatorMainListRequest())
-    } catch (error) {
-
-      console.error("Error deleting participator:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
+const handleDeleteParticipator = () => {
+  setDeleteModal(false)
+  setLoading(true)
+  dispatch(deleteParticipatorRequest(participator.id))
 }
 
   const modalities = data => {
