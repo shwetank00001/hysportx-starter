@@ -156,22 +156,23 @@ const Participator = () => {
   const [deleteModal, setDeleteModal] = useState(false)
   const [participator, setParticipator] = useState(null)
 
-  const onClickDelete = participator => {
-    setParticipator(participator)
-    setDeleteModal(true)
-  }
+const onClickDelete = participator => {
+  setParticipator(participator)
+  setDeleteModal(true)
+}
 
-  const handleDeleteParticipator = () => {
-    if (participator && participator.id) {
-      setLoading(true)
-      dispatch(deleteParticipatorRequest(participator.id))
-      setDeleteModal(false)
-      setTimeout(() => {
-        dispatch(participatorListRequest())
-        setLoading(false)
-      }, 1000)
-    }
+const handleDeleteParticipator = () => {
+  if (participator && participator.id) {
+    setLoading(true)
+    dispatch(deleteParticipatorRequest(participator.id))
+    setDeleteModal(false)
+    setTimeout(() => {
+      dispatch(participatorListRequest())
+      setLoading(false)
+    }, 1000)
   }
+}
+
 
   const modalities = data => {
     const value = data.map(item => {

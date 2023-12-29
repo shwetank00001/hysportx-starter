@@ -157,21 +157,26 @@ const ParticipatorMainList = () => {
   const [participator, setParticipator] = useState(null)
 
   const onClickDelete = participator => {
+     console.log("Delete Participator:", participator)
     setParticipator(participator)
     setDeleteModal(true)
   }
 
-  const handleDeleteParticipator = () => {
-    if (participator && participator.id) {
-      setLoading(true)
-      dispatch(deleteParticipatorRequest(participator.id))
+const handleDeleteParticipator = async () => {
+  if (participator && participator.id) {
+    setLoading(true)
+    try {
+      await dispatch(deleteParticipatorRequest(participator.id))
       setDeleteModal(false)
-      setTimeout(() => {
-        dispatch(participatorMainListRequest())
-        setLoading(false)
-      }, 1000)
+      await dispatch(participatorMainListRequest())
+    } catch (error) {
+
+      console.error("Error deleting participator:", error)
+    } finally {
+      setLoading(false)
     }
   }
+}
 
   const modalities = data => {
     const value = data.map(item => {
