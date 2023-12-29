@@ -47,7 +47,7 @@ const authProtectedRoutes =[
     { label:"Dashboard", path: "/Participator/dashboard", component: <ParticipatorDashboard />, user:'Participator',icon:"mdi mdi-run",children:[] },
     { label:"Community", path: "/Participator/communities", component: <Community/>, user:'Participator',icon:"mdi mdi-run",children:[] },
     { label:"Comptitions", path: "/Participator/comptitions", component: <Competition />, user:'Participator',icon:"mdi mdi-run",children:[] },
-    { label:"Profile", path: "/Profile", component: <Profile />, user:'Participator',icon:"mdi mdi-run",children:[] },
+    { label:"Profile", path: "/Participator/Profile", component: <Profile />, user:'Participator',icon:"mdi mdi-run",children:[] },
 ]; 
 const publicRoutes = [
   { path: "/Leaderboard", component: <LeaderBoard/> },
