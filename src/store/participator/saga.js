@@ -41,10 +41,13 @@ function* listParticipatorRequestsSaga() {
 }
 function* listParticipatorMainListSaga() {
   try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator Please wait ...'}})
     const data = yield call(participator.listParticipators)
     yield put({ type: PARTICIPATOR_LIST_MAIN_SUCCESS, payload: data.data })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_MAIN_FAIL, payload: error })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
