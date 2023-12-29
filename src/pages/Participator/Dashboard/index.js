@@ -55,7 +55,7 @@ const Dashboard = props => {
                 <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/>
                 </Col>
                 <Col>
-                <Navcards index={post}  Heading="Comments" icon={<><Button /><Button /></>}/>
+                {/* <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/> */}
                 </Col>
               </Row>
               <Row>
@@ -92,7 +92,7 @@ const Dashboard = props => {
                 <Navcards index={event}  Heading="Organise Your Sport Event" />
                 <Navcards index={connect}  Heading="Connect" icon={<><Button /><Button /></>}/>
                 <Navcards index={fitness}  Heading="Fitness $ Health" icon={<><Button /><Button /></>}/>
-                <Navcards index={fitness}  Heading="Activity" icon={<><Button /><Button /></>}/>
+                {/* <Navcards  Heading="Activity" icon={<><Button /><Button /></>}/> */}
                 <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/>
                 </Col>
             </Row>
