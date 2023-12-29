@@ -5,7 +5,7 @@ import Exercise from "pages/Exercise"
 
 // Partcipator folder
 import ParticipatorDashboard from '../pages/Participator/Dashboard'
-
+import Competition from '../pages/Participator/Competition'
 // community folder
 import CommunityDashboard from "pages/Community/CommunityDashboard/CommunityDashboard";
 import ParticipatorMainList from "pages/Community/ParticipatorMainList/ParticipatorMainList";
@@ -20,6 +20,7 @@ import Error from "pages/Errors/NotFound";
 import Dashboard from "../pages/Dashboard/index";
 import LeaderBoard from "pages/LeaderBoard";
 import Community from "pages/Participator/CommunityList";
+import Profile from "pages/ProfilePage";
 
 
 
@@ -45,7 +46,8 @@ const authProtectedRoutes =[
     // Participator routes
     { label:"Dashboard", path: "/Participator/dashboard", component: <ParticipatorDashboard />, user:'Participator',icon:"mdi mdi-run",children:[] },
     { label:"Community", path: "/Participator/communities", component: <Community/>, user:'Participator',icon:"mdi mdi-run",children:[] },
-    { label:"Comptitions", path: "/Participator/comptitions", component: <ParticipatorDashboard />, user:'Participator',icon:"mdi mdi-run",children:[] },
+    { label:"Comptitions", path: "/Participator/comptitions", component: <Competition />, user:'Participator',icon:"mdi mdi-run",children:[] },
+    { label:"Profile", path: "Profile", component: <Profile />, user:'Participator',icon:"mdi mdi-run",children:[] },
 ]; 
 const publicRoutes = [
   { path: "/Leaderboard", component: <LeaderBoard/> },
