@@ -34,9 +34,9 @@ const authProtectedRoutes =[
     { label:"Participator List", path: "/community/participator-main-list", component: <ParticipatorMainList /> , user:'community',icon:"mdi mdi-run",children:[]},
     { label:"Exercise List", path: "/community/exercise", component: <Exercise />, user:'community',icon:"mdi mdi-run",children:[] },
     { label:"Dummy", path: "/community/dummy", component: <Dashboard />, user:'community',icon:"mdi mdi-run",children:[
-      {label:'dummy1',path:'/community/dummy1',component:<CommunityDashboard />},
-      {label:'dummy2',path:'/community/dummy2',component:<CommunityDashboard />},
-      {label:'dummy3',path:'/community/dummy3',component:<CommunityDashboard />},
+      {label:'dummy1',path:'/community/dummy1',component:<ParticipatorDashboard />},
+      {label:'dummy2',path:'/community/dummy2',component:<Profile />},
+      {label:'dummy3',path:'/community/dummy3',component:<Dashboard />},
       {label:'dummy4',path:'/community/dummy4',component:<CommunityDashboard />}
     ] },
     // Admin routes
