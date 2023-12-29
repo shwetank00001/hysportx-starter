@@ -13,26 +13,28 @@ function AccountDetails({data}) {
     
 ] 
   return (
-    <Card color=' m-1'>
+    <Card color=' '>
     <CardHeader className=' d-flex justify-content-between  card-soft-primary waves-effect waves-light  m-0 py-1 px-2'>
         <h6 className='d-flex gap-1' style={{color:'blue'}}><i className="mdi mdi-eye-outline d-block  align-middle  "></i>Account Detail</h6>
     <Button className=' m-0 py-0 px-1 btn-soft-success  waves-effect waves-light' ><i className="mdi mdi-pencil text-primary d-block "></i></Button>
     </CardHeader>
-    <CardText>
+    <CardText className='my-2'>
         {social.map((i)=>
-       <Row key={i} className='d-flex m-0 p-0'>
+       <Row key={i} className='d-flex my-1 p-0'>
        <div style={{width:'100%'}} className='d-flex  my-0 p-0'>
 
        <div className='mx-1' >
 
           <i className="fas fa-caret-right d-block  align-middle m-0 p-0  "></i>
        </div>
-     <div className='m-0 p-0 d-flex' style={{fontSize:'8px', width:'90%'}}>
+     <div className='m-0 p-0 d-flex' style={{fontSize:'10px', width:'90%'}}>
       <Row className='' style={{width:'100%'}} xl={12}>
        <Col  className='m-0 py-0' xl={6}>
        <div style={{width:'100%'}} >
+       <b>
 
        {i.title}
+       </b>
       </div>
        </Col>
      <Col xl={6}>

@@ -46,23 +46,23 @@ const Dashboard = props => {
                 <Navcards index={kyc}  Heading="KYC Details" icon={<><Button /><Button /></>}/>
                 </Col>
                 <Col>
-                  {/* <Navcards index={national}  Heading="FWG National" icon={<><Button /><Button /></>}/> */}
-                  {/* <Navcards index={inetrSchool}  Heading="FWG InterSchool" icon={<><Button /><Button /></>}/> */}
+                  <Navcards index={national}  Heading="FWG National" icon={<><Button /><Button /></>}/>
+                  <Navcards index={inetrSchool}  Heading="FWG InterSchool" icon={<><Button /><Button /></>}/>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                {/* <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/> */}
+                <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/>
                 </Col>
                 <Col>
-                {/* <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/> */}
+                <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/>
                 </Col>
               </Row>
               <Row>
-                {/* <Navcards index={support}  Heading="Help & Support" icon={<><Button /><Button /></>}/> */}
+                <Navcards index={support}  Heading="Help & Support" icon={<><Button /><Button /></>}/>
               </Row>
               <Row>
-                {/* <Navcards index={app}  Heading="Other Utility App" icon={<><Button /><Button /></>}/> */}
+                <Navcards index={app}  Heading="Other Utility App" icon={<><Button /><Button /></>}/>
               </Row>
               </Col>
                 <Col>
@@ -88,12 +88,12 @@ const Dashboard = props => {
                 ))}
                 </Row>
               
-                {/* <Navcards index={broadcast}  Heading="Broadcast" icon={<><Button /><Button /></>}/>
+                <Navcards index={broadcast}  Heading="Broadcast" icon={<><Button /><Button /></>}/>
                 <Navcards index={event}  Heading="Organise Your Sport Event" />
                 <Navcards index={connect}  Heading="Connect" icon={<><Button /><Button /></>}/>
                 <Navcards index={fitness}  Heading="Fitness $ Health" icon={<><Button /><Button /></>}/>
                 <Navcards  Heading="Activity" icon={<><Button /><Button /></>}/>
-                <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/> */}
+                <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/>
                 </Col>
             </Row>
                 {/* <Navcards index={competition}  Heading={<h2 className='  text-danger'> FW Comptitions </h2>} icon={<><Button /><Button /></>}/> */}

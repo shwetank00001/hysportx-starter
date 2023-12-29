@@ -64,17 +64,20 @@ function index() {
                 <Row >
                 {details.map((i)=>
                 <Card  className='border' key={i}>
-                  <div className='d-flex text-center justify-content-between align-items-center'>
-                      <div>
+                  <div className='d-flex place-item-center pt-2 pb-0 justify-content-between align-items-center'>
+                      
 
                     <p style={{fontSize:'11px'}} >{i.title} </p>
-                      </div>
-                      <div className='text-end'>
+                      
+                    
 
                     <h5
                      onClick={i.onclick}
-                      style={{fontSize:'12px'}} className={i.color}>{i.button}</h5>
-                      </div>
+                      style={{fontSize:'12px'}} 
+                      className={i.color}>
+                        {i.button}
+                    </h5>
+                     
                     </div>
                   </Card>
                 )}
@@ -91,7 +94,7 @@ function index() {
                         <SocialLink/>
                 </Row>
                 <Row>
-                        <PresentAddress/>
+                        {/* <PresentAddress/> */}
                 </Row>
                 <Row>
                         <AccountDetails/>
