@@ -55,7 +55,7 @@ function index() {
           </Row>
           <Container>
             <Row className='gap-'>
-              <Col lg={3}> 
+              <Col lg={4}> 
                <Row className=''>
                 
                  {/* <ProfileCard/> */}
@@ -67,7 +67,7 @@ function index() {
                   <div className='d-flex text-center justify-content-between align-items-center'>
                       <div>
 
-                    <p style={{fontSize:'9px'}} >{i.title} </p>
+                    <p style={{fontSize:'11px'}} >{i.title} </p>
                       </div>
                       <div className='text-end'>
 
@@ -81,7 +81,7 @@ function index() {
               </Row>
                 </Row>
               </Col>
-              <Col lg={4}  className=''> 
+              <Col lg={3}  className=''> 
               <div className='mx-2'>
 
                 <Row>
