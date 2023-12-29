@@ -1,0 +1,1 @@
+pages / community / participatorMainList: community list blank row on delete
