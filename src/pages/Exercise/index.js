@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react"
 import { Link, json, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
+import { format } from 'date-fns';
 // Formik validation
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -12,7 +13,7 @@ import DeleteModal from 'components/Common/DeleteModal';
 import { ToastContainer } from "react-toastify";
 
 
-import { Col, Row, Card, CardBody, Label, Form, Input, Modal, ModalHeader, ModalBody, FormFeedback, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledTooltip, Badge, Button } from "reactstrap";
+import { Col, Row, Card, CardBody, Label, Form, Input, Modal, ModalHeader, ModalBody, UncontrolledTooltip, Badge, Button } from "reactstrap";
 import TableContainer from 'components/Common/TableContainer';
 import Spinners from "components/Common/Spinner";
 
@@ -23,6 +24,7 @@ import { exerciseListRequest, deleteExerciseRequest as onDeleteExerciseList } fr
 const index = () => {
     const dispatch = useDispatch();
     const [modal, setModal] = useState(false)
+    const [userRole, setUserRole] = useState(null)
 
     const fetchExeciseList = state => state.exerciseReducer
     const ExeciseDataProperties = createSelector(
@@ -35,7 +37,7 @@ const index = () => {
 
     const { Execise, loading } = useSelector(ExeciseDataProperties)
     const [isLoading, setLoading] = useState(loading)
-    
+
     useEffect(() => {
         const fetchData = () => {
             setLoading(true);
@@ -46,108 +48,143 @@ const index = () => {
             }, 1000);
         };
         fetchData();
+
+        setUserRole(JSON.parse(localStorage.getItem('userData')).role.type)
     }, []);
 
 
     //coloums header start
     const columns = useMemo(
-        () => [
-            {
-                Header: 'No',
-                accessor: 'id',
-                Cell: (cellProps) => {
-                    return (
-                        <>
-                            <p className="">{cellProps.row.index + 1}</p>
-                        </>
-                    )
+        () => {
+            let columnArray = [
+                {
+                    Header: 'No',
+                    accessor: 'id',
+                    Cell: (cellProps) => {
+                        return (
+                            <>
+                                <p className="">{cellProps.row.index + 1}</p>
+                            </>
+                        )
+                    },
                 },
-            },
-            {
-                Header: 'Exercise Name',
-                accessor: 'name',
+                {
+                    Header: 'Exercise Name',
+                    accessor: 'name',
 
-            },
-            {
-                Header: 'Description',
-                accessor: 'description',
+                },
+                {
+                    Header: 'Description',
+                    accessor: 'description',
 
-            },
-            {
-                Header: 'Performance',
-                accessor: 'how_to_perform',
-            },
-            {
-                Header: 'Level',
-                accessor: 'level',
-            },
+                },
+                {
+                    Header: 'Level',
+                    accessor: 'level',
+                },
+                {
+                    Header: 'Date',
+                    accessor: 'created_at',
+                    Cell: (cellProps) => (cellProps.row.original.created_at) ? format(new Date(cellProps.row.original.created_at), 'dd MMM, yyyy') : ""
+                },
+            ];
+           
+            if (JSON.parse(localStorage.getItem('userData')).role.type == "Admin") {
+                columnArray.push({
 
-            // {
-            //     Header: 'Posted Date',
-            //     accessor: 'duration_start',
-            // },
-            // {
-            //     Header: 'Last Date',
-            //     accessor: 'duration_end',
-            // },
+                    Header: 'Action',
+                    accessor: 'action',
+                    disableFilters: true,
+                    Cell: (cellProps) => {
+                        return (
+                            <ul className="list-unstyled hstack gap-1 mb-0">
+                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                    <Button className="btn btn-sm btn-soft-primary"
+                                        id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickView(exercise_id);
+                                            setModal(true);
+                                        }}
+                                    >
+                                        <i className="mdi mdi-eye-outline" />
+                                    </Button>
+                                </li>
+                                <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
+                                    View
+                                </UncontrolledTooltip>
+                                <li>
+                                    <Button
+                                        className="btn btn-sm btn-soft-primary"
+                                        onClick={() => sendListData(cellProps.row.original, "Edit Exercise")}
+                                        id={`edittooltip-${cellProps.row.original.id}`}
+                                    >
+                                        <i className="mdi mdi-pencil-outline" />
+                                        <UncontrolledTooltip placement="top" target={`edittooltip-${cellProps.row.original.id}`} >
+                                            Edit
+                                        </UncontrolledTooltip>
+                                    </Button>
+                                </li>
 
-            {
-                Header: 'Action',
-                accessor: 'action',
-                disableFilters: true,
-                Cell: (cellProps) => {
-                    return (
-                        <ul className="list-unstyled hstack gap-1 mb-0">
-                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                <Button className="btn btn-sm btn-soft-primary"
-                                    id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
-                                    onClick={() => {
-                                        const exercise_id = cellProps.row.original;
-                                        onClickView(exercise_id);
-                                        setModal(true);
-                                    }}
-                                >
-                                    <i className="mdi mdi-eye-outline" />
-                                </Button>
-                            </li>
-                            <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
-                                View
-                            </UncontrolledTooltip>
-                            <li>
-                                <Button
-                                    className="btn btn-sm btn-soft-primary"
-                                    id={`edittooltip-${cellProps.row.original.id}`}
-                                >
-                                    <i className="mdi mdi-pencil-outline" />
-                                    <UncontrolledTooltip placement="top" target={`edittooltip-${cellProps.row.original.id}`} >
-                                        Edit
-                                    </UncontrolledTooltip>
-                                </Button>
-                            </li>
+                                <li>
+                                    <Link
+                                        to="#"
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickDelete(exercise_id);
+                                        }}
+                                        className="btn btn-sm btn-soft-danger"
+                                        id={`deletetooltip-${cellProps.row.original.id}`}
 
-                            <li>
-                                <Link
-                                    to="#"
-                                    onClick={() => {
-                                        const exercise_id = cellProps.row.original;
-                                        onClickDelete(exercise_id);
-                                    }}
-                                    className="btn btn-sm btn-soft-danger"
-                                    id={`deletetooltip-${cellProps.row.original.id}`}
+                                    >
+                                        <i className="mdi mdi-delete-outline" />
+                                        <UncontrolledTooltip placement="top" target={`deletetooltip-${cellProps.row.original.id}`}>
+                                            Delete
+                                        </UncontrolledTooltip>
+                                    </Link>
+                                </li>
+                            </ul>
+                        );
+                    }
 
-                                >
-                                    <i className="mdi mdi-delete-outline" />
-                                    <UncontrolledTooltip placement="top" target={`deletetooltip-${cellProps.row.original.id}`}>
-                                        Delete
-                                    </UncontrolledTooltip>
-                                </Link>
-                            </li>
-                        </ul>
-                    );
-                }
-            },
-        ],
+                })
+            }else{
+                columnArray.push({
 
+                    Header: 'Action',
+                    accessor: 'action',
+                    disableFilters: true,
+                    Cell: (cellProps) => {
+                        return (
+                            <ul className="list-unstyled hstack gap-1 mb-0">
+                                <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                    <Button className="btn btn-sm btn-soft-primary"
+                                        id={`viewtooltip-${cellProps.row.original.id}`} //use param Hook  
+                                        onClick={() => {
+                                            const exercise_id = cellProps.row.original;
+                                            onClickView(exercise_id);
+                                            setModal(true);
+                                        }}
+                                    >
+                                        <i className="mdi mdi-eye-outline" />
+                                    </Button>
+                                </li>
+                                <UncontrolledTooltip placement="top" target={`viewtooltip-${cellProps.row.original.id}`}>
+                                    View
+                                </UncontrolledTooltip>
+                               
+
+                            </ul>
+                        );
+                    }
+
+                })
+
+            }
+            return columnArray;
+
+        },
+     
         []
     );
 
@@ -174,32 +211,34 @@ const index = () => {
     };
     //delete excise list end
 
-    function modalities(data) {
-        const value = data.map(item => {
-            return item.name;
-
-        })
-        const commaSeparatedString = value.join(',');
-        return commaSeparatedString;
-    }
     // view exercise list data start
     const [viewexercisedata, setExerciseData] = useState(null);
     const onClickView = (exercise) => {
         setExerciseData(exercise);
     }
-    console.log(viewexercisedata);
+
+    //Edit send data navigate
+    const navigate = useNavigate();
+    function sendListData(data, EditTitleName = "Edit Exercise Application") {
+        navigate(`/Admin/hysport`, {
+            state: { data, EditTitleName, }
+        })
+    }
 
     const validation = useFormik({
         enableReinitialize: true,
 
         initialValues: {
             exercise_name: viewexercisedata && viewexercisedata.name || "",
+            exercise_description: viewexercisedata && viewexercisedata.description || "",
             exercise_level: viewexercisedata && viewexercisedata.level || "",
-            exercise_modality: viewexercisedata && modalities(viewexercisedata.modalities) || "",
+            exercise_modality: viewexercisedata && viewexercisedata.modalities.map(item => item.name).join(' , ') || "",
+            exercise_equipments: viewexercisedata && viewexercisedata.equipments.map(item => item.name).join(' , ') || "",
+            exercise_muscles: viewexercisedata && viewexercisedata.muscles.map(item => item.name).join(' , ') || "",
+            exercise_benifits: viewexercisedata && viewexercisedata.benifits.map(item => item.point).join(' , ') || "",
+            exercise_ptags: viewexercisedata && viewexercisedata.ptags.map(item => item.name).join(' , ') || "",
         },
-        validationSchema: Yup.object({
-            exercise_name: Yup.string().required("Please Enter Your Email"),
-        }),
+
         onSubmit: (values) => {
 
         }
@@ -226,8 +265,9 @@ const index = () => {
                                         <div className="flex-shrink-0">
 
                                             <Link to="#!" className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+                                            {userRole=="Admin"? <Link to="/Admin/hysport" className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Execise</Link> :""}
+                                            
 
-                                            <button className="btn btn-primary" > <i className="mdi mdi-plus me-1" />Create Execise</button>
                                         </div>
                                     </div>
                                 </CardBody>
@@ -267,7 +307,7 @@ const index = () => {
             >
                 <div className="modal-content">
                     <ModalHeader toggle={() => setModal()} id="exerciseLabel" className="modal-header">
-                        View Execise
+                        Exercise Detail
                     </ModalHeader>
                     <ModalBody>
                         <Form
@@ -288,8 +328,6 @@ const index = () => {
                                             id="execise_name"
                                             name="execise_name"
                                             placeholder=""
-                                            onChange={validation.handleChange}
-                                            onBlur={validation.handleBlur}
                                             value={validation.values.exercise_name || ""}
                                             readOnly
                                         />
@@ -304,8 +342,6 @@ const index = () => {
                                             id="execise_level"
                                             name="execise_level"
                                             placeholder=""
-                                            onChange={validation.handleChange}
-                                            onBlur={validation.handleBlur}
                                             value={validation.values.exercise_level || ""}
                                             readOnly
                                         />
@@ -320,11 +356,84 @@ const index = () => {
                                             id="exercise_modality"
                                             name="exercise_modality"
                                             placeholder=""
-                                            onChange={validation.handleChange}
-                                            onBlur={validation.handleBlur}
                                             value={validation.values.exercise_modality || ""}
                                             readOnly
                                         />
+                                    </div>
+                                </div>
+
+                                <div className="row mb-3">
+                                    <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                                        <Label htmlFor="exercise_equipments" className="mt-2">Equipments</Label>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                        <Input type="text"
+                                            id="exercise_equipments"
+                                            name="exercise_equipments"
+                                            placeholder=""
+                                            value={validation.values.exercise_equipments || ""}
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="row mb-3">
+                                    <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                                        <Label htmlFor="exercise_muscles" className="mt-2">Muscles</Label>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                        <Input type="text"
+                                            id="exercise_muscles"
+                                            name="exercise_muscles"
+                                            placeholder=""
+                                            value={validation.values.exercise_muscles || ""}
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="row mb-3">
+                                    <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                                        <Label htmlFor="exercise_benifits" className="mt-2">Benifits</Label>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                        <Input type="text"
+                                            id="exercise_benifits"
+                                            name="exercise_benifits"
+                                            placeholder=""
+                                            value={validation.values.exercise_benifits || ""}
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                                        <Label htmlFor="exercise_ptags" className="mt-2">Performance Tags</Label>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                        <Input type="text"
+                                            id="exercise_ptags"
+                                            name="exercise_ptags"
+                                            placeholder=""
+                                            value={validation.values.exercise_ptags || ""}
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="row mb-3">
+                                    <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                                        <Label htmlFor="exercise_description" className="mt-2">Description</Label>
+                                    </div>
+                                    <div className="col-lg-8 col-md-8">
+                                        <textarea className="form-control"
+                                            id="exercise_description"
+                                            name="exercise_description"
+                                            placeholder=""
+                                            value={validation.values.exercise_description || ""}
+                                            readOnly
+                                        />
+
                                     </div>
                                 </div>
 

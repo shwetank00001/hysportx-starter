@@ -27,10 +27,12 @@ import {
   participatorMainListRequest,
   deleteParticipatorRequest,
 } from "../../../store/participator/actions"
+import { preventDefault } from "@fullcalendar/core/internal"
 
 const ParticipatorMainList = () => {
   const dispatch = useDispatch()
   const [modal, setModal] = useState(false)
+  const [viewModal, setviewModal] = useState(false)
 
   const fetchParticipatorList = state => state.participatorReducer
   const ParticipatorDataProperties = createSelector(
@@ -97,11 +99,11 @@ const ParticipatorMainList = () => {
                 <Button
                   className="btn btn-sm btn-soft-primary"
                   id={`viewtooltip-${cellProps.row.original.id}`}
-                  onClick={() => {
-                    const participator_id = cellProps.row.original
-                    onClickView(participator_id)
-                    setModal(true)
-                  }}
+                  // onClick={() => {
+                  //   const participator_id = cellProps.row.original
+                  //   onClickView(participator_id)
+                  //   setModal(true)
+                  // }}
                 >
                   <i className="mdi mdi-eye-outline" />
                 </Button>
@@ -129,10 +131,10 @@ const ParticipatorMainList = () => {
               <li>
                 <Link
                   to="#"
-                  onClick={() => {
-                    const participator_id = cellProps.row.original
-                    onClickDelete(participator_id)
-                  }}
+                  // onClick={() => {
+                  //   const participator_id = cellProps.row.original
+                  //   onClickDelete(participator_id)
+                  // }}
                   className="btn btn-sm btn-soft-danger"
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
@@ -209,7 +211,7 @@ const handleDeleteParticipator = async () => {
         "Please Enter Participator Name"
       ),
     }),
-    onSubmit: values => {},
+    onSubmit: values => { },
   })
 
   return (
@@ -235,7 +237,11 @@ const handleDeleteParticipator = async () => {
                       <Link to="#!" className="btn btn-light me-1">
                         <i className="mdi mdi-refresh"></i>
                       </Link>
-                      <button className="btn btn-primary">
+                      <button className="btn btn-primary" 
+                       onClick={() => {
+                        setModal(true)
+                      }}
+                      >
                         {" "}
                         <i className="mdi mdi-plus me-1" />
                         Create Participator
@@ -272,15 +278,15 @@ const handleDeleteParticipator = async () => {
         </div>
       </div>
       <Modal
-        isOpen={modal}
+        isOpen={viewModal}
         toggle={() => {
-          setModal()
+          setviewModal()
         }}
         id="participator"
       >
         <div className="modal-content">
           <ModalHeader
-            toggle={() => setModal()}
+            toggle={() => setviewModal()}
             id="participatorLabel"
             className="modal-header"
           >
@@ -357,7 +363,7 @@ const handleDeleteParticipator = async () => {
                   <div className="text-end">
                     <button
                       className="btn btn-outline-secondary"
-                      onClick={() => setModal()}
+                      onClick={() => setviewModal()}
                     >
                       Cancel
                     </button>
@@ -368,6 +374,132 @@ const handleDeleteParticipator = async () => {
           </ModalBody>
         </div>
       </Modal>
+
+      {/* Create participator form */}
+      <Modal
+         isOpen={modal}
+         toggle={() => {
+           setModal()
+         }}
+      >
+        <div className="modal-header">
+          <h5 className="modal-title" id="exampleModalLabel">
+            Add New Participator{" "}
+          </h5>
+          <button
+            type="button"
+            onClick={() => {
+              setModal(false)
+            }}
+            className="btn-close"
+          ></button>
+        </div>
+        <Form>
+          <div className="modal-body px-5">
+            <Row className="mb-4">
+              <Label
+                htmlFor="horizontal-firstname-Input"
+                className="col-sm-3 col-form-label"
+              >
+                First name
+              </Label>
+              <Col sm={9}>
+                <Input
+                  type="text"
+                  name="first_name"
+                  className="form-control"
+                  id="horizontal-firstname-Input"
+                  placeholder="Enter Your first name"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Label
+                htmlFor="horizontal-lastname-Input"
+                className="col-sm-3 col-form-label"
+              >
+                Last name
+              </Label>
+              <Col sm={9}>
+                <Input
+                  type="text"
+                  name="last_name"
+                  className="form-control"
+                  id="horizontal-lastname-Input"
+                  placeholder="Enter Your Last Name"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Label
+                htmlFor="horizontal-email-Input"
+                className="col-sm-3 col-form-label"
+              >
+                Email
+              </Label>
+              <Col sm={9}>
+                <Input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  id="horizontal-email-Input"
+                  placeholder="Enter Your Email ID"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Label
+                htmlFor="horizontal-lastname-Input"
+                className="col-sm-3 col-form-label"
+              >
+                Phone
+              </Label>
+              <Col sm={9}>
+                <Input
+                  type="text"
+                  name="phone"
+                  className="form-control"
+                  id="horizontal-lastname-Input"
+                  placeholder="Enter Your Mobile"
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Label
+                htmlFor="horizontal-password-Input"
+                className="col-sm-3 col-form-label"
+              >
+                Password
+              </Label>
+              <Col sm={9}>
+                <Input
+                  type="password"
+                  autoComplete="off"
+                  className="form-control"
+                  id="horizontal-password-Input"
+                  placeholder="Enter Your Password"
+                />
+              </Col>
+            </Row>
+
+
+          </div>
+          <div className="modal-footer">
+            <button
+              onClick={(e) => {preventDefault(e),setModal()}}
+              type="button"
+              className="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" className="btn btn-primary">
+              + ADD
+            </button>
+          </div>
+        </Form>
+      </Modal>
+
     </React.Fragment>
   )
 }

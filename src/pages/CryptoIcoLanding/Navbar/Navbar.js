@@ -57,18 +57,18 @@ const Navbar_Page = props => {
     <React.Fragment>
       <nav className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}>
         <div className="container-fluid">
-          <Collapse id="topnav-menu-content" navbar>
             <Nav className="ms-2 navbar-nav" id="topnav-menu">
               <Link to="/" className="logo logo-dark">
                 <span className="logo-sm">
-                  <img src={logo} alt="" height="22" />
+                  <img src={logo} alt="" height="50" />
                 </span>
                 <span className="logo-lg">
                   <img src={logo} alt="" height="70" />
                 </span>
               </Link>
             </Nav>
-            <form className="app-search d-none d-lg-block ms-5">
+          <Collapse isOpen={menu} id="topnav-menu-content" navbar>
+            <form className="app-search d-none d-lg-block d ms-5">
               <div className="position-relative">
                 <input
                   type="text"
@@ -110,8 +110,7 @@ const Navbar_Page = props => {
                 </Link>
               </DropdownMenu>
             </Dropdown>
-          </Collapse>
-          <div className="me-lg-5">
+          <div className="ms-lg-auto ms-md-auto ms-sm-auto">
             <LanguageDropdown />
             <NotificationDropdown />
 
@@ -153,6 +152,15 @@ const Navbar_Page = props => {
               </div>
             </div>
           </div>
+          </Collapse>
+
+          <button
+            className="navbar-toggler bg-light"
+            type="button"
+            onClick={() => setMenu(!menu)}
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
         </div>
       </nav>
     </React.Fragment>

@@ -119,7 +119,9 @@ const Navbar = props => {
                    className="nav-link dropdown-toggle arrow-none"
                    to={route.path}
                  >
-                   <i className="bx bx-home-circle me-2"></i>
+                  
+                  
+                   <i className={`me-2 ${route.icon ? route.icon : 'bx bx-home-circle'}`}></i>
                    {props.t(route.label)} {props.menuOpen}
                  </Link>
 

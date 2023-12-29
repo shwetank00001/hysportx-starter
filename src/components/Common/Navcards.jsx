@@ -13,11 +13,11 @@ import {
   } from "reactstrap";
   import classnames from "classnames";
   
-function Navcards(props) {
-    const [tab, setTab] = useState(props.index[0].title);
+function Navcards({icon ,index, Heading}) {
+    const [tab, setTab] = useState(index[0].title);
     const [tabActiv, settabActiv] = useState()
         // tab.className= 'active'
-  let  index = props.index
+
   const toggle = e => {
     if (tab !== e) {
       setTab(e);
@@ -40,14 +40,15 @@ function Navcards(props) {
       <>
     
     <Card
-    className=""
+    className=" mx-0 px-0"
    
   >
-    <CardHeader className="px-2" >
-      <Row xl={12} className='  d-flex  justify-between'>
-        <span className=" h6 mx-3">{props.Heading}</span>
-        <div style={{fontSize:'0.8vw'}} className=" ">       
-        <Nav tabs  className=""  >
+    <CardHeader className=" d-flex justify-content-between col-lg-12  mx-0 px-0" >
+      <div className='  d-flex mx-3 w-100 justify-content-between'>
+        <div className=" h6  "><b>{Heading ? Heading : ''}</b></div>
+        {index ?
+        <div style={{fontSize:'0.6vw'}} className=" d-flex  ">       
+        <Nav tabs  className=" d-flex"  >
       {index.map((key)=><>
         <NavItem key={key} className="m-0 p-0 ">
         <NavLink 
@@ -55,6 +56,7 @@ function Navcards(props) {
               // className='m-xxl-0 p-1 '
               style={{ cursor: "pointer" }}
               className={classnames({
+                'my-0 mx-1 p-0': true,
                 active: tab === key.title,
               })}
               onClick={function noRefCheck(){
@@ -69,8 +71,9 @@ function Navcards(props) {
           
             </>)}
     </Nav>
-    </div>
-  </Row>
+        </div>:" "}
+       </div>
+        {icon ?<i className='font-size-15  dripicons-document-edit'></i> :''}
     {/* <Col className='text-end'>{props.icon}</Col> */}
      </CardHeader>
     
