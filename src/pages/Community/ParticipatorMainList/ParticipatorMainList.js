@@ -131,10 +131,10 @@ const ParticipatorMainList = () => {
               <li>
                 <Link
                   to="#"
-                  // onClick={() => {
-                  //   const participator_id = cellProps.row.original
-                  //   onClickDelete(participator_id)
-                  // }}
+                  onClick={() => {
+                    const participator_id = cellProps.row.original
+                    onClickDelete(participator_id)
+                  }}
                   className="btn btn-sm btn-soft-danger"
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
@@ -143,7 +143,7 @@ const ParticipatorMainList = () => {
                     placement="top"
                     target={`deletetooltip-${cellProps.row.original.id}`}
                   >
-                    Delete
+                    Remove Partcipator
                   </UncontrolledTooltip>
                 </Link>
               </li>
@@ -160,7 +160,7 @@ const ParticipatorMainList = () => {
 
   const onClickDelete = participator => {
      console.log("Delete Participator:", participator)
-    setParticipator(participator)
+    // setParticipator(participator)
     setDeleteModal(true)
   }
 
@@ -218,6 +218,7 @@ const handleDeleteParticipator = async () => {
   return (
     <React.Fragment>
       <DeleteModal
+        text={'Are you Sure you want to remove the participator ?'}
         show={deleteModal}
         onDeleteClick={handleDeleteParticipator}
         onCloseClick={() => setDeleteModal(false)}
