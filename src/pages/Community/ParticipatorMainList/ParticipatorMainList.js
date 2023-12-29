@@ -16,6 +16,8 @@ import {
   ModalBody,
   UncontrolledTooltip,
   Button,
+  FormFeedback,
+
 } from "reactstrap"
 import TableContainer from "components/Common/TableContainer"
 import Spinners from "components/Common/Spinner"
@@ -26,7 +28,9 @@ import { createSelector } from "reselect"
 import {
   participatorMainListRequest,
   deleteParticipatorRequest,
-} from "../../../store/participator/actions"
+  onAddParticipator as addParticipatorForm,
+} from "../../../store/actions";
+
 import { preventDefault } from "@fullcalendar/core/internal"
 
 const ParticipatorMainList = () => {
@@ -99,11 +103,11 @@ const ParticipatorMainList = () => {
                 <Button
                   className="btn btn-sm btn-soft-primary"
                   id={`viewtooltip-${cellProps.row.original.id}`}
-                  // onClick={() => {
-                  //   const participator_id = cellProps.row.original
-                  //   onClickView(participator_id)
-                  //   setModal(true)
-                  // }}
+                // onClick={() => {
+                //   const participator_id = cellProps.row.original
+                //   onClickView(participator_id)
+                //   setModal(true)
+                // }}
                 >
                   <i className="mdi mdi-eye-outline" />
                 </Button>
@@ -159,27 +163,27 @@ const ParticipatorMainList = () => {
   const [participator, setParticipator] = useState(null)
 
   const onClickDelete = participator => {
-     console.log("Delete Participator:", participator)
+    console.log("Delete Participator:", participator)
     setParticipator(participator)
     setDeleteModal(true)
   }
 
-const handleDeleteParticipator = async () => {
-  console.log("Delete Participator:", participator)
-  if (participator && participator.id) {
-    setLoading(true)
-    try {
-      await dispatch(deleteParticipatorRequest(participator.id))
-      setDeleteModal(false)
-      await dispatch(participatorMainListRequest())
-    } catch (error) {
+  const handleDeleteParticipator = async () => {
+    console.log("Delete Participator:", participator)
+    if (participator && participator.id) {
+      setLoading(true)
+      try {
+        await dispatch(deleteParticipatorRequest(participator.id))
+        setDeleteModal(false)
+        await dispatch(participatorMainListRequest())
+      } catch (error) {
 
-      console.error("Error deleting participator:", error)
-    } finally {
-      setLoading(false)
+        console.error("Error deleting participator:", error)
+      } finally {
+        setLoading(false)
+      }
     }
   }
-}
 
   const modalities = data => {
     const value = data.map(item => {
@@ -195,25 +199,28 @@ const handleDeleteParticipator = async () => {
     setParticipatorData(item)
   }
 
+  // Handle create participator start 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      participator_name:
-        (viewparticipatordata && viewparticipatordata.name) || "",
-      participator_level:
-        (viewparticipatordata && viewparticipatordata.level) || "",
-      participator_modality:
-        (viewparticipatordata && modalities(viewparticipatordata.modalities)) ||
-        "",
+      first_name:  "",
+      last_name:  "",
+      email:  "",
+      phone:"",
+      password:"",
     },
     validationSchema: Yup.object({
-      participator_name: Yup.string().required(
-        "Please Enter Participator Name"
-      ),
+      first_name: Yup.string().required("Please Enter Your Name"),
+      email: Yup.string().email("Invalid email address format").required("Email is required"),
+      phone:Yup.string().matches(phoneRegExp, 'Phone number is not valid') .min(10, "please enter only 10 digit number").max(10, "not valid only 10 digit number valid"),
     }),
-    onSubmit: values => { },
-  })
+    onSubmit: (values) => {
+      dispatch(addParticipatorForm(values));
+      validation.resetForm();
+    }
+  });
+  // Handle create participator end
 
   return (
     <React.Fragment>
@@ -238,10 +245,10 @@ const handleDeleteParticipator = async () => {
                       <Link to="#!" className="btn btn-light me-1">
                         <i className="mdi mdi-refresh"></i>
                       </Link>
-                      <button className="btn btn-primary" 
-                       onClick={() => {
-                        setModal(true)
-                      }}
+                      <button className="btn btn-primary"
+                        onClick={() => {
+                          setModal(true)
+                        }}
                       >
                         {" "}
                         <i className="mdi mdi-plus me-1" />
@@ -376,12 +383,12 @@ const handleDeleteParticipator = async () => {
         </div>
       </Modal>
 
-      {/* Create participator form */}
+      {/* Create participator form start */}
       <Modal
-         isOpen={modal}
-         toggle={() => {
-           setModal()
-         }}
+        isOpen={modal}
+        toggle={() => {
+          setModal()
+        }}
       >
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLabel">
@@ -395,23 +402,38 @@ const handleDeleteParticipator = async () => {
             className="btn-close"
           ></button>
         </div>
-        <Form>
+        <Form
+          className="form-horizontal"
+          onSubmit={(e) => {
+            e.preventDefault();
+            validation.handleSubmit();
+            return false;
+          }}
+        >
           <div className="modal-body px-5">
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-firstname-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                First name
+                First name <span className="text-danger">*</span>
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="first_name"
                   className="form-control"
-                  id="horizontal-firstname-Input"
-                  placeholder="Enter Your first name"
+                  placeholder="Enter First Name"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.first_name || ""}
+                  invalid={
+                    validation.touched.first_name && validation.errors.first_name ? true : false
+                  }
                 />
+                {validation.touched.first_name && validation.errors.first_name ? (
+                <FormFeedback type="invalid">{validation.errors.first_name}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
             <Row className="mb-4">
@@ -423,31 +445,43 @@ const handleDeleteParticipator = async () => {
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="last_name"
                   className="form-control"
-                  id="horizontal-lastname-Input"
-                  placeholder="Enter Your Last Name"
+                  placeholder="Enter Last Name"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.last_name || ""}     
                 />
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-email-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                Email
+                Email <span className="text-danger">*</span>
               </Label>
               <Col sm={9}>
                 <Input
-                  type="email"
                   name="email"
                   className="form-control"
-                  id="horizontal-email-Input"
-                  placeholder="Enter Your Email ID"
+                  placeholder="Enter Email"
+                  type="email"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.email || ""}
+                  invalid={
+                    validation.touched.email && validation.errors.email ? true : false
+                  }
                 />
+                {validation.touched.email && validation.errors.email ? (
+                <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
                 htmlFor="horizontal-lastname-Input"
@@ -457,49 +491,55 @@ const handleDeleteParticipator = async () => {
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="phone"
                   className="form-control"
-                  id="horizontal-lastname-Input"
-                  placeholder="Enter Your Mobile"
+                  placeholder="Enter phone number"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.phone || ""}
+                  invalid={
+                    validation.touched.phone && validation.errors.phone ? true : false
+                  }
                 />
+                {validation.touched.phone && validation.errors.phone ? (
+                <FormFeedback type="invalid">{validation.errors.phone}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-password-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                Password
+               password
               </Label>
               <Col sm={9}>
                 <Input
-                  type="password"
-                  autoComplete="off"
+                  name="password"
                   className="form-control"
-                  id="horizontal-password-Input"
-                  placeholder="Enter Your Password"
+                  placeholder="Create Password"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.password || ""}
                 />
               </Col>
             </Row>
+
+       
+         
 
 
           </div>
           <div className="modal-footer">
-            <button
-              onClick={(e) => {preventDefault(e),setModal()}}
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              + ADD
-            </button>
+            <button type="submit" className="btn btn-success">Create Participator <i className="bx bx-send align-middle"></i> </button>
+            {/* <button type="button" className="btn btn-primary" data-bs-dismiss="modal" > Close</button> */}
           </div>
         </Form>
       </Modal>
+      {/* Create participator form end */}
 
     </React.Fragment>
   )

@@ -1,10 +1,13 @@
 
 import {
+  ADD_PARTICIPATOR,
+  ADD_PARTICIPATOR_SUCCESS,
+  ADD_PARTICIPATOR_FAIL,
+
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
-  ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAILURE,
   EDIT_PARTICIPATOR_REQUEST,
   EDIT_PARTICIPATOR_SUCCESS,
@@ -25,6 +28,7 @@ const initialState = {
 
 const participatorReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_PARTICIPATOR:  
     case PARTICIPATOR_LIST_REQUEST:
     case PARTICIPATOR_LIST_MAIN_REQUEST:
     case ADD_PARTICIPATOR_REQUEST:
@@ -35,6 +39,8 @@ const participatorReducer = (state = initialState, action) => {
         loading: true,
         error: null,
       }
+
+    case ADD_PARTICIPATOR_SUCCESS:
     case PARTICIPATOR_LIST_SUCCESS:
     case PARTICIPATOR_LIST_MAIN_SUCCESS:
       return {
@@ -42,13 +48,14 @@ const participatorReducer = (state = initialState, action) => {
         loading: false,
         participator: action.payload,
       }
-    case ADD_PARTICIPATOR_SUCCESS:
+    
     case EDIT_PARTICIPATOR_SUCCESS:
     case DELETE_PARTICIPATOR_SUCCESS:
       return {
         ...state,
         loading: false,
       }
+    case ADD_PARTICIPATOR_FAIL:
     case PARTICIPATOR_LIST_FAIL:
     case PARTICIPATOR_LIST_MAIN_FAIL:
     case ADD_PARTICIPATOR_FAILURE:
