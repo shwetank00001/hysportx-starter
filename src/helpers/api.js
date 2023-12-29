@@ -124,5 +124,5 @@ export const participator = {
 
   listParticipators: () => get("/list-participators"),
 
-  createParticipator: data => post("/create-participator"),
+  addParticipator: data => post("/create-participator",data),
 }

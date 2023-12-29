@@ -3,60 +3,27 @@ import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import {
-  Col,
-  Row,
-  Card,
-  CardBody,
-  Label,
-  Form,
-  Input,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  UncontrolledTooltip,
-  Button,
-} from "reactstrap"
+import {Col,Row,Card,CardBody, Label,Form,Input,Modal,ModalHeader, ModalBody,UncontrolledTooltip,Button,FormFeedback,} from "reactstrap"
 import TableContainer from "components/Common/TableContainer"
-import Spinners from "components/Common/Spinner"
 import Breadcrumbs from "components/Common/Breadcrumb"
 import DeleteModal from "components/Common/DeleteModal"
 import { ToastContainer } from "react-toastify"
 import { createSelector } from "reselect"
-import {
-  participatorMainListRequest,
-  deleteParticipatorRequest,
-} from "../../../store/participator/actions"
-import { preventDefault } from "@fullcalendar/core/internal"
-
+import {participatorMainListRequest,deleteParticipatorRequest,onAddParticipator as addParticipatorForm,} from "../../../store/actions";
 const ParticipatorMainList = () => {
   const dispatch = useDispatch()
-  const [modal, setModal] = useState(false)
+  const [addParticipatorModal, setAddParticipatorModal] = useState(false)
   const [viewModal, setviewModal] = useState(false)
-
   const fetchParticipatorList = state => state.participatorReducer
   const ParticipatorDataProperties = createSelector(
     fetchParticipatorList,
     participatorReducer => ({
       Participator: participatorReducer.participator,
-      loading: participatorReducer.loading,
+      error: participatorReducer.error,
     })
   )
-
-  const { Participator, loading } = useSelector(ParticipatorDataProperties)
-  const [isLoading, setLoading] = useState(loading)
-
-  useEffect(() => {
-    const fetchData = () => {
-      setLoading(true)
-      dispatch(participatorMainListRequest())
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-    }
-    fetchData()
-  }, [dispatch])
-
+  const { Participator,error } = useSelector(ParticipatorDataProperties)
+  useEffect(() => {dispatch(participatorMainListRequest()) }, [dispatch])
   const columns = useMemo(
     () => [
       {
@@ -97,11 +64,11 @@ const ParticipatorMainList = () => {
                 <Button
                   className="btn btn-sm btn-soft-primary"
                   id={`viewtooltip-${cellProps.row.original.id}`}
-                  // onClick={() => {
-                  //   const participator_id = cellProps.row.original
-                  //   onClickView(participator_id)
-                  //   setModal(true)
-                  // }}
+                // onClick={() => {
+                //   const participator_id = cellProps.row.original
+                //   onClickView(participator_id)
+                //   setModal(true)
+                // }}
                 >
                   <i className="mdi mdi-eye-outline" />
                 </Button>
@@ -152,54 +119,46 @@ const ParticipatorMainList = () => {
     ],
     []
   )
-
   const [deleteModal, setDeleteModal] = useState(false)
   const [participator, setParticipator] = useState(null)
-
   const onClickDelete = participator => {
-     console.log("Delete Participator:", participator)
     setParticipator(participator)
     setDeleteModal(true)
   }
-
 const handleDeleteParticipator = () => {
   setDeleteModal(false)
   dispatch(deleteParticipatorRequest(participator.id))
 }
-
-  const modalities = data => {
-    const value = data.map(item => {
-      return item.name
-    })
-    const commaSeparatedString = value.join(",")
-    return commaSeparatedString
-  }
-
-  const [viewparticipatordata, setParticipatorData] = useState(null)
-
-  const onClickView = item => {
-    setParticipatorData(item)
-  }
-
+  // Handle create participator start 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      participator_name:
-        (viewparticipatordata && viewparticipatordata.name) || "",
-      participator_level:
-        (viewparticipatordata && viewparticipatordata.level) || "",
-      participator_modality:
-        (viewparticipatordata && modalities(viewparticipatordata.modalities)) ||
-        "",
+      first_name:  "",
+      last_name:  "",
+      email:  "",
+      phone:"",
+      password:"",
     },
     validationSchema: Yup.object({
-      participator_name: Yup.string().required(
-        "Please Enter Participator Name"
-      ),
+      first_name: Yup.string().required("Please Enter Your Name"),
+      email: Yup.string().email("Invalid email address format").required("Email is required"),
+      phone:Yup.string().matches(phoneRegExp, 'Phone number is not valid') .min(10, "please enter only 10 digit number").max(10, "not valid only 10 digit number valid"),
     }),
-    onSubmit: values => { },
-  })
+    onSubmit: (values) => {
+      dispatch(addParticipatorForm(values));
+      
+     
+    }
+  });
+  useEffect(() => {
+    if(error===null){
+      setAddParticipatorModal(false);
+      validation.resetForm();
+    }
+
+  }, [dispatch,error])
+  // Handle create participator end
 
   return (
     <React.Fragment>
@@ -225,10 +184,10 @@ const handleDeleteParticipator = () => {
                       <Link to="#!" className="btn btn-light me-1">
                         <i className="mdi mdi-refresh"></i>
                       </Link>
-                      <button className="btn btn-primary" 
-                       onClick={() => {
-                        setModal(true)
-                      }}
+                      <button className="btn btn-primary"
+                        onClick={() => {
+                          setAddParticipatorModal(true)
+                        }}
                       >
                         {" "}
                         <i className="mdi mdi-plus me-1" />
@@ -237,51 +196,37 @@ const handleDeleteParticipator = () => {
                     </div>
                   </div>
                 </CardBody>
+            
+                  <CardBody>
+                    <TableContainer
+                      columns={columns}
+                      data={
+                        Participator.participators
+                          ? Participator.participators
+                          : [{}]
+                      }
+                      isGlobalFilter={true}
+                      isPagination={true}
+                      iscustomPageSizeOptions={true}
+                      isShowingPageLength={true}
+                      customPageSize={5}
+                      tableClass="table-bordered align-middle nowrap mt-2"
+                      paginationDiv="col-sm-12 col-md-7"
+                      pagination="pagination justify-content-end pagination-rounded"
+                    />
+                  </CardBody>
                 
-                <CardBody>
-                  <TableContainer
-                    columns={columns}
-                    data={
-                      Participator.participators
-                        ? Participator.participators
-                        : [{}]
-                    }
-                    isGlobalFilter={true}
-                    isPagination={true}
-                    iscustomPageSizeOptions={true}
-                    isShowingPageLength={true}
-                    customPageSize={5}
-                    tableClass="table-bordered align-middle nowrap mt-2"
-                    paginationDiv="col-sm-12 col-md-7"
-                    pagination="pagination justify-content-end pagination-rounded"
-                  />
-                </CardBody>
               </Card>
             </Col>
           </Row>
           <ToastContainer />
         </div>
       </div>
-      <Modal
-        isOpen={viewModal}
-        toggle={() => {
-          setviewModal()
-        }}
-        id="participator"
-      >
+      <Modal isOpen={viewModal}toggle={() => {setviewModal()}} id="participator">
         <div className="modal-content">
-          <ModalHeader
-            toggle={() => setviewModal()}
-            id="participatorLabel"
-            className="modal-header"
-          >
-            View Participator
-          </ModalHeader>
+          <ModalHeader toggle={() => setviewModal()} id="participatorLabel" className="modal-header"> View Participator </ModalHeader>
           <ModalBody>
-            <Form
-              className="form-horizontal"
-              onSubmit={e => {
-                e.preventDefault()
+            <Form className="form-horizontal"onSubmit={e => { e.preventDefault()
                 validation.handleSubmit()
                 return false
               }}
@@ -358,14 +303,13 @@ const handleDeleteParticipator = () => {
             </Form>
           </ModalBody>
         </div>
-      </Modal>
-
-      {/* Create participator form */}
+      </Modal> 
+      {/* Create participator form start */}
       <Modal
-         isOpen={modal}
-         toggle={() => {
-           setModal()
-         }}
+        isOpen={addParticipatorModal}
+        toggle={() => {
+          setAddParticipatorModal()
+        }}
       >
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLabel">
@@ -374,28 +318,43 @@ const handleDeleteParticipator = () => {
           <button
             type="button"
             onClick={() => {
-              setModal(false)
+              setAddParticipatorModal(false)
             }}
             className="btn-close"
           ></button>
         </div>
-        <Form>
+        <Form
+          className="form-horizontal"
+          onSubmit={(e) => {
+            e.preventDefault();
+            validation.handleSubmit();
+            return false;
+          }}
+        >
           <div className="modal-body px-5">
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-firstname-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                First name
+                First name <span className="text-danger">*</span>
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="first_name"
                   className="form-control"
-                  id="horizontal-firstname-Input"
-                  placeholder="Enter Your first name"
+                  placeholder="Enter First Name"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.first_name || ""}
+                  invalid={
+                    validation.touched.first_name && validation.errors.first_name ? true : false
+                  }
                 />
+                {validation.touched.first_name && validation.errors.first_name ? (
+                <FormFeedback type="invalid">{validation.errors.first_name}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
             <Row className="mb-4">
@@ -407,31 +366,43 @@ const handleDeleteParticipator = () => {
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="last_name"
                   className="form-control"
-                  id="horizontal-lastname-Input"
-                  placeholder="Enter Your Last Name"
+                  placeholder="Enter Last Name"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.last_name || ""}     
                 />
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-email-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                Email
+                Email <span className="text-danger">*</span>
               </Label>
               <Col sm={9}>
                 <Input
-                  type="email"
                   name="email"
                   className="form-control"
-                  id="horizontal-email-Input"
-                  placeholder="Enter Your Email ID"
+                  placeholder="Enter Email"
+                  type="email"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.email || ""}
+                  invalid={
+                    validation.touched.email && validation.errors.email ? true : false
+                  }
                 />
+                {validation.touched.email && validation.errors.email ? (
+                <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
                 htmlFor="horizontal-lastname-Input"
@@ -441,50 +412,49 @@ const handleDeleteParticipator = () => {
               </Label>
               <Col sm={9}>
                 <Input
-                  type="text"
                   name="phone"
                   className="form-control"
-                  id="horizontal-lastname-Input"
-                  placeholder="Enter Your Mobile"
+                  placeholder="Enter phone number"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.phone || ""}
+                  invalid={
+                    validation.touched.phone && validation.errors.phone ? true : false
+                  }
                 />
+                {validation.touched.phone && validation.errors.phone ? (
+                <FormFeedback type="invalid">{validation.errors.phone}</FormFeedback>
+              ) : null}
               </Col>
             </Row>
+
             <Row className="mb-4">
               <Label
-                htmlFor="horizontal-password-Input"
+                htmlFor="horizontal-lastname-Input"
                 className="col-sm-3 col-form-label"
               >
-                Password
+               password
               </Label>
               <Col sm={9}>
                 <Input
-                  type="password"
-                  autoComplete="off"
+                  name="password"
                   className="form-control"
-                  id="horizontal-password-Input"
-                  placeholder="Enter Your Password"
+                  placeholder="Create Password"
+                  type="text"
+                  onChange={validation.handleChange}
+                  onBlur={validation.handleBlur}
+                  value={validation.values.password || ""}
                 />
               </Col>
             </Row>
-
-
           </div>
           <div className="modal-footer">
-            <button
-              onClick={(e) => {preventDefault(e),setModal()}}
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              + ADD
-            </button>
+            <button type="submit" className="btn btn-success">Create Participator <i className="bx bx-send align-middle"></i> </button>
           </div>
         </Form>
       </Modal>
-
+      {/* Create participator form end */}
     </React.Fragment>
   )
 }

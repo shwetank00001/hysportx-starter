@@ -36,7 +36,7 @@ const LanguageDropdown = () => {
 
   return (
     <>
-      <Dropdown isOpen={menu} toggle={toggle} className="d-inline-block" id="languagetooltip">
+      <Dropdown isOpen={menu} toggle={toggle} className="d-inline-block " id="languagetooltip">
         <DropdownToggle className="btn header-item " tag="button">
           <img
             src={get(languages, `${selectedLang}.flag`)}
@@ -49,7 +49,7 @@ const LanguageDropdown = () => {
         <UncontrolledTooltip placement="left" target={`languagetooltip`}>
           Language
         </UncontrolledTooltip>
-        <DropdownMenu className="language-switch dropdown-menu-end text-light">
+        <DropdownMenu className="language-switch  dropdown-menu-end text-light">
           {map(Object.keys(languages), key => (
             <DropdownItem
               key={key}

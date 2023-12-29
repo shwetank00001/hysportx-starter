@@ -1,30 +1,35 @@
-import PropTypes from "prop-types"
-import React, { useState } from "react"
-
+import React, { useState } from 'react';
 import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  UncontrolledTooltip,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Nav,
-  Collapse,
-  UncontrolledTooltip,
-} from "reactstrap"
+  NavbarText,
+} from 'reactstrap';
 import { Link } from "react-router-dom"
 
 //Import Images
 import logo from "assets/images/logo/hysportsdark.svg"
+import LanguageDropdown from 'components/CommonForBoth/TopbarDropdown/LanguageDropdown';
+import NotificationDropdown from 'components/CommonForBoth/TopbarDropdown/NotificationDropdown';
+import { AppsDropdown } from 'components/CommonForBoth/TopbarDropdown/AppsDropdown';
+import { LoginButton } from 'components/Common/LoginButton';
 
-//Import Component
-import LanguageDropdown from "components/CommonForBoth/TopbarDropdown/LanguageDropdown"
-import NotificationDropdown from "components/CommonForBoth/TopbarDropdown/NotificationDropdown"
-import { AppsDropdown } from "components/CommonForBoth/TopbarDropdown/AppsDropdown"
-
-import { LoginButton } from "components/Common/LoginButton"
-import { RegstrationButton } from "components/Common/RegstrationButton"
-
-const Navbar_Page = props => {
+const Navbar_page = props => {
+  const [isCollapse, setCollapseBtn] = useState(false);
   const [menu, setMenu] = useState(false)
+
+  const toggleCollapseBtn = () => setCollapseBtn(!isCollapse);
+
 
   function toggleFullscreen() {
     if (
@@ -54,69 +59,74 @@ const Navbar_Page = props => {
   }
 
   return (
-    <React.Fragment>
-      <nav className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}>
-        <div className="container-fluid">
-            <Nav className="ms-2 navbar-nav" id="topnav-menu">
-              <Link to="/" className="logo logo-dark">
-                <span className="logo-sm">
-                  <img src={logo} alt="" height="50" />
-                </span>
-                <span className="logo-lg">
-                  <img src={logo} alt="" height="70" />
-                </span>
-              </Link>
+    <div>
+      <React.Fragment >
+        <Navbar className={"navbar navbar-expand-lg  navigation fixed-top bg-dark"}>
+          <NavbarBrand className='text-light' href="/">
+            <span className="logo-lg  ">
+              <img src={logo} alt="" height="60" />
+            </span>
+          </NavbarBrand>
+          <NavbarToggler className='bg-light' onClick={toggleCollapseBtn} />
+          <Collapse isOpen={isCollapse} className='' navbar>
+            <Nav className="me-auto" navbar>
+              <NavItem>
+                <form className="app-search d-none d-lg-block  ms-5">
+                  <div className="position-relative">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search..."
+                    />
+                    <span className="bx bx-search-alt" />
+                  </div>
+                </form>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle className='text-light' nav caret>
+                  Quick Menu <i className="mdi mdi-chevron-down" />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <Link to="#" className="dropdown-item">
+                      Find/Post Job
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to="#" className="dropdown-item">
+                      Find Network
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to="#" className="dropdown-item">
+                      Get Scholarship
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to="#" className="dropdown-item">
+                      Get Your Hysportx
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <Link to="#" className="dropdown-item">
+                      Share Your Story
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
             </Nav>
-          <Collapse isOpen={menu} id="topnav-menu-content" navbar>
-            <form className="app-search d-none d-lg-block d ms-5">
-              <div className="position-relative">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search..."
-                />
-                <span className="bx bx-search-alt" />
-              </div>
-            </form>
-
-            <Dropdown
-              className="dropdown-mega d-none d-lg-block ms-2"
-              isOpen={menu}
-              toggle={() => setMenu(!menu)}
-              direction="right"
-            >
-              <DropdownToggle
-                className="btn header-item text-light"
-                caret
-                tag="button"
-              >
-                Quick Menu <i className="mdi mdi-chevron-down" />
-              </DropdownToggle>
-              <DropdownMenu>
-                <Link to="#" className="dropdown-item">
-                  Find/Post Job
-                </Link>
-                <Link to="#" className="dropdown-item">
-                  Find Network
-                </Link>
-                <Link to="#" className="dropdown-item">
-                  Get Scholarship
-                </Link>
-                <Link to="#" className="dropdown-item">
-                  Get Your Hysportx
-                </Link>
-                <Link to="#" className="dropdown-item">
-                  Share Your Story
-                </Link>
-              </DropdownMenu>
-            </Dropdown>
-          <div className="ms-lg-auto ms-md-auto ms-sm-auto">
-            <LanguageDropdown />
-            <NotificationDropdown />
-
-            <AppsDropdown />
-
-            <div className="dropdown d-none d-lg-inline-block ms-1">
+            <NavbarText>
+              <LanguageDropdown />
+            </NavbarText>
+            <NavbarText>
+              <NotificationDropdown />
+            </NavbarText>
+            <NavbarText>
+              <AppsDropdown />
+            </NavbarText>
+            <NavbarText>
               <button
                 type="button"
                 className="btn header-item noti-icon"
@@ -135,41 +145,16 @@ const Navbar_Page = props => {
               >
                 Full Screen
               </UncontrolledTooltip>
-            </div>
+            </NavbarText>
 
-            <div className="dropdown d-inline-block">
-              <button
-                // onClick={() => {
-                //   props.showRightSidebarAction(!props.showRightSidebar);
-                // }}
-                type="button"
-                className="btn header-item noti-icon right-bar-toggle "
-              >
-                <i className="bx bx-cog bx-spin text-light" />
-              </button>
-              <div className="ms-3 d-lg-inline-block">
-                <LoginButton />
-              </div>
-            </div>
-          </div>
+            <NavbarText>
+              <LoginButton />
+            </NavbarText>
           </Collapse>
-
-          <button
-            className="navbar-toggler bg-light"
-            type="button"
-            onClick={() => setMenu(!menu)}
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </nav>
-    </React.Fragment>
-  )
+        </Navbar>
+      </React.Fragment>
+    </div>
+  );
 }
 
-Navbar_Page.propTypes = {
-  imglight: PropTypes.any,
-  navClass: PropTypes.string,
-}
-
-export default Navbar_Page
+export default Navbar_page;

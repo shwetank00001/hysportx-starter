@@ -1,9 +1,13 @@
 import {
+  ADD_PARTICIPATOR,
+  ADD_PARTICIPATOR_SUCCESS,
+  ADD_PARTICIPATOR_FAIL,
+
+
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
-  ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAILURE,
   EDIT_PARTICIPATOR_REQUEST,
   EDIT_PARTICIPATOR_SUCCESS,
@@ -15,6 +19,23 @@ import {
   PARTICIPATOR_LIST_MAIN_SUCCESS,
   PARTICIPATOR_LIST_MAIN_FAIL,
 } from "./actionTypes"
+
+
+// participator data submit handle
+export const onAddParticipator = (data) => ({
+  type: ADD_PARTICIPATOR,
+  payload:data,
+})
+export const onAddParticipatorSuccess = (success) => ({
+  type: ADD_PARTICIPATOR_SUCCESS,
+  payload:success
+})
+export const onAddParticipatorFail = (error) => ({
+  type: ADD_PARTICIPATOR_FAIL,
+  payload:error
+})
+
+
 
 export const participatorListRequest = () => ({
   type: PARTICIPATOR_LIST_REQUEST,
