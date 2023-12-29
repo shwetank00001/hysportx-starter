@@ -17,7 +17,7 @@ function Navcards({icon ,index, Heading}) {
     const [tab, setTab] = useState(index[0].title);
     const [tabActiv, settabActiv] = useState()
         // tab.className= 'active'
-
+        // index ? setTab(index[0].title):;
   const toggle = e => {
     if (tab !== e) {
       setTab(e);
@@ -47,7 +47,7 @@ function Navcards({icon ,index, Heading}) {
       <div className='  d-flex mx-3 w-100 justify-content-between'>
         <div className=" h6  "><b>{Heading ? Heading : ''}</b></div>
         {index ?
-        <div style={{fontSize:'0.6vw'}} className=" d-flex  ">       
+        <div  className=" d-flex   ">       
         <Nav tabs  className=" d-flex"  >
       {index.map((key)=><>
         <NavItem key={key} className="m-0 p-0 ">
@@ -56,7 +56,7 @@ function Navcards({icon ,index, Heading}) {
               // className='m-xxl-0 p-1 '
               style={{ cursor: "pointer" }}
               className={classnames({
-                'my-0 mx-1 p-0': true,
+                'my-0 mx-1 font-size-10 p-0': true,
                 active: tab === key.title,
               })}
               onClick={function noRefCheck(){
