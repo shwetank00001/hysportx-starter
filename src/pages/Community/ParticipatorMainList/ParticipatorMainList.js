@@ -146,18 +146,17 @@ const handleDeleteParticipator = () => {
       phone:Yup.string().matches(phoneRegExp, 'Phone number is not valid') .min(10, "please enter only 10 digit number").max(10, "not valid only 10 digit number valid"),
     }),
     onSubmit: (values) => {
-      dispatch(addParticipatorForm(values));
-      
-     
+      dispatch(addParticipatorForm(values));     
     }
   });
   useEffect(() => {
+    console.log(error);
     if(error===null){
       setAddParticipatorModal(false);
       validation.resetForm();
     }
 
-  }, [dispatch,error])
+  }, [error])
   // Handle create participator end
 
   return (
