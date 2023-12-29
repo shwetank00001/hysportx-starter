@@ -57,8 +57,6 @@ const ParticipatorMainList = () => {
     fetchData()
   }, [dispatch])
 
-  console.log("Participator here", Participator.participators)
-
   const columns = useMemo(
     () => [
       {
@@ -131,10 +129,10 @@ const ParticipatorMainList = () => {
               <li>
                 <Link
                   to="#"
-                  // onClick={() => {
-                  //   const participator_id = cellProps.row.original
-                  //   onClickDelete(participator_id)
-                  // }}
+                  onClick={() => {
+                    const participator_id = cellProps.row.original
+                    onClickDelete(participator_id)
+                  }}
                   className="btn btn-sm btn-soft-danger"
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
@@ -143,7 +141,7 @@ const ParticipatorMainList = () => {
                     placement="top"
                     target={`deletetooltip-${cellProps.row.original.id}`}
                   >
-                    Delete
+                    Remove Partcipator
                   </UncontrolledTooltip>
                 </Link>
               </li>
@@ -164,21 +162,10 @@ const ParticipatorMainList = () => {
     setDeleteModal(true)
   }
 
-const handleDeleteParticipator = async () => {
-  console.log("Delete Participator:", participator)
-  if (participator && participator.id) {
-    setLoading(true)
-    try {
-      await dispatch(deleteParticipatorRequest(participator.id))
-      setDeleteModal(false)
-      await dispatch(participatorMainListRequest())
-    } catch (error) {
-
-      console.error("Error deleting participator:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
+const handleDeleteParticipator = () => {
+  setDeleteModal(false)
+  setLoading(true)
+  dispatch(deleteParticipatorRequest(participator.id))
 }
 
   const modalities = data => {
@@ -218,6 +205,7 @@ const handleDeleteParticipator = async () => {
   return (
     <React.Fragment>
       <DeleteModal
+        text={'Are you Sure you want to remove the participator ?'}
         show={deleteModal}
         onDeleteClick={handleDeleteParticipator}
         onCloseClick={() => setDeleteModal(false)}
