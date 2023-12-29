@@ -51,13 +51,54 @@ function index() {
           />
           </Container>
           <Row>
-            <Card color='danger d-flex rounded justify-center py-5'>n</Card>
+            <Card color='danger rounded text-center py-5'>Content</Card>
           </Row>
           <Container>
-            <Row>
-              <Col lg={3}> <Card color='primary'>mm</Card></Col>
-             
-              <Col lg={5}> 
+            <Row className='gap-'>
+              <Col lg={3}> 
+               <Row className=''>
+                
+                 {/* <ProfileCard/> */}
+                <WelcomeComp />
+               
+                <Row >
+                {details.map((i)=>
+                <Card  className='border' key={i}>
+                  <div className='d-flex text-center justify-content-between align-items-center'>
+                      <div>
+
+                    <p style={{fontSize:'9px'}} >{i.title} </p>
+                      </div>
+                      <div className='text-end'>
+
+                    <h5
+                     onClick={i.onclick}
+                      style={{fontSize:'12px'}} className={i.color}>{i.button}</h5>
+                      </div>
+                    </div>
+                  </Card>
+                )}
+              </Row>
+                </Row>
+              </Col>
+              <Col lg={4}  className=''> 
+              <div className='mx-2'>
+
+                <Row>
+                        <PresentAddress/>
+                </Row>
+                <Row>
+                        <SocialLink/>
+                </Row>
+                <Row>
+                        <PresentAddress/>
+                </Row>
+                <Row>
+                        <AccountDetails/>
+                </Row>
+              </div>
+                </Col>
+              <Col lg={5}  className=''> 
                <Row>
                         
                      <AboutMe/>
@@ -83,96 +124,9 @@ function index() {
                       </Card>
                  </Row>
               </Col>
-              <Col lg={4}> 
-                <Row>
-                        <PresentAddress/>
-                </Row>
-                <Row>
-                        <SocialLink/>
-                </Row>
-                <Row>
-                        <PresentAddress/>
-                </Row>
-                <Row>
-                        <AccountDetails/>
-                </Row>
-                </Col>
+             
             </Row>
-          <Row className='' >
           
-
-            <Col lg={3} >
-                <Row className=''>
-                 {/* <ProfileCard/> */}
-                <WelcomeComp />
-                </Row>
-                {/* <Row>
-                    <Card className='text-center'><p>User Id : manishkumarsangwan@gmail.com</p></Card>
-                </Row> */}
-                <Row >
-                {details.map((i)=>
-                <Card  className='border' key={i}>
-                  <div className='d-flex text-center p-1 justify-content-between align-items-center'>
-                      <div>
-
-                    <p style={{fontSize:'9px'}} >{i.title} </p>
-                      </div>
-                      <div className='text-end'>
-
-                    <h5
-                     onClick={i.onclick}
-                      style={{fontSize:'12px'}} className={i.color}>{i.button}</h5>
-                      </div>
-                    </div>
-                  </Card>
-                )}
-              </Row>
-                
-                </Col>
-                <Col lg={3}
-                 
-                >     
-                      <Row>
-                        <PresentAddress/>
-                      </Row>
-                    <Row>
-                        <SocialLink/>
-                    </Row>
-                    <Row>
-                        <PresentAddress/>
-                    </Row>
-                    <Row>
-                        <AccountDetails/>
-                    </Row>
-                </Col>
-                <Col lg={6} className='' >
-                <Row>
-                        
-                        <AboutMe/>
-                    </Row>
-                    <Row>
-                    <ActivityComp heading='Education' />
-                    </Row>
-                    <Row>
-                    <ActivityComp heading='Professional Experience' />
-                       
-                    </Row>
-                    <Row>
-                      <Card>
-                        <CardTitle className='text-primary'>Other Details</CardTitle>
-                        <Row  className='mt-2 '>
-                           <Col sm={5}>
-                          <Card className='bg-primary-subtle font-size-10'>Current Earning : 5,00,000 Annually</Card>
-                           </Col>
-                           <Col sm={5}>
-                          <Card className='bg-danger-subtle font-size-10'>Expecng Earning : 6,00,000 Annually</Card>
-                           </Col>
-                        </Row>
-                      </Card>
-                    </Row>
-                </Col>
-                
-                </Row>
                 <Modal
                       isOpen={modal_standard}
                       toggle={() => {
