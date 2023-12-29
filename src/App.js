@@ -77,6 +77,19 @@ const App = () => {
         ))}
 
         {authProtectedRoutes.map((route, idx) => (
+          route.children.length?
+            route.children.map((child,id)=>(
+              <Route
+                path={child.path}
+                element={
+                  <Authmiddleware user={route.user}>
+                    <Layout>{child.component}</Layout>
+                  </Authmiddleware>}
+                key={id}
+                exact={true}
+            />
+            ))
+          :
           <Route
             path={route.path}
             element={

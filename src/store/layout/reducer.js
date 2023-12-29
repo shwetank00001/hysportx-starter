@@ -32,7 +32,7 @@ const INIT_STATE = {
   leftSideBarThemeImage: leftBarThemeImageTypes.NONE,
   leftSideBarType: leftSidebarTypes.DEFAULT,
   topbarTheme: topBarThemeTypes.LIGHT,
-  isPreloader: false,
+  isPreloader: {status:false,message:''},
   showRightSidebar: false,
   isMobile: false,
   showSidebar: true,

@@ -23,15 +23,18 @@ import {
   PARTICIPATOR_LIST_MAIN_SUCCESS,
   PARTICIPATOR_LIST_MAIN_FAIL,
 } from "./actionTypes"
+import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listParticipatorRequestsSaga() {
   try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator List Please wait ...'}})
     const data = yield call(participator.listParticipatorRequests)
-    console.log("Saga working", data)
     yield put({ type: PARTICIPATOR_LIST_SUCCESS, payload: data.data })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_FAIL, payload: error })
-    toast.error("Failed to fetch participator data. Please try again.", {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    toast.error(error.response?error.response.data.message:(error.message?error.message:"Something Went wrong"), {
       autoClose: 2000,
     })
   }
@@ -39,11 +42,10 @@ function* listParticipatorRequestsSaga() {
 function* listParticipatorMainListSaga() {
   try {
     const data = yield call(participator.listParticipators)
-    console.log("Saga working", data)
     yield put({ type: PARTICIPATOR_LIST_MAIN_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_MAIN_FAIL, payload: error })
-    toast.error("Failed to fetch participator data. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }
@@ -51,11 +53,15 @@ function* listParticipatorMainListSaga() {
 
 function* addParticipatorSaga(action) {
   try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Creating Participator Please wait ...'}})
     const response = yield call(participator.addParticipator, action.payload);
     yield put({ type: ADD_PARTICIPATOR_SUCCESS, payload: response.data });
+    yield put({type:PARTICIPATOR_LIST_MAIN_REQUEST})
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     toast.success(response.message, { autoClose: 2000 });
   } catch (error) {
-    yield put({ type: ADD_PARTICIPATOR_FAIL, payload: error })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: ADD_PARTICIPATOR_FAILURE, payload: error.response.data.message })
     toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
@@ -70,7 +76,7 @@ function* editParticipatorSaga(action) {
     toast.success("Participator edited successfully!", { autoClose: 2000 })
   } catch (error) {
     yield put({ type: EDIT_PARTICIPATOR_FAILURE, payload: error })
-    toast.error("Failed to edit participator. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }
@@ -78,12 +84,17 @@ function* editParticipatorSaga(action) {
 
 function* deleteParticipatorSaga(action) {
   try {
-    yield call(participator.delete, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Removing Participator Please wait ...'}})
+    const response = yield call(participator.removeParticipator, action.payload);
     yield put({ type: DELETE_PARTICIPATOR_SUCCESS })
-    toast.success("Participator deleted successfully!", { autoClose: 2000 })
+    yield put({type:PARTICIPATOR_LIST_REQUEST})
+    yield put({type:PARTICIPATOR_LIST_MAIN_REQUEST})
+    toast.success(response.message, { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
     yield put({ type: DELETE_PARTICIPATOR_FAILURE, payload: error })
-    toast.error("Failed to delete participator. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }

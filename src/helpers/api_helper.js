@@ -21,7 +21,8 @@ export function setToken(token){
 export async function get(url, config = {}) {
   return await axiosApi
     .get(url, { ...config })
-    .then((response) => response.data);
+    .then((response) => response.data)
+   
 }
 
 export async function post(url, data, config = {}) {

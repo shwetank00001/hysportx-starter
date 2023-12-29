@@ -110,7 +110,26 @@ const Navbar = props => {
             >
               <ul className="navbar-nav">
               {authProtectedRoutes.map((route, idx) => (
-                route.user === userData.role.type ?
+                route.user === userData.role.type ?(
+                  route.children.length ?
+                  <li className="nav-item dropdown" key={idx}>
+                    <Link  className="nav-link dropdown-toggle arrow-none"
+                      onClick={e => { e.preventDefault(); setdashboard(!dashboard); }}
+                      to={route.path}
+                    > <i className={`me-2 ${route.icon ? route.icon : 'bx bx-home-circle'}`}></i>
+                      {props.t(route.label)} {props.menuOpen}
+                      <div className="arrow-down"></div>
+                    </Link>
+                    <div className={classname("dropdown-menu", { show: dashboard })}>
+                      {route.children.map((child,id)=>(
+                        <Link to={child.path} className="dropdown-item"key={id}>
+                          {props.t(child.label)}
+                        </Link>
+                      ))}
+                      
+                    </div>
+                  </li>
+                  :
                  <li 
                   className="nav-item dropdown"
                   key={idx}
@@ -125,7 +144,8 @@ const Navbar = props => {
                    {props.t(route.label)} {props.menuOpen}
                  </Link>
 
-               </li>: null
+               </li>
+                ): null
               ))}
                 {/* <li className="nav-item dropdown">
                   <Link

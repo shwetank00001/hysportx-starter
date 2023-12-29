@@ -3,66 +3,27 @@ import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import * as Yup from "yup"
 import { useFormik } from "formik"
-import {
-  Col,
-  Row,
-  Card,
-  CardBody,
-  Label,
-  Form,
-  Input,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  UncontrolledTooltip,
-  Button,
-  FormFeedback,
-
-} from "reactstrap"
+import {Col,Row,Card,CardBody, Label,Form,Input,Modal,ModalHeader, ModalBody,UncontrolledTooltip,Button,FormFeedback,} from "reactstrap"
 import TableContainer from "components/Common/TableContainer"
-import Spinners from "components/Common/Spinner"
 import Breadcrumbs from "components/Common/Breadcrumb"
 import DeleteModal from "components/Common/DeleteModal"
 import { ToastContainer } from "react-toastify"
 import { createSelector } from "reselect"
-import {
-  participatorMainListRequest,
-  deleteParticipatorRequest,
-  onAddParticipator as addParticipatorForm,
-} from "../../../store/actions";
-
-import { preventDefault } from "@fullcalendar/core/internal"
-
+import {participatorMainListRequest,deleteParticipatorRequest,onAddParticipator as addParticipatorForm,} from "../../../store/actions";
 const ParticipatorMainList = () => {
   const dispatch = useDispatch()
-  const [modal, setModal] = useState(false)
+  const [addParticipatorModal, setAddParticipatorModal] = useState(false)
   const [viewModal, setviewModal] = useState(false)
-
   const fetchParticipatorList = state => state.participatorReducer
   const ParticipatorDataProperties = createSelector(
     fetchParticipatorList,
     participatorReducer => ({
       Participator: participatorReducer.participator,
-      loading: participatorReducer.loading,
+      error: participatorReducer.error,
     })
   )
-
-  const { Participator, loading } = useSelector(ParticipatorDataProperties)
-  const [isLoading, setLoading] = useState(loading)
-
-  useEffect(() => {
-    const fetchData = () => {
-      setLoading(true)
-      dispatch(participatorMainListRequest())
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-    }
-    fetchData()
-  }, [dispatch])
-
-  console.log("Participator here", Participator.participators)
-
+  const { Participator,error } = useSelector(ParticipatorDataProperties)
+  useEffect(() => {dispatch(participatorMainListRequest()) }, [dispatch])
   const columns = useMemo(
     () => [
       {
@@ -135,10 +96,10 @@ const ParticipatorMainList = () => {
               <li>
                 <Link
                   to="#"
-                  // onClick={() => {
-                  //   const participator_id = cellProps.row.original
-                  //   onClickDelete(participator_id)
-                  // }}
+                  onClick={() => {
+                    const participator_id = cellProps.row.original
+                    onClickDelete(participator_id)
+                  }}
                   className="btn btn-sm btn-soft-danger"
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
@@ -147,7 +108,7 @@ const ParticipatorMainList = () => {
                     placement="top"
                     target={`deletetooltip-${cellProps.row.original.id}`}
                   >
-                    Delete
+                    Remove Partcipator
                   </UncontrolledTooltip>
                 </Link>
               </li>
@@ -158,47 +119,16 @@ const ParticipatorMainList = () => {
     ],
     []
   )
-
   const [deleteModal, setDeleteModal] = useState(false)
   const [participator, setParticipator] = useState(null)
-
   const onClickDelete = participator => {
-    console.log("Delete Participator:", participator)
     setParticipator(participator)
     setDeleteModal(true)
   }
-
-  const handleDeleteParticipator = async () => {
-    console.log("Delete Participator:", participator)
-    if (participator && participator.id) {
-      setLoading(true)
-      try {
-        await dispatch(deleteParticipatorRequest(participator.id))
-        setDeleteModal(false)
-        await dispatch(participatorMainListRequest())
-      } catch (error) {
-
-        console.error("Error deleting participator:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-  }
-
-  const modalities = data => {
-    const value = data.map(item => {
-      return item.name
-    })
-    const commaSeparatedString = value.join(",")
-    return commaSeparatedString
-  }
-
-  const [viewparticipatordata, setParticipatorData] = useState(null)
-
-  const onClickView = item => {
-    setParticipatorData(item)
-  }
-
+const handleDeleteParticipator = () => {
+  setDeleteModal(false)
+  dispatch(deleteParticipatorRequest(participator.id))
+}
   // Handle create participator start 
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
   const validation = useFormik({
@@ -217,14 +147,23 @@ const ParticipatorMainList = () => {
     }),
     onSubmit: (values) => {
       dispatch(addParticipatorForm(values));
-      validation.resetForm();
+      
+     
     }
   });
+  useEffect(() => {
+    if(error===null){
+      setAddParticipatorModal(false);
+      validation.resetForm();
+    }
+
+  }, [dispatch,error])
   // Handle create participator end
 
   return (
     <React.Fragment>
       <DeleteModal
+        text={'Are you Sure you want to remove the participator ?'}
         show={deleteModal}
         onDeleteClick={handleDeleteParticipator}
         onCloseClick={() => setDeleteModal(false)}
@@ -247,7 +186,7 @@ const ParticipatorMainList = () => {
                       </Link>
                       <button className="btn btn-primary"
                         onClick={() => {
-                          setModal(true)
+                          setAddParticipatorModal(true)
                         }}
                       >
                         {" "}
@@ -257,9 +196,7 @@ const ParticipatorMainList = () => {
                     </div>
                   </div>
                 </CardBody>
-                {isLoading ? (
-                  <Spinners setLoading={setLoading} />
-                ) : (
+            
                   <CardBody>
                     <TableContainer
                       columns={columns}
@@ -278,33 +215,18 @@ const ParticipatorMainList = () => {
                       pagination="pagination justify-content-end pagination-rounded"
                     />
                   </CardBody>
-                )}
+                
               </Card>
             </Col>
           </Row>
           <ToastContainer />
         </div>
       </div>
-      <Modal
-        isOpen={viewModal}
-        toggle={() => {
-          setviewModal()
-        }}
-        id="participator"
-      >
+      <Modal isOpen={viewModal}toggle={() => {setviewModal()}} id="participator">
         <div className="modal-content">
-          <ModalHeader
-            toggle={() => setviewModal()}
-            id="participatorLabel"
-            className="modal-header"
-          >
-            View Participator
-          </ModalHeader>
+          <ModalHeader toggle={() => setviewModal()} id="participatorLabel" className="modal-header"> View Participator </ModalHeader>
           <ModalBody>
-            <Form
-              className="form-horizontal"
-              onSubmit={e => {
-                e.preventDefault()
+            <Form className="form-horizontal"onSubmit={e => { e.preventDefault()
                 validation.handleSubmit()
                 return false
               }}
@@ -381,13 +303,12 @@ const ParticipatorMainList = () => {
             </Form>
           </ModalBody>
         </div>
-      </Modal>
-
+      </Modal> 
       {/* Create participator form start */}
       <Modal
-        isOpen={modal}
+        isOpen={addParticipatorModal}
         toggle={() => {
-          setModal()
+          setAddParticipatorModal()
         }}
       >
         <div className="modal-header">
@@ -397,7 +318,7 @@ const ParticipatorMainList = () => {
           <button
             type="button"
             onClick={() => {
-              setModal(false)
+              setAddParticipatorModal(false)
             }}
             className="btn-close"
           ></button>
@@ -527,20 +448,13 @@ const ParticipatorMainList = () => {
                 />
               </Col>
             </Row>
-
-       
-         
-
-
           </div>
           <div className="modal-footer">
             <button type="submit" className="btn btn-success">Create Participator <i className="bx bx-send align-middle"></i> </button>
-            {/* <button type="button" className="btn btn-primary" data-bs-dismiss="modal" > Close</button> */}
           </div>
         </Form>
       </Modal>
       {/* Create participator form end */}
-
     </React.Fragment>
   )
 }
