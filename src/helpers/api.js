@@ -120,7 +120,7 @@ export const participator = {
 
   confirmParticipatorRequest: id => get(`/confirm-participator-request/${id}`),
 
-  removeParticipator: id => get(`/remove-participator/${id}`),
+  removeParticipator: id =>  (`/remove-participator/${id}`),
 
   listParticipators: () => get("/list-participators"),
 

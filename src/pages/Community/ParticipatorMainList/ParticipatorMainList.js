@@ -165,6 +165,7 @@ const ParticipatorMainList = () => {
   }
 
 const handleDeleteParticipator = async () => {
+  console.log("Delete Participator:", participator)
   if (participator && participator.id) {
     setLoading(true)
     try {
