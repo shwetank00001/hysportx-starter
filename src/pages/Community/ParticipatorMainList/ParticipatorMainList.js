@@ -20,9 +20,10 @@ const ParticipatorMainList = () => {
     participatorReducer => ({
       Participator: participatorReducer.participator,
       error: participatorReducer.error,
+      errors: participatorReducer.adderrors,
     })
   )
-  const { Participator,error } = useSelector(ParticipatorDataProperties)
+  const { Participator,error,errors } = useSelector(ParticipatorDataProperties)
   useEffect(() => {dispatch(participatorMainListRequest()) }, [dispatch])
   const columns = useMemo(
     () => [
@@ -63,7 +64,7 @@ const ParticipatorMainList = () => {
               <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                 <Button
                   className="btn btn-sm btn-soft-primary"
-                  id={`viewtooltip-${cellProps.row.original.id}`}
+                  id={`viewtooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
                 // onClick={() => {
                 //   const participator_id = cellProps.row.original
                 //   onClickView(participator_id)
@@ -75,19 +76,19 @@ const ParticipatorMainList = () => {
               </li>
               <UncontrolledTooltip
                 placement="top"
-                target={`viewtooltip-${cellProps.row.original.id}`}
+                target={`viewtooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
               >
                 View
               </UncontrolledTooltip>
               <li>
                 <Button
                   className="btn btn-sm btn-soft-primary"
-                  id={`edittooltip-${cellProps.row.original.id}`}
+                  id={`edittooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
                 >
                   <i className="mdi mdi-pencil-outline" />
                   <UncontrolledTooltip
                     placement="top"
-                    target={`edittooltip-${cellProps.row.original.id}`}
+                    target={`edittooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
                   >
                     Edit
                   </UncontrolledTooltip>
@@ -101,12 +102,12 @@ const ParticipatorMainList = () => {
                     onClickDelete(participator_id)
                   }}
                   className="btn btn-sm btn-soft-danger"
-                  id={`deletetooltip-${cellProps.row.original.id}`}
+                  id={`deletetooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
                 >
                   <i className="mdi mdi-delete-outline" />
                   <UncontrolledTooltip
                     placement="top"
-                    target={`deletetooltip-${cellProps.row.original.id}`}
+                    target={`deletetooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
                   >
                     Remove Partcipator
                   </UncontrolledTooltip>
@@ -152,12 +153,12 @@ const handleDeleteParticipator = () => {
     }
   });
   useEffect(() => {
-    if(error===null){
+    if(errors===null){
       setAddParticipatorModal(false);
       validation.resetForm();
     }
 
-  }, [dispatch,error])
+  }, [dispatch,errors])
   // Handle create participator end
 
   return (

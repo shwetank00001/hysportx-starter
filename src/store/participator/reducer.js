@@ -24,6 +24,7 @@ const initialState = {
   participator: [],
   loading: false,
   error: null,
+  adderrors: null,
 }
 
 const participatorReducer = (state = initialState, action) => {
@@ -46,6 +47,7 @@ const participatorReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        adderrors:null,
         participator: action.payload,
       }
     
@@ -58,13 +60,18 @@ const participatorReducer = (state = initialState, action) => {
     case ADD_PARTICIPATOR_FAIL:
     case PARTICIPATOR_LIST_FAIL:
     case PARTICIPATOR_LIST_MAIN_FAIL:
-    case ADD_PARTICIPATOR_FAILURE:
     case EDIT_PARTICIPATOR_FAILURE:
     case DELETE_PARTICIPATOR_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload,
+      }
+      case ADD_PARTICIPATOR_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        adderrors: action.payload,
       }
     default:
       return state
