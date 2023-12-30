@@ -8,9 +8,9 @@ import {
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
   ADD_PARTICIPATOR_FAILURE,
-  EDIT_PARTICIPATOR_REQUEST,
-  EDIT_PARTICIPATOR_SUCCESS,
-  EDIT_PARTICIPATOR_FAILURE,
+  ACCEPT_PARTICIPATOR_REQUEST,
+  ACCEPT_PARTICIPATOR_SUCCESS,
+  ACCEPT_PARTICIPATOR_FAILURE,
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
@@ -32,7 +32,7 @@ const participatorReducer = (state = initialState, action) => {
     case PARTICIPATOR_LIST_REQUEST:
     case PARTICIPATOR_LIST_MAIN_REQUEST:
     case ADD_PARTICIPATOR_REQUEST:
-    case EDIT_PARTICIPATOR_REQUEST:
+    case ACCEPT_PARTICIPATOR_REQUEST:
     case DELETE_PARTICIPATOR_REQUEST:
       return {
         ...state,
@@ -50,7 +50,7 @@ const participatorReducer = (state = initialState, action) => {
         participator: action.payload,
       }
     
-    case EDIT_PARTICIPATOR_SUCCESS:
+    case ACCEPT_PARTICIPATOR_SUCCESS:
     case DELETE_PARTICIPATOR_SUCCESS:
       return {
         ...state,
@@ -59,7 +59,7 @@ const participatorReducer = (state = initialState, action) => {
     case ADD_PARTICIPATOR_FAIL:
     case PARTICIPATOR_LIST_FAIL:
     case PARTICIPATOR_LIST_MAIN_FAIL:
-    case EDIT_PARTICIPATOR_FAILURE:
+    case ACCEPT_PARTICIPATOR_FAILURE:
     case DELETE_PARTICIPATOR_FAILURE:
       return {
         ...state,

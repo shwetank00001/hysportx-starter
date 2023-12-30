@@ -118,7 +118,7 @@ export const competition = {
 export const participator = {
   listParticipatorRequests: () => get("/participator-requests"),
 
-  confirmParticipatorRequest: id => get(`/confirm-participator-request/${id}`),
+  confirmParticipatorRequest: (id) => get(`/confirm-participator-request/${id}`),
 
   removeParticipator: id =>  get(`/remove-participator/${id}`),
 
