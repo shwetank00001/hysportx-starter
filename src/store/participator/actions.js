@@ -3,7 +3,10 @@ import {
   ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAIL,
 
-
+  FETCH_PARTICIPATOR_cOMMUNITIES,
+  FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+  
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
@@ -35,6 +38,19 @@ export const onAddParticipatorFail = (error) => ({
   payload:error
 })
 
+export const fetchParticipatorCommunities = () => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES,
+})
+
+export const fetchParticipatorCommunitiesSuccess = (data) => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  payload:data
+})
+
+export const fetchParticipatorCommunitiesFail = error => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+  payload: error,
+})
 
 
 export const participatorListRequest = () => ({

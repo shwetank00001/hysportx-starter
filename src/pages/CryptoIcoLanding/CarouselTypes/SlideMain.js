@@ -105,8 +105,8 @@ class SlideMain extends Component {
                         className="content-tag pb-5 mb-5 fs-1 fw-1"
                     />
                     <CarouselCaption
-                        // captionHeader={item.caption}
                         captionText={item.altText}
+                        // captionHeader={item.caption}
                         className="content-tag text-light"
                     />
 
@@ -133,9 +133,20 @@ class SlideMain extends Component {
             <React.Fragment>
                 <style>
                     {`.custom-tag {
-                        height: 800px;
+                        
+                        height: 700px;
                         background: black;
                     }
+                    @media (max-width: 768px) {
+                        .custom-tag {
+                          height: auto;
+                        }
+                      }
+                      @media (max-width: 968px) {
+                        .custom-tag {
+                          height: auto; 
+                        }
+                      }
                  
                     
                     .carousel-button-container {

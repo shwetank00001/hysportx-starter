@@ -7,6 +7,9 @@ import {
   ADD_PARTICIPATOR,
   ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAIL,
+  FETCH_PARTICIPATOR_cOMMUNITIES,
+  FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
 
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
@@ -103,8 +106,25 @@ function* deleteParticipatorSaga(action) {
   }
 }
 
+function* fetchParticipatorCommunitiesSaga() {
+  try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetch Participator Request Please wait ...'}})
+    const response = yield call(participator.participatedcommunities);
+    yield put({ type: FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,payload:response.data })
+    // toast.success(response.message, { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+  } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    yield put({ type: FETCH_PARTICIPATOR_cOMMUNITIES__FAIL, payload: error })
+    // toast.error(error.response?error.response.data.message:error.message, {
+    //   autoClose: 2000,
+    // })
+  }
+}
+
 export default function* participatorSaga() {
   yield takeLatest(ADD_PARTICIPATOR, addParticipatorSaga)
+  yield takeLatest(FETCH_PARTICIPATOR_cOMMUNITIES, fetchParticipatorCommunitiesSaga)
   yield takeLatest(PARTICIPATOR_LIST_REQUEST, listParticipatorRequestsSaga)
   // yield takeLatest(ADD_PARTICIPATOR_REQUEST, addParticipatorSaga)
   yield takeLatest(EDIT_PARTICIPATOR_REQUEST, editParticipatorSaga)

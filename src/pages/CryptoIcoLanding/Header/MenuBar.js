@@ -11,7 +11,7 @@ import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { competition } from "helpers/api";
 
-const Navbar = props => {
+const MenuBar = props => {
 
   const [dashboard, setdashboard] = useState(false);
   const [ui, setui] = useState(false);
@@ -81,18 +81,8 @@ const Navbar = props => {
 
   return (
     <React.Fragment>
-      <div className="topnav mt-0">
-        <div className="container-fluid ms-5">
-          <nav
-            className="navbar navbar-light navbar-expand-lg topnav-menu"
-            id="navigation"
-          >
-            <Collapse
-              isOpen={props.leftMenu}
-              className="navbar-collapse"
-              id="topnav-menu-content"
-            >
-              <ul className="navbar-nav">
+          
+              
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle arrow-none"
@@ -1036,20 +1026,11 @@ const Navbar = props => {
                 </li>
 
 
-
-
-
-
-              </ul>
-            </Collapse>
-          </nav>
-        </div>
-      </div>
     </React.Fragment>
   );
 };
 
-Navbar.propTypes = {
+MenuBar.propTypes = {
   leftMenu: PropTypes.any,
   location: PropTypes.any,
   menuOpen: PropTypes.any,
@@ -1062,5 +1043,5 @@ const mapStatetoProps = state => {
 };
 
 export default withRouter(
-  connect(mapStatetoProps, {})(withTranslation()(Navbar))
+  connect(mapStatetoProps, {})(withTranslation()(MenuBar))
 );

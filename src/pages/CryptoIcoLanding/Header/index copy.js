@@ -81,8 +81,8 @@ const Navbar = props => {
 
   return (
     <React.Fragment>
-      <div className="topnav mt-0">
-        <div className="container-fluid ms-5">
+      <div className="topnav">
+        <div className="container-fluid">
           <nav
             className="navbar navbar-light navbar-expand-lg topnav-menu"
             id="navigation"

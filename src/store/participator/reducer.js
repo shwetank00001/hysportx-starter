@@ -3,6 +3,11 @@ import {
   ADD_PARTICIPATOR,
   ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAIL,
+
+  FETCH_PARTICIPATOR_cOMMUNITIES,
+  FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
@@ -34,6 +39,7 @@ const participatorReducer = (state = initialState, action) => {
     case ADD_PARTICIPATOR_REQUEST:
     case EDIT_PARTICIPATOR_REQUEST:
     case DELETE_PARTICIPATOR_REQUEST:
+    case FETCH_PARTICIPATOR_cOMMUNITIES:
       return {
         ...state,
         loading: true,
@@ -41,6 +47,7 @@ const participatorReducer = (state = initialState, action) => {
       }
 
     case ADD_PARTICIPATOR_SUCCESS:
+    case FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS:
     case PARTICIPATOR_LIST_SUCCESS:
     case PARTICIPATOR_LIST_MAIN_SUCCESS:
       return {
@@ -57,6 +64,7 @@ const participatorReducer = (state = initialState, action) => {
         loading: false,
       }
     case ADD_PARTICIPATOR_FAIL:
+    case FETCH_PARTICIPATOR_cOMMUNITIES__FAIL:
     case PARTICIPATOR_LIST_FAIL:
     case PARTICIPATOR_LIST_MAIN_FAIL:
     case EDIT_PARTICIPATOR_FAILURE:
