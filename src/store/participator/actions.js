@@ -12,9 +12,9 @@ import {
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
   ADD_PARTICIPATOR_FAILURE,
-  EDIT_PARTICIPATOR_REQUEST,
-  EDIT_PARTICIPATOR_SUCCESS,
-  EDIT_PARTICIPATOR_FAILURE,
+  ACCEPT_PARTICIPATOR_REQUEST,
+  ACCEPT_PARTICIPATOR_SUCCESS,
+  ACCEPT_PARTICIPATOR_FAILURE,
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
@@ -94,17 +94,17 @@ export const addParticipatorFailure = error => ({
   payload: error,
 })
 
-export const editParticipatorRequest = (id, data) => ({
-  type: EDIT_PARTICIPATOR_REQUEST,
-  payload: { id, data },
+export const acceptParticipatorRequest = (id) => ({
+  type: ACCEPT_PARTICIPATOR_REQUEST,
+  payload:  id ,
 })
 
-export const editParticipatorSuccess = () => ({
-  type: EDIT_PARTICIPATOR_SUCCESS,
+export const acceptParticipatorSuccess = () => ({
+  type: ACCEPT_PARTICIPATOR_SUCCESS,
 })
 
-export const editParticipatorFailure = error => ({
-  type: EDIT_PARTICIPATOR_FAILURE,
+export const acceptParticipatorFailure = error => ({
+  type: ACCEPT_PARTICIPATOR_FAILURE,
   payload: error,
 })
 

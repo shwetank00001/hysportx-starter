@@ -16,9 +16,9 @@ import {
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
   ADD_PARTICIPATOR_FAILURE,
-  EDIT_PARTICIPATOR_REQUEST,
-  EDIT_PARTICIPATOR_SUCCESS,
-  EDIT_PARTICIPATOR_FAILURE,
+  ACCEPT_PARTICIPATOR_REQUEST,
+  ACCEPT_PARTICIPATOR_SUCCESS,
+  ACCEPT_PARTICIPATOR_FAILURE,
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
@@ -74,17 +74,21 @@ function* addParticipatorSaga(action) {
   }
 }
 
-function* editParticipatorSaga(action) {
+function* acceptParticipatorSaga(action) {
   try {
-
-    yield call(participator.edit, action.payload.id, action.payload.data)
-    yield put({ type: EDIT_PARTICIPATOR_SUCCESS })
-    toast.success("Participator edited successfully!", { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Accepting Participator Please wait ...'}})
+    const response = yield call(participator.confirmParticipatorRequest, action.payload);
+    yield put({ type: ACCEPT_PARTICIPATOR_SUCCESS })
+    yield put({type:PARTICIPATOR_LIST_REQUEST})
+    toast.success(response.message, { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   } catch (error) {
-    yield put({ type: EDIT_PARTICIPATOR_FAILURE, payload: error })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    yield put({ type: DELETE_PARTICIPATOR_FAILURE, payload: error })
     toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
+    console.log("error", error)
   }
 }
 
@@ -127,7 +131,7 @@ export default function* participatorSaga() {
   yield takeLatest(FETCH_PARTICIPATOR_cOMMUNITIES, fetchParticipatorCommunitiesSaga)
   yield takeLatest(PARTICIPATOR_LIST_REQUEST, listParticipatorRequestsSaga)
   // yield takeLatest(ADD_PARTICIPATOR_REQUEST, addParticipatorSaga)
-  yield takeLatest(EDIT_PARTICIPATOR_REQUEST, editParticipatorSaga)
+  yield takeLatest(ACCEPT_PARTICIPATOR_REQUEST, acceptParticipatorSaga)
   yield takeLatest(DELETE_PARTICIPATOR_REQUEST, deleteParticipatorSaga)
   yield takeLatest(PARTICIPATOR_LIST_MAIN_REQUEST, listParticipatorMainListSaga)
 }

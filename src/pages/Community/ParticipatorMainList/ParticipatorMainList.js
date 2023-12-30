@@ -81,20 +81,6 @@ const ParticipatorMainList = () => {
                 View
               </UncontrolledTooltip>
               <li>
-                <Button
-                  className="btn btn-sm btn-soft-primary"
-                  id={`edittooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
-                >
-                  <i className="mdi mdi-pencil-outline" />
-                  <UncontrolledTooltip
-                    placement="top"
-                    target={`edittooltip-${cellProps.row.original?cellProps.row.original.id:''}`}
-                  >
-                    Edit
-                  </UncontrolledTooltip>
-                </Button>
-              </li>
-              <li>
                 <Link
                   to="#"
                   onClick={() => {
