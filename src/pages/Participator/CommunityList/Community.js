@@ -36,6 +36,7 @@ const Community = () => {
   )
 
   const { RequestList, loading } = useSelector(ParticipatorReqDataProperties)
+
   useEffect(() => {
     dispatch(participatedCommunities());
   }, [dispatch]);
@@ -81,13 +82,14 @@ const Community = () => {
       },
       {
         Header: 'Requested Date',
-        accessor: 'created_at',
-        Cell: (cellProps) => (cellProps.row.original.pivot.created_at) ? format(new Date(cellProps.row.original.pivot.created_at), 'dd MMM, yyyy') : ""
+        accessor: 'role',
+        Cell: (cellProps) => (cellProps.row.original.pivot) ? format(new Date(cellProps.row.original.pivot.created_at), 'dd MMM, yyyy') : ""
       },
       {
         Header: 'Accepted Date',
         accessor: 'updated_at',
         Cell: (cellProps) => {
+          if(cellProps.row.original.pivot){
           switch (cellProps.row.original.pivot.status) {
             case "confirm":
               return (cellProps.row.original.pivot.updated_at) ? format(new Date(cellProps.row.original.pivot.updated_at), 'dd MMM, yyyy') : ""
@@ -96,6 +98,8 @@ const Community = () => {
             default:
               return <Badge className="bg-warning px-2 py-2">{cellProps.row.original.pivot.status}</Badge>
           }
+        }
+        return "--";
         },
         // Cell: (cellProps) => (cellProps.row.original.pivot.updated_at) ? format(new Date(cellProps.row.original.pivot.updated_at), 'dd MMM, yyyy') : ""
       },
@@ -125,7 +129,7 @@ const Community = () => {
               >
                 View
               </UncontrolledTooltip>
-
+              {/* 
               <li>
                 <Button
                   className="btn btn-sm btn-soft-success"
@@ -144,7 +148,7 @@ const Community = () => {
                     Accept Request
                   </UncontrolledTooltip>
                 </Button>
-              </li>
+              </li> */}
 
               <li>
                 <Link
