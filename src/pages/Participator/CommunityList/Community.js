@@ -20,8 +20,10 @@ import {
 import TableContainer from "components/Common/TableContainer"
 //import components
 import Breadcrumbs from 'components/Common/Breadcrumb';
+import DeleteModal from 'components/Common/DeleteModal';
+import { ToastContainer } from "react-toastify";
 
-import { fetchParticipatorCommunities as participatedCommunities } from '../../../store/actions'
+import { fetchParticipatorCommunities as participatedCommunities, onRemovePartipator as removeParticipatorRequestList } from '../../../store/actions'
 
 const Community = () => {
 
@@ -105,9 +107,6 @@ const Community = () => {
       },
 
 
-
-     
-
       {
         Header: "Action",
         accessor: "action",
@@ -154,10 +153,10 @@ const Community = () => {
                 <Link
                   to="#"
                   className="btn btn-sm btn-soft-danger"
-                  // onClick={() => {
-                  //     const jobData = cellProps.row.original;
-                  //     onClickDelete(jobData);
-                  // }}
+                  onClick={() => {
+                        const removeData = cellProps.row.original;
+                        onClickRemove(removeData);
+                    }}
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
                   <i className="mdi mdi-table-row-remove" />
@@ -179,15 +178,16 @@ const Community = () => {
   )
 
     //delete exercise list start
-    const [acceptModal, setAcceptModal] = useState(false);
-    const [Accept, setAccept] = useState(null);
-    const onClickAccept = (acceptData) => {
-      setAccept(acceptData);
-        setAcceptModal(true);
+    const [removeModal, setRemoveModal] = useState(false);
+    const [removeData, setRemove] = useState(null);
+    const onClickRemove = (removeData) => {
+      setRemove(removeData);
+      setRemoveModal(true);
     };
     const handleAcceptParcipator = () => {
-        if (acceptData && acceptData.id) {
-            dispatch(onAcceptPartipator(acceptData.id));
+        if (removeData && removeData.id) {
+            dispatch(removeParticipatorRequestList(removeData.id));
+            setRemoveModal(false);
         }
     };
     //delete excise list end
@@ -195,6 +195,13 @@ const Community = () => {
 
   return (
     <React.Fragment>
+       <DeleteModal
+                show={removeModal}
+                onDeleteClick={handleAcceptParcipator}
+                onCloseClick={() => setRemoveModal(false)}
+                text="Are you sure You want to Remove Request list"
+                
+            />
       <Container fluid>
         {/* Render Breadcrumbs */}
         <Breadcrumbs title="fwgames" breadcrumbItem="hyposports" />
@@ -234,6 +241,7 @@ const Community = () => {
           </Col>
         </Card>
       </Container>
+      <ToastContainer />
     </React.Fragment>
   )
 }
