@@ -6,7 +6,7 @@ import PropTypes from "prop-types"
 import { withTranslation } from "react-i18next"
 import WelcomeComp from "components/Common/WelcomeComp"
 import Navcards from 'components/Common/Navcards'
-import {event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm} from '../../../common/data'
+// import {event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm} from '../../../common/data'
 
 
 const Dashboard = props => {
@@ -43,7 +43,7 @@ const Dashboard = props => {
               <WelcomeComp/>
               <Row>
                 <Col>
-                <Navcards index={kyc}  Heading="KYC Details" icon={<><Button /><Button /></>}/>
+                {/* <Navcards index={kyc}  Heading="KYC Details" icon={<><Button /><Button /></>}/> */}
                 </Col>
                 <Col>
                   {/* <Navcards index={national}  Heading="FWG National" icon={<><Button /><Button /></>}/> */}

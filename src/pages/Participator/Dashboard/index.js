@@ -6,7 +6,28 @@ import PropTypes from "prop-types"
 import { withTranslation } from "react-i18next"
 import WelcomeComp from "components/Common/WelcomeComp"
 import Navcards from 'components/Common/Navcards'
-import {event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm} from '../../../common/data'
+import {event, competition,inetrSchool, national,reports,connect,post, fitness,support, app,fwgbm} from '../../../common/data/'
+import Participatar from './Participatar'
+import {indivisual} from '../../../common/data/participatar'
+
+import Activity from './Activity'
+import Posts from './Posts'
+import Comments from './Comments'
+import PopularPost from './PopularPost'
+
+
+const kyc =[
+  { title: "Personal", iconClass: "bx-copy-alt", description: <Participatar type={indivisual}/> },
+  { title: "Bussiness", iconClass: "bx-copy-alt", description: <Participatar type={'Business'} />  },
+  { title: "Account", iconClass: "bx-copy-alt", description: <Participatar />  },
+  
+]
+const broadcast =[
+  { title: "Whatsapp", iconClass: "bx-copy-alt", description: "Whatspp messages" },
+  { title: "SMS Message", iconClass: "bx-copy-alt", description: "Sms List" },
+  { title: "Email", iconClass: "bx-copy-alt", description: "Email Accounts" },
+  
+]
 
 
 const Dashboard = props => {
@@ -46,39 +67,38 @@ const Dashboard = props => {
                 <Navcards index={kyc}  Heading="KYC Details" icon={<><Button /><Button /></>}/>
                 </Col>
                 <Col>
-                  <Navcards index={national}  Heading="FWG National" icon={<><Button /><Button /></>}/>
-                  <Navcards index={inetrSchool}  Heading="FWG InterSchool" icon={<><Button /><Button /></>}/>
+                <Activity heading='National Comptition'/>
+             
+                <Activity heading='Inter School'/>
+                 
                 </Col>
               </Row>
               <Row>
                 <Col>
-                <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/>
+                <Posts heading={'Post'}/>
+                {/* <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/> */}
                 </Col>
                 <Col>
-                <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/>
+                <Comments />
+                {/* <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/> */}
                 </Col>
               </Row>
-              <Row>
-                <Navcards index={support}  Heading="Help & Support" icon={<><Button /><Button /></>}/>
-              </Row>
-              <Row>
-                <Navcards index={app}  Heading="Other Utility App" icon={<><Button /><Button /></>}/>
-              </Row>
+             
               </Col>
                 <Col>
                 <Row>
   
                 {reports.map((report, key)=>(
                   <Col xl='6' key={key}>
-                    <Card className="mini-stats-wid">
-                      <CardBody>
+                    <Card className="mini-stats-wid ">
+                      <CardBody className='m-1 p-0'>
                         <div className="d-flex">
                           <div className=" justify-evenly">
-                          <p className="text-muted fw-medium">
+                          <p className="text-muted fw-small">
                                 {report.title}
                               </p>
                              
-                              <h5 className="mb-0">{report.description}</h5>
+                              <h5 className="mb-0 ">{report.description}</h5>
                            
                           </div>
                         </div>
@@ -88,15 +108,35 @@ const Dashboard = props => {
                 ))}
                 </Row>
               
-                <Navcards index={broadcast}  Heading="Broadcast" icon={<><Button /><Button /></>}/>
-                <Navcards index={event}  Heading="Organise Your Sport Event" />
-                <Navcards index={connect}  Heading="Connect" icon={<><Button /><Button /></>}/>
-                <Navcards index={fitness}  Heading="Fitness $ Health" icon={<><Button /><Button /></>}/>
-                <Navcards  Heading="Activity" icon={<><Button /><Button /></>}/>
-                <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/>
+                <Posts heading='Broadcast'/>
+                <Posts heading='Organise  Event'/>
+               
+                <Posts heading='Connect'/>
+                <Posts heading='Fitness & Health'/>
+                
+                
+                  
+                {/* <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/> */}
                 </Col>
             </Row>
-                {/* <Navcards index={competition}  Heading={<h2 className='  text-danger'> FW Comptitions </h2>} icon={<><Button /><Button /></>}/> */}
+            <Row>
+              <Col lg={8}>
+                <PopularPost heading='Help & Support'/>
+              </Col>
+              <Col lg={4}>
+              <Activity heading='Activity'/>
+              </Col>
+              </Row>
+              <Row>
+              <Col lg={8}>
+
+                <PopularPost heading='Other Utility App'/>
+                </Col>
+             <Col lg={4}>
+                  <Activity heading='FWG School'/>
+             </Col>
+                
+              </Row>
                 
   
   
