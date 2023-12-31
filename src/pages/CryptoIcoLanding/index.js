@@ -36,11 +36,15 @@ const CryptoIcoLanding = (props) => {
   return (
     <React.Fragment>
 
-   
-        <Header />
+        <div className="fixed-top">
+        <Navbar  />
+
       
         {/* import navbar */}
-        <Navbar  />
+        <Header />
+        </div>
+
+
       {/* Hero section */}
       <Section />
         

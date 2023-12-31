@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { createSelector } from "reselect"
+import { format } from 'date-fns';
 import {
   Col,
   Input,
@@ -8,6 +10,7 @@ import {
   Label,
   Modal,
   Form,
+  Badge,
   Card,
   CardBody,
   Button,
@@ -17,66 +20,28 @@ import {
 import TableContainer from "components/Common/TableContainer"
 //import components
 import Breadcrumbs from 'components/Common/Breadcrumb';
+import DeleteModal from 'components/Common/DeleteModal';
+import { ToastContainer } from "react-toastify";
 
-import { participatorListRequest } from '../../../store/participator/actions'
-
-
-const participatorList = [
-  {
-    id: 1,
-    index: 1,
-    firstName: "Jennifer Chang",
-    lastName: "Jennifer Chang",
-    email: "shwetank",
-    mobile: "88888888888",
-  },
-  {
-    id: 1,
-    index: 2,
-    firstName: "Jennifer Chang",
-    lastName: "Jennifer Chang",
-    email: "shwetank",
-    mobile: "88888888888",
-  },
-  {
-    id: 1,
-    index: 3,
-    firstName: "Jennifer Chang",
-    lastName: "Jennifer Chang",
-    email: "shwetank",
-    mobile: "88888888888",
-  },
-  {
-    id: 1,
-    index: 4,
-    firstName: "Jennifer Chang",
-    lastName: "Jennifer Chang",
-    email: "shwetank",
-    mobile: "88888888888",
-  },
-  {
-    id: 1,
-    index: 5,
-    firstName: "Jennifer Chang",
-    lastName: "Jennifer Chang",
-    email: "shwetank",
-    mobile: "88888888888",
-  },
-]
-
-
+import { fetchParticipatorCommunities as participatedCommunities, onRemovePartipator as removeParticipatorRequestList } from '../../../store/actions'
 
 const Community = () => {
 
   const dispatch = useDispatch()
-  const parti = useSelector(state => state.participatorReducer.participator)
-  console.log("participator data", parti)
+  const fetchParticipatorReqList = state => state.participatorReducer;
+  const ParticipatorReqDataProperties = createSelector(
+    fetchParticipatorReqList,
+    participatorCommunityRequest => ({
+      RequestList: participatorCommunityRequest.participator,
+      loading: participatorCommunityRequest.loading,
+    })
+  )
 
-  useEffect( () => {
-    dispatch(participatorListRequest())
-  }, [dispatch])
+  const { RequestList, loading } = useSelector(ParticipatorReqDataProperties)
 
-
+  useEffect(() => {
+    dispatch(participatedCommunities());
+  }, [dispatch]);
 
 
   const [open, setOpen] = useState(false)
@@ -99,14 +64,14 @@ const Community = () => {
           )
         },
       },
-
       {
-        Header: "First Name",
-        accessor: "firstName",
-      },
-      {
-        Header: "Last Name",
-        accessor: "lastName",
+        Header: "Commumity Name",
+        accessor: "name",
+        Cell: (cellProps) => (
+          <>
+            <p className="">{cellProps.row.original.first_name} {" "}{cellProps.row.original.last_name}</p>
+          </>
+        ),
       },
 
       {
@@ -114,9 +79,33 @@ const Community = () => {
         accessor: "email",
       },
       {
-        Header: "Mobile No",
-        accessor: "mobile",
+        Header: "Contact No",
+        accessor: "phone",
       },
+      {
+        Header: 'Requested Date',
+        accessor: 'role',
+        Cell: (cellProps) => (cellProps.row.original.pivot) ? format(new Date(cellProps.row.original.pivot.created_at), 'dd MMM, yyyy') : ""
+      },
+      {
+        Header: 'Accepted Date',
+        accessor: 'updated_at',
+        Cell: (cellProps) => {
+          if(cellProps.row.original.pivot){
+          switch (cellProps.row.original.pivot.status) {
+            case "confirm":
+              return (cellProps.row.original.pivot.updated_at) ? format(new Date(cellProps.row.original.pivot.updated_at), 'dd MMM, yyyy') : ""
+            case "requested":
+              return <Badge className="bg-danger px-2 py-2">{cellProps.row.original.pivot.status}</Badge>
+            default:
+              return <Badge className="bg-warning px-2 py-2">{cellProps.row.original.pivot.status}</Badge>
+          }
+        }
+        return "--";
+        },
+        // Cell: (cellProps) => (cellProps.row.original.pivot.updated_at) ? format(new Date(cellProps.row.original.pivot.updated_at), 'dd MMM, yyyy') : ""
+      },
+
 
       {
         Header: "Action",
@@ -139,38 +128,43 @@ const Community = () => {
               >
                 View
               </UncontrolledTooltip>
-
+              {/* 
               <li>
                 <Button
-                  className="btn btn-sm btn-soft-primary"
+                  className="btn btn-sm btn-soft-success"
                   id={`edittooltip-${cellProps.row.original.id}`}
+                  // onClick={() => {
+                  //       const acceptData = cellProps.row.original;
+                  //       onClickAccept(acceptData);
+                  //   }}
                 >
-                  <i className="mdi mdi-pencil-outline" />
+
+                  <i className="bx bx bx-check-shield" />
                   <UncontrolledTooltip
                     placement="top"
                     target={`edittooltip-${cellProps.row.original.id}`}
                   >
-                    Edit
+                    Accept Request
                   </UncontrolledTooltip>
                 </Button>
-              </li>
+              </li> */}
 
               <li>
                 <Link
                   to="#"
                   className="btn btn-sm btn-soft-danger"
-                  // onClick={() => {
-                  //     const jobData = cellProps.row.original;
-                  //     onClickDelete(jobData);
-                  // }}
+                  onClick={() => {
+                        const removeData = cellProps.row.original;
+                        onClickRemove(removeData);
+                    }}
                   id={`deletetooltip-${cellProps.row.original.id}`}
                 >
-                  <i className="mdi mdi-delete-outline" />
+                  <i className="mdi mdi-table-row-remove" />
                   <UncontrolledTooltip
                     placement="top"
                     target={`deletetooltip-${cellProps.row.original.id}`}
                   >
-                    Delete
+                    Remove Request
                   </UncontrolledTooltip>
                 </Link>
               </li>
@@ -182,12 +176,36 @@ const Community = () => {
 
     []
   )
+
+    //delete exercise list start
+    const [removeModal, setRemoveModal] = useState(false);
+    const [removeData, setRemove] = useState(null);
+    const onClickRemove = (removeData) => {
+      setRemove(removeData);
+      setRemoveModal(true);
+    };
+    const handleAcceptParcipator = () => {
+        if (removeData && removeData.id) {
+            dispatch(removeParticipatorRequestList(removeData.id));
+            setRemoveModal(false);
+        }
+    };
+    //delete excise list end
+
+
   return (
     <React.Fragment>
+       <DeleteModal
+                show={removeModal}
+                onDeleteClick={handleAcceptParcipator}
+                onCloseClick={() => setRemoveModal(false)}
+                text="Are you sure You want to Remove Request list"
+                
+            />
       <Container fluid>
         {/* Render Breadcrumbs */}
         <Breadcrumbs title="fwgames" breadcrumbItem="hyposports" />
-        
+
         <Card>
 
           <Col xl={12}>
@@ -197,7 +215,7 @@ const Community = () => {
                   <h5 className="mb-0 card-title flex-grow-1">Community Lists</h5>
                   <div className="flex-shrink-0">
                     <Link to="#!" className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
-                    <button className="btn btn-primary" onClick={() => {setOpen(!open), removeBodyCss() }}> <i className="mdi mdi-plus me-1" />Create Participator</button>
+                    <button className="btn btn-primary" onClick={() => { setOpen(!open), removeBodyCss() }}> <i className="mdi mdi-plus me-1" />Create Participator</button>
 
                   </div>
                 </div>
@@ -205,7 +223,8 @@ const Community = () => {
               <CardBody>
                 <TableContainer
                   columns={columns}
-                  data={participatorList}
+                  data={RequestList.communities ? RequestList.communities : [{}]}
+                  // data={RequestList}
                   isGlobalFilter={true}
                   customPageSizeOptions={3}
                   isPagination={true}
@@ -218,10 +237,11 @@ const Community = () => {
                 />
               </CardBody>
             </Card>
-          
+
           </Col>
         </Card>
       </Container>
+      <ToastContainer />
     </React.Fragment>
   )
 }

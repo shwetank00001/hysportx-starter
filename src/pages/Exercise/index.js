@@ -250,6 +250,7 @@ const index = () => {
                 show={deleteModal}
                 onDeleteClick={handleDeleteexercise}
                 onCloseClick={() => setDeleteModal(false)}
+                
             />
             {/*  Modal view and edit */}
 

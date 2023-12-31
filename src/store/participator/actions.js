@@ -3,15 +3,22 @@ import {
   ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAIL,
 
+  REMOVE_PARTICIPATOR_REQUEST_LIST,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
 
+  FETCH_PARTICIPATOR_cOMMUNITIES,
+  FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+  
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
   ADD_PARTICIPATOR_REQUEST,
   ADD_PARTICIPATOR_FAILURE,
-  EDIT_PARTICIPATOR_REQUEST,
-  EDIT_PARTICIPATOR_SUCCESS,
-  EDIT_PARTICIPATOR_FAILURE,
+  ACCEPT_PARTICIPATOR_REQUEST,
+  ACCEPT_PARTICIPATOR_SUCCESS,
+  ACCEPT_PARTICIPATOR_FAILURE,
   DELETE_PARTICIPATOR_REQUEST,
   DELETE_PARTICIPATOR_SUCCESS,
   DELETE_PARTICIPATOR_FAILURE,
@@ -35,6 +42,32 @@ export const onAddParticipatorFail = (error) => ({
   payload:error
 })
 
+export const onRemovePartipator = (data) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST,
+  payload:data,
+})
+export const onRemovePartipatorSuccess = (success) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
+  payload:success
+})
+export const onRemovePartipatorFail = (error) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
+  payload:error
+})
+
+export const fetchParticipatorCommunities = () => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES,
+})
+
+export const fetchParticipatorCommunitiesSuccess = (data) => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
+  payload:data
+})
+
+export const fetchParticipatorCommunitiesFail = error => ({
+  type: FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+  payload: error,
+})
 
 
 export const participatorListRequest = () => ({
@@ -78,17 +111,17 @@ export const addParticipatorFailure = error => ({
   payload: error,
 })
 
-export const editParticipatorRequest = (id, data) => ({
-  type: EDIT_PARTICIPATOR_REQUEST,
-  payload: { id, data },
+export const acceptParticipatorRequest = (id) => ({
+  type: ACCEPT_PARTICIPATOR_REQUEST,
+  payload:  id ,
 })
 
-export const editParticipatorSuccess = () => ({
-  type: EDIT_PARTICIPATOR_SUCCESS,
+export const acceptParticipatorSuccess = () => ({
+  type: ACCEPT_PARTICIPATOR_SUCCESS,
 })
 
-export const editParticipatorFailure = error => ({
-  type: EDIT_PARTICIPATOR_FAILURE,
+export const acceptParticipatorFailure = error => ({
+  type: ACCEPT_PARTICIPATOR_FAILURE,
   payload: error,
 })
 

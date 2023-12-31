@@ -26,6 +26,7 @@ import { createSelector } from "reselect"
 import {
   participatorListRequest,
   deleteParticipatorRequest,
+  acceptParticipatorRequest,
 } from "../../../store/participator/actions"
 
 const Participator = () => {
@@ -42,17 +43,9 @@ const Participator = () => {
   )
 
   const { Participator, loading } = useSelector(ParticipatorDataProperties)
-  const [isLoading, setLoading] = useState(loading)
 
   useEffect(() => {
-    const fetchData = () => {
-      setLoading(true)
       dispatch(participatorListRequest())
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-    }
-    fetchData()
   }, [dispatch])
 
   console.log("Participator here", Participator.requests)
@@ -116,13 +109,16 @@ const Participator = () => {
                 <Button
                   className="btn btn-sm btn-soft-primary"
                   id={`edittooltip-${cellProps.row.original.id}`}
+                  onClick={() => {
+                    handleAccept(cellProps.row.original)
+                  }}
                 >
-                  <i className="mdi mdi-pencil-outline" />
+                  <i className="bx bx bx-check-shield" />
                   <UncontrolledTooltip
                     placement="top"
                     target={`edittooltip-${cellProps.row.original.id}`}
                   >
-                    Edit
+                    Accept
                   </UncontrolledTooltip>
                 </Button>
               </li>
@@ -153,26 +149,29 @@ const Participator = () => {
     []
   )
 
+  const handleAccept = participator => {
+    console.log("Running", participator.id)
+    if (participator && participator.id) {
+      dispatch(acceptParticipatorRequest(participator.id))
+      setDeleteModal(false)
+      dispatch(participatorListRequest())
+    }
+  }
+
   const [deleteModal, setDeleteModal] = useState(false)
   const [participator, setParticipator] = useState(null)
 
-const onClickDelete = participator => {
-  setParticipator(participator)
-  setDeleteModal(true)
-}
-
-const handleDeleteParticipator = () => {
-  if (participator && participator.id) {
-    setLoading(true)
-    dispatch(deleteParticipatorRequest(participator.id))
-    setDeleteModal(false)
-    setTimeout(() => {
-      dispatch(participatorListRequest())
-      setLoading(false)
-    }, 1000)
+  const onClickDelete = participator => {
+    setParticipator(participator)
+    setDeleteModal(true)
   }
-}
 
+  const handleDeleteParticipator = () => {
+    if (participator && participator.id) {
+      dispatch(deleteParticipatorRequest(participator.id))
+      setDeleteModal(false)
+    }
+  }
 
   const modalities = data => {
     const value = data.map(item => {
@@ -217,47 +216,38 @@ const handleDeleteParticipator = () => {
       />
       {/*  Modal view and edit */}
 
-          <Row>
-            <Col lg="12">
-              <Card>
-                <CardBody className="border-bottom">
-                  <div className="d-flex align-items-center">
-                    <h5 className="mb-0 card-title flex-grow-1">
-                      Request List
-                    </h5>
-                    <div className="flex-shrink-0">
-                      <Link to="#!" className="btn btn-light me-1">
-                        <i className="mdi mdi-refresh"></i>
-                      </Link>
-                      
-                    </div>
-                  </div>
-                </CardBody>
-                {isLoading ? (
-                  <Spinners setLoading={setLoading} />
-                ) : (
-                  <CardBody>
-                    <TableContainer
-                      columns={columns}
-                      data={
-                        Participator.requests ? Participator.requests : [{}]
-                      }
-                      isGlobalFilter={true}
-                      isPagination={true}
-                      iscustomPageSizeOptions={true}
-                      isShowingPageLength={true}
-                      customPageSize={5}
-                      tableClass="table-bordered align-middle nowrap mt-2"
-                      paginationDiv="col-sm-12 col-md-7"
-                      pagination="pagination justify-content-end pagination-rounded"
-                    />
-                  </CardBody>
-                )}
-              </Card>
-            </Col>
-          </Row>
-          <ToastContainer />
-     
+      <Row>
+        <Col lg="12">
+          <Card>
+            <CardBody className="border-bottom">
+              <div className="d-flex align-items-center">
+                <h5 className="mb-0 card-title flex-grow-1">Request List</h5>
+                <div className="flex-shrink-0">
+                  <Link to="#!" className="btn btn-light me-1">
+                    <i className="mdi mdi-refresh"></i>
+                  </Link>
+                </div>
+              </div>
+            </CardBody>
+            <CardBody>
+              <TableContainer
+                columns={columns}
+                data={Participator.requests ? Participator.requests : [{}]}
+                isGlobalFilter={true}
+                isPagination={true}
+                iscustomPageSizeOptions={true}
+                isShowingPageLength={true}
+                customPageSize={5}
+                tableClass="table-bordered align-middle nowrap mt-2"
+                paginationDiv="col-sm-12 col-md-7"
+                pagination="pagination justify-content-end pagination-rounded"
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <ToastContainer />
+
       <Modal
         isOpen={modal}
         toggle={() => {
