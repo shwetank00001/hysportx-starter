@@ -8,6 +8,11 @@ import {
   FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
   FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
 
+  
+  REMOVE_PARTICIPATOR_REQUEST_LIST,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
+
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
   PARTICIPATOR_LIST_FAIL,
@@ -34,6 +39,7 @@ const initialState = {
 const participatorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PARTICIPATOR:  
+    case REMOVE_PARTICIPATOR_REQUEST_LIST:  
     case PARTICIPATOR_LIST_REQUEST:
     case PARTICIPATOR_LIST_MAIN_REQUEST:
     case ADD_PARTICIPATOR_REQUEST:
@@ -48,6 +54,7 @@ const participatorReducer = (state = initialState, action) => {
 
     case ADD_PARTICIPATOR_SUCCESS:
     case FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS:
+    case REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS: 
     case PARTICIPATOR_LIST_SUCCESS:
     case PARTICIPATOR_LIST_MAIN_SUCCESS:
       return {
@@ -56,7 +63,7 @@ const participatorReducer = (state = initialState, action) => {
         adderrors:null,
         participator: action.payload,
       }
-    
+
     case ACCEPT_PARTICIPATOR_SUCCESS:
     case DELETE_PARTICIPATOR_SUCCESS:
       return {
@@ -64,6 +71,7 @@ const participatorReducer = (state = initialState, action) => {
         loading: false,
       }
     case ADD_PARTICIPATOR_FAIL:
+    case REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL:
     case FETCH_PARTICIPATOR_cOMMUNITIES__FAIL:
     case PARTICIPATOR_LIST_FAIL:
     case PARTICIPATOR_LIST_MAIN_FAIL:

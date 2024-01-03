@@ -3,6 +3,10 @@ import {
   ADD_PARTICIPATOR_SUCCESS,
   ADD_PARTICIPATOR_FAIL,
 
+  REMOVE_PARTICIPATOR_REQUEST_LIST,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
+  REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
+
   FETCH_PARTICIPATOR_cOMMUNITIES,
   FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
   FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
@@ -35,6 +39,19 @@ export const onAddParticipatorSuccess = (success) => ({
 })
 export const onAddParticipatorFail = (error) => ({
   type: ADD_PARTICIPATOR_FAIL,
+  payload:error
+})
+
+export const onRemovePartipator = (data) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST,
+  payload:data,
+})
+export const onRemovePartipatorSuccess = (success) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
+  payload:success
+})
+export const onRemovePartipatorFail = (error) => ({
+  type: REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
   payload:error
 })
 

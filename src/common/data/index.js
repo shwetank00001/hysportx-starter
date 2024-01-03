@@ -1,6 +1,17 @@
 // import React from "react"
 import { cryptoOrders, wallet, productData, cryptoOrderData, icoLandingTeam, blogs, orderbookData } from "./crypto";
-import{event, competition,inetrSchool, national,reports, broadcast, kyc,connect,post, fitness,support, app,fwgbm} from './participator'
+import{event, competition,inetrSchool, national,reports, broadcast,connect,post, fitness,support, app,fwgbm} from './participatar'
+import {visitor, blodStatsData, postRecentData, postPopularData, commentsData, progressData, activityData}from './dashboard-blog'
+import { marchWalletData,
+  febWalletData,
+  janWalletData,
+  decWalletData,
+  transactionsDataALL,
+  transactionsDataBuy,
+  transactionsDataSell,
+  notificationsData
+} from './dashboard-crypto'
+
 const activityDataDashboard=[
   {id:1}
 ]
@@ -18,12 +29,22 @@ export {
   blogs,
   cryptoOrders,
   broadcast,
-  kyc,
+  // kyc,
   fitness,
   support,
   app,
   connect,
   post,
   fwgbm,
-  activityDataDashboard
+  activityDataDashboard,
+  marchWalletData,
+  febWalletData,
+  janWalletData,
+  decWalletData,
+  transactionsDataALL,
+  transactionsDataBuy,
+  transactionsDataSell,
+  notificationsData,
+  visitor, blodStatsData, postRecentData, postPopularData, commentsData, progressData, activityData
+
 };
