@@ -30,8 +30,12 @@ const authProtectedRoutes =[
     // Community routes
     { label:"Dashboard", path: "/community/dashboard", component: <CommunityDashboard />, user:'community',icon:"mdi mdi-run",children:[] },
     { label:"Competition", path: "/community/competition", component: <Exercise />, user:'community',icon:"mdi mdi-run",children:[] },
-    { label:"Participator Request", path: "/community/participator-request", component: <ParticipatorList /> , user:'community',icon:"mdi mdi-run",children:[]},
-    { label:"Participator List", path: "/community/participator-main-list", component: <ParticipatorMainList /> , user:'community',icon:"mdi mdi-run",children:[]},
+    { label:"Participators", path: "/", component: <ParticipatorList /> , user:'community',icon:"mdi mdi-run",children:[
+
+      {label:'Participators List',path:'/community/participator-main-lis',component:<ParticipatorMainList />},
+      {label:'Participator Requests',path:'/community/participator-request',component:<ParticipatorList />},
+
+    ]},
     { label:"Exercise List", path: "/community/exercise", component: <Exercise />, user:'community',icon:"mdi mdi-run",children:[] },
     { label:"Dummy", path: "/community/dummy", component: <Dashboard />, user:'community',icon:"mdi mdi-run",children:[
       {label:'dummy1',path:'/community/dummy1',component:<ParticipatorDashboard />},
