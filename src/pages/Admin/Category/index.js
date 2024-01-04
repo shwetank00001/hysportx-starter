@@ -181,12 +181,12 @@ const getTabContent = tab => {
           <ModalityCategory />
         </Card>
       )
-    case 3:
-      return (
-        <Card>
-          <PerformanceTagCategory />
-        </Card>
-      )
+    // case 3:
+    //   return (
+    //     <Card>
+    //       <PerformanceTagCategory />
+    //     </Card>
+    //   )
     // case 4:
     //   return (
     //     <Card>

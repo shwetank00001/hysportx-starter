@@ -18,60 +18,27 @@ import { useSelector, useDispatch } from "react-redux";
 
 function ModalityCategory() {
   const [modal6, setModal6] = useState(false);
-  const [modalityData, setModalityData] = useState([]);
   const [modalityName, setModalityName] = useState("");
   const [modalityDescription, setModalityDescription] = useState("");
 
   const dispatch = useDispatch();
-  const modalityDispatch = useSelector(state => state.ModalityReducer.modality);
+
 
   useEffect(() => {
-    fetchData();
-  }, [modalityDispatch]);
-
-  useEffect(() => {
-    setModalityData(modalityDispatch.exercise || []);
-  }, [modalityDispatch]);
-
-  const fetchData = async () => {
-    await dispatch(listModalityRequest());
-  };
-
-  const handleDelete = modalityId => {
-    dispatch(deleteModalityRequest(modalityId));
-  };
-
-const handleAdd = async () => {
-  try {
-    // Dispatch the add action
-    await dispatch(
-      addModalityRequest({
-        name: modalityName,
-        description: modalityDescription,
-      })
-    )
-
-    // Refetch data to update the local state
-    fetchData()
-
-    // Close the modal and clear input fields
-    setModal6(false)
-    setModalityName("")
-    setModalityDescription("")
-  } catch (error) {
-    if (error.response && error.response.status === 429) {
-      console.log("Rate limited. Retrying after 5 seconds...")
-      setTimeout(() => {
-        handleAdd()
-      }, 5000)
-    } else {
-      console.error("Error:", error)
-    }
+    dispatch(listModalityRequest())
+  }, []);
+  const modalities = useSelector(state=>state.ModalityReducer.modality.exercise);
+  const addModalityHandler = () =>{
+    // dispatch addModalityRequest Action
+    dispatch( addModalityRequest({
+      name: modalityName,
+      description: modalityDescription,
+    }));
+    // clear the form and close the modal
+    setModalityName("");
+    setModalityDescription("");
+    setModal6(false);
   }
-}
-
-  const ele = modalityData || [];
-
   const columns = useMemo(
     () => [
       {
@@ -93,7 +60,7 @@ const handleAdd = async () => {
           <div>
             <Button
               color="danger"
-              onClick={() => handleDelete(row.original.id)}
+              onClick={() => dispatch(deleteModalityRequest(row.original.id))}
             >
               Delete
             </Button>
@@ -101,7 +68,7 @@ const handleAdd = async () => {
         ),
       },
     ],
-    [handleDelete]
+    
   );
 
   return (
@@ -116,7 +83,7 @@ const handleAdd = async () => {
         <CardText>
           <TableContainer
             columns={columns}
-            data={ele}
+            data={modalities || []}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -178,7 +145,7 @@ const handleAdd = async () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={handleAdd}
+                onClick={addModalityHandler}
               >
                 ADD
               </Button>

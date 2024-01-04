@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+console.log("store_contents : ",store.getState());
 root.render(
     <Provider store={store}>
       <React.Fragment>
