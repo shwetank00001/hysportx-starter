@@ -1,8 +1,9 @@
-// PerformanceTagCategory.js
-
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { performanceListRequest } from "../../../../store/performance/actions"
+import {
+  performanceListRequest,
+  deletePerformanceRequest,
+} from "../../../../store/performance/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
   Button,
@@ -37,14 +38,18 @@ const PerformanceTagCategory = () => {
     fetchData()
   }, [dispatch, performanceDispatch])
 
-  // Assuming performanceData has a structure similar to the data in your table
   const tableData = performanceData.ptag
-    ? performanceData.ptag.map(item => item) : []
+    ? performanceData.ptag.map(item => item)
+    : []
 
-    console.log("TD", tableData)
+  console.log("TD", tableData)
+
+  const handleDelete = performanceId => {
+    // Dispatch the delete action here
+    dispatch(deletePerformanceRequest(performanceId))
+  }
 
   const columns = [
-    // Define your columns here similar to ModalityCategory component
     {
       Header: "ID",
       accessor: "id",
@@ -60,8 +65,14 @@ const PerformanceTagCategory = () => {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({ row }) => (
+        <div>
+          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
+            Delete
+          </Button>
+        </div>
+      ),
     },
-    // Add more columns as needed
   ]
 
   return (
@@ -106,7 +117,6 @@ const PerformanceTagCategory = () => {
           </ModalHeader>
           <ModalBody>
             <form>
-              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
                   type="text"
@@ -114,7 +124,6 @@ const PerformanceTagCategory = () => {
                   placeholder="Performance Tag Name"
                 />
               </div>
-              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">

@@ -1,8 +1,9 @@
-// ExcerciseNameCategory.js
-
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { exerciseListRequest } from "../../../../store/exercises/actions"
+import {
+  exerciseListRequest,
+  deleteExerciseRequest,
+} from "../../../../store/exercises/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
   Button,
@@ -41,6 +42,10 @@ const ExcerciseNameCategory = () => {
 
   console.log("Exercise Table Data", tableData)
 
+  const handleDelete = exerciseId => {
+    dispatch(deleteExerciseRequest(exerciseId))
+  }
+
   const columns = [
     {
       Header: "ID",
@@ -57,8 +62,14 @@ const ExcerciseNameCategory = () => {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({ row }) => (
+        <div>
+          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
+            Delete
+          </Button>
+        </div>
+      ),
     },
-
   ]
 
   return (
@@ -103,7 +114,6 @@ const ExcerciseNameCategory = () => {
           </ModalHeader>
           <ModalBody>
             <form>
-              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
                   type="text"
@@ -111,7 +121,6 @@ const ExcerciseNameCategory = () => {
                   placeholder="Exercise Name"
                 />
               </div>
-              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">

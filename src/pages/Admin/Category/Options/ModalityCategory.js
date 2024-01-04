@@ -1,6 +1,5 @@
 import TableContainer from "components/Common/TableContainer"
-import React, { useEffect } from "react"
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useMemo } from "react"
 import {
   Button,
@@ -8,52 +7,42 @@ import {
   CardText,
   CardTitle,
   Col,
-  Input,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Input
 } from "reactstrap"
-
 import { listModalityRequest } from "store/modality/actions"
-import {
-  addModalityRequest,
-  editModalityRequest,
-  deleteModalityRequest,
-} from "../../../../store/modality/actions"
-
-
+import { deleteModalityRequest } from "store/modality/actions"
 import { useSelector, useDispatch } from "react-redux"
-
-
 
 function ModalityCategory() {
   const [modal6, setmodal6] = useState(false)
-
-  
   const [modalityData, setModalityData] = useState([])
-
-  
   const dispatch = useDispatch()
-
   const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
-  
-useEffect(() => {
-  const fetchData = async () => {
-    await dispatch(listModalityRequest())
-    setModalityData(modalityDispatch)
-  }
 
-  fetchData()
-}, [dispatch, modalityDispatch, modalityData])
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(listModalityRequest())
+      setModalityData(modalityDispatch)
+    }
+
+    fetchData()
+  }, [dispatch, modalityDispatch, modalityData])
 
   console.log("modalityData", modalityData)
 
-const ele = modalityData.exercise ? modalityData.exercise.map(item => item) : []
+  const ele = modalityData.exercise
+    ? modalityData.exercise.map(item => item)
+    : []
   console.log("ele", ele)
 
-
-
+  const handleDelete = modalityId => {
+    // Dispatch the delete action here
+    dispatch(deleteModalityRequest(modalityId))
+  }
 
   const columns = useMemo(
     () => [
@@ -72,37 +61,20 @@ const ele = modalityData.exercise ? modalityData.exercise.map(item => item) : []
       {
         Header: "Action",
         accessor: "action",
+        Cell: ({ row }) => (
+          <div>
+            <Button
+              color="danger"
+              onClick={() => handleDelete(row.original.id)}
+            >
+              Delete
+            </Button>
+          </div>
+        ),
       },
     ],
-    []
+    [handleDelete]
   )
-
-  // const data = [
-  //   {
-  //     id: "1",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  // ]
 
   return (
     <div>

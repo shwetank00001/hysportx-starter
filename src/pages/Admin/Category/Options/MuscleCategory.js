@@ -1,8 +1,9 @@
-// MuscleCategory.js
-
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { muscleListRequest } from "../../../../store/muscle/actions"
+import {
+  muscleListRequest,
+  deleteMuscleRequest,
+} from "../../../../store/muscle/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
   Button,
@@ -35,17 +36,15 @@ const MuscleCategory = () => {
     fetchData()
   }, [dispatch, muscleDispatch])
 
-  // Assuming muscleData has a structure similar to the data in your table
-  const tableData = muscleData.muscle
-    ? muscleData.muscle.map(item => item)
-    : []
-
-
+  const tableData = muscleData.muscle ? muscleData.muscle.map(item => item) : []
 
   console.log("Muscle Table Data", tableData)
 
+  const handleDelete = muscleId => {
+    dispatch(deleteMuscleRequest(muscleId))
+  }
+
   const columns = [
-    // Define your columns here similar to PerformanceTagCategory component
     {
       Header: "ID",
       accessor: "id",
@@ -61,8 +60,14 @@ const MuscleCategory = () => {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({ row }) => (
+        <div>
+          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
+            Delete
+          </Button>
+        </div>
+      ),
     },
-    // Add more columns as needed
   ]
 
   return (
@@ -107,7 +112,6 @@ const MuscleCategory = () => {
           </ModalHeader>
           <ModalBody>
             <form>
-              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
                   type="text"
@@ -115,7 +119,6 @@ const MuscleCategory = () => {
                   placeholder="Muscle Name"
                 />
               </div>
-              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">

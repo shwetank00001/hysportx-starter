@@ -1,8 +1,9 @@
-// EquipmentCategory.js
-
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { equipmentListRequest } from "store/equipment/actions"
+import {
+  equipmentListRequest,
+  deleteEquipmentRequest,
+} from "store/equipment/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
   Button,
@@ -35,14 +36,18 @@ const EquipmentCategory = () => {
     fetchData()
   }, [dispatch, equipmentDispatch])
 
-  // Assuming equipmentData has a structure similar to the data in your table
+  console.log("equipmentData", equipmentData)
+
   const tableData = equipmentData.equipment
     ? equipmentData.equipment.map(item => item)
     : []
 
-    console.log("equipmentData", equipmentData)
+  const handleDelete = equipmentId => {
+
+    dispatch(deleteEquipmentRequest(equipmentId))
+  }
+
   const columns = [
-    // Define your columns here similar to PerformanceTagCategory component
     {
       Header: "ID",
       accessor: "id",
@@ -58,8 +63,14 @@ const EquipmentCategory = () => {
     {
       Header: "Action",
       accessor: "action",
+      Cell: ({ row }) => (
+        <div>
+          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
+            Delete
+          </Button>
+        </div>
+      ),
     },
-    // Add more columns as needed
   ]
 
   return (
@@ -104,7 +115,6 @@ const EquipmentCategory = () => {
           </ModalHeader>
           <ModalBody>
             <form>
-              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
                   type="text"
@@ -112,7 +122,6 @@ const EquipmentCategory = () => {
                   placeholder="Equipment Name"
                 />
               </div>
-              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">

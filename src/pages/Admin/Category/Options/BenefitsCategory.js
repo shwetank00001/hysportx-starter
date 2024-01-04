@@ -1,5 +1,3 @@
-// BenefitsCategory.js
-
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { benefitListRequest } from "../../../../store/benifit/actions"
@@ -35,7 +33,7 @@ const BenefitsCategory = () => {
     fetchData()
   }, [dispatch, benefitsDispatch])
 
-  // Assuming benefitsData has a structure similar to the data in your table
+
 const tableData = benefitsData?.benefits
   ? benefitsData.benefits.map(item => item)
   : []
@@ -44,7 +42,6 @@ const tableData = benefitsData?.benefits
   console.log("Benefits Table Data", tableData)
 
   const columns = [
-    // Define your columns here similar to other components
     {
       Header: "ID",
       accessor: "id",
@@ -61,7 +58,6 @@ const tableData = benefitsData?.benefits
       Header: "Action",
       accessor: "action",
     },
-    // Add more columns as needed
   ]
 
   return (
@@ -106,7 +102,7 @@ const tableData = benefitsData?.benefits
           </ModalHeader>
           <ModalBody>
             <form>
-              {/* Add your form inputs here */}
+
               <div className="mb-3">
                 <Input
                   type="text"
@@ -114,7 +110,7 @@ const tableData = benefitsData?.benefits
                   placeholder="Benefits Name"
                 />
               </div>
-              {/* Add more form inputs as needed */}
+
             </form>
           </ModalBody>
           <ModalFooter className="">
