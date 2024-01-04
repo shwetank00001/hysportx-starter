@@ -16,26 +16,38 @@ import {
   DELETE_MODALITY_REQUEST,
   DELETE_MODALITY_SUCCESS,
   DELETE_MODALITY_FAILURE,
-} from "./actionTypes"
+} from "./actionTypes";
+import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listModalitySaga() {
   try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Modality Please wait ...'}})
     const data = yield call(modality.list)
     yield put({ type: MODALITY_LIST_SUCCESS, payload: data.data })
+    toast.success(data.message, { autoClose: 2000 });
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: MODALITY_LIST_FAIL, payload: error })
-    toast.error("Please fix all errors.", { autoClose: 2000 })
+    toast.error(error.response?error.response.data.message:error.message, {
+      autoClose: 2000,
+    })
   }
 }
 
 function* addModalitySaga(action) {
   try {
     console.log("Saga received addModalityRequest with data:", action.payload)
-    yield call(modality.add, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Adding Modality Please wait ...'}})
+    const response = yield call(modality.add, action.payload)
     yield put({ type: ADD_MODALITY_SUCCESS })
+    yield put({type:MODALITY_LIST_REQUEST})
+    toast.success(response.message, { autoClose: 2000 });
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: ADD_MODALITY_FAILURE, payload: error })
-    toast.error("Failed to add modality. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }
@@ -44,12 +56,17 @@ function* addModalitySaga(action) {
 function* editModalitySaga(action) {
   const { id, data } = action.payload
   try {
-    yield call(modality.edit, id, data)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Updating Modality Please wait ....'}})
+    const response = yield call(modality.edit, id, data)
     yield put({ type: EDIT_MODALITY_SUCCESS })
+    yield put({type:MODALITY_LIST_REQUEST})
+    toast.success(response.message, { autoClose: 2000 });
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     // You can dispatch another action to refresh the modality list if needed
   } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: EDIT_MODALITY_FAILURE, payload: error })
-    toast.error("Failed to edit modality. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }
@@ -58,12 +75,16 @@ function* editModalitySaga(action) {
 function* deleteModalitySaga(action) {
   const { id } = action.payload
   try {
-    yield call(modality.delete, id)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Deleting Modality Please wait ....'}})
+    const response = yield call(modality.delete, id)
     yield put({ type: DELETE_MODALITY_SUCCESS })
-    // You can dispatch another action to refresh the modality list if needed
+    yield put({type:MODALITY_LIST_REQUEST})
+    toast.success(response.message, { autoClose: 2000 });
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: DELETE_MODALITY_FAILURE, payload: error })
-    toast.error("Failed to delete modality. Please try again.", {
+    toast.error(error.response?error.response.data.message:error.message, {
       autoClose: 2000,
     })
   }

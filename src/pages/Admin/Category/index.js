@@ -169,66 +169,66 @@ const getTabLabel = tab => {
 
 const getTabContent = tab => {
   switch (tab) {
-    case 1:
-      return (
-        <Card>
-          <ExcerciseNameCategory />
-        </Card>
-      )
+    // case 1:
+    //   return (
+    //     <Card>
+    //       <ExcerciseNameCategory />
+    //     </Card>
+    //   )
     case 2:
       return (
         <Card>
           <ModalityCategory />
         </Card>
       )
-    case 3:
-      return (
-        <Card>
-          <PerformanceTagCategory />
-        </Card>
-      )
-    case 4:
-      return (
-        <Card>
-          <EquipmentCategory />
-        </Card>
-      )
-    case 5:
-      return (
-        <Card>
-          <MuscleCategory />
-        </Card>
-      )
-    case 6:
-      return (
-        <Card>
-          <BenefitsCategory />
-        </Card>
-      )
-    case 7:
-      return (
-        <Card>
-          <ExerciseDescriptionCategory />
-        </Card>
-      )
-    case 8:
-      return (
-        <div className="row justify-content-center">
-          <Col lg="6">
-            <div className="text-center">
-              <div className="mb-4">
-                <i className="mdi mdi-check-circle-outline text-success display-4" />
-              </div>
-              <div>
-                <h5>Confirm Detail</h5>
-                <p className="text-muted">
-                  If several languages coalesce, the grammar of the resulting
-                </p>
-              </div>
-            </div>
-          </Col>
-        </div>
-      )
+    // case 3:
+    //   return (
+    //     <Card>
+    //       <PerformanceTagCategory />
+    //     </Card>
+    //   )
+    // case 4:
+    //   return (
+    //     <Card>
+    //       <EquipmentCategory />
+    //     </Card>
+    //   )
+    // case 5:
+    //   return (
+    //     <Card>
+    //       <MuscleCategory />
+    //     </Card>
+    //   )
+    // case 6:
+    //   return (
+    //     <Card>
+    //       <BenefitsCategory />
+    //     </Card>
+    //   )
+    // case 7:
+    //   return (
+    //     <Card>
+    //       <ExerciseDescriptionCategory />
+    //     </Card>
+    //   )
+    // case 8:
+    //   return (
+    //     <div className="row justify-content-center">
+    //       <Col lg="6">
+    //         <div className="text-center">
+    //           <div className="mb-4">
+    //             <i className="mdi mdi-check-circle-outline text-success display-4" />
+    //           </div>
+    //           <div>
+    //             <h5>Confirm Detail</h5>
+    //             <p className="text-muted">
+    //               If several languages coalesce, the grammar of the resulting
+    //             </p>
+    //           </div>
+    //         </div>
+    //       </Col>
+    //     </div>
+    //   )
     default:
       return null
   }
