@@ -1,94 +1,79 @@
+// ExcerciseNameCategory.js
 
+import React, { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { exerciseListRequest } from "../../../../store/exercises/actions"
 import TableContainer from "components/Common/TableContainer"
-import React from "react"
-import { useState } from "react"
-import { useMemo } from "react"
 import {
   Button,
   Card,
   CardText,
   CardTitle,
   Col,
-  Input,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Input,
 } from "reactstrap"
 
-function ExcerciseNameCategory() {
-  const [modal6, setmodal6] = useState(false)
+const ExcerciseNameCategory = () => {
+  const [modal, setModal] = useState(false)
+  const [exerciseData, setExerciseData] = useState([])
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "ID",
-        accessor: "id",
-      },
-      {
-        Header: " Name",
-        accessor: "name",
-      },
-      {
-        Header: "Code",
-        accessor: "code",
-      },
-      {
-        Header: "Link",
-        accessor: "link",
-      },
-      {
-        Header: "Description",
-        accessor: "description",
-      },
-      {
-        Header: "Action",
-        accessor: "action",
-      },
-    ],
-    []
-  )
+  const dispatch = useDispatch()
+  const exerciseDispatch = useSelector(state => state.exerciseReducer.exercise)
 
-  const data = [
+  console.log("exerciseData", exerciseData)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(exerciseListRequest())
+      setExerciseData(exerciseDispatch)
+    }
+
+    fetchData()
+  }, [dispatch, exerciseDispatch])
+
+  const tableData = exerciseData.exercise
+    ? exerciseData.exercise.map(item => item)
+    : []
+
+  console.log("Exercise Table Data", tableData)
+
+  const columns = [
     {
-      id: "1",
-      name: "Jennifer Chang",
-      code: "Regional Director",
-      link: 28,
-      Description: "Singapore hfhfhfhhfhfh",
-      action: "2010/11/14",
+      Header: "ID",
+      accessor: "id",
     },
     {
-      id: "2",
-      name: "Jennifer Chang",
-      code: "Regional Director",
-      link: 28,
-      Description: "Singapore hfhfhfhhfhfh",
-      action: "2010/11/14",
+      Header: "Name",
+      accessor: "name",
     },
     {
-      id: "3",
-      name: "Jennifer Chang",
-      code: "Regional Director",
-      link: 28,
-      Description: "Singapore hfhfhfhhfhfh",
-      action: "2010/11/14",
+      Header: "Description",
+      accessor: "description",
     },
+    {
+      Header: "Action",
+      accessor: "action",
+    },
+
   ]
 
   return (
     <div>
       <Card>
         <CardTitle className="d-flex">
-          <Col sm={6}>Hypersports Conditions</Col>
-          <Col sm={6} onClick={() => setmodal6(!modal6)} className="text-end">
+          <Col sm={6}>Exercise Name Category</Col>
+          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
             <Button color="secondary">+ Add New</Button>
           </Col>
         </CardTitle>
         <CardText>
           <TableContainer
             columns={columns}
-            data={data}
+            data={tableData}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -101,44 +86,32 @@ function ExcerciseNameCategory() {
         </CardText>
       </Card>
       <Modal
-        isOpen={modal6}
+        isOpen={modal}
         autoFocus={true}
         centered={true}
         toggle={() => {
-          setmodal6(!modal6)
+          setModal(!modal)
         }}
       >
         <div className="modal-content">
           <ModalHeader
             toggle={() => {
-              setmodal6(!modal6)
+              setModal(!modal)
             }}
           >
-            Manage Shortcut
+            Manage Exercise Name
           </ModalHeader>
           <ModalBody>
             <form>
+              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Short Name"
+                  placeholder="Exercise Name"
                 />
               </div>
-              <div className="mb-3">
-                <Input
-                  type="email"
-                  className="form-control"
-                  placeholder="Term Name"
-                />
-              </div>
-              <div className="mb-3">
-                <Input
-                  type="email"
-                  className="form-control"
-                  placeholder="Description"
-                />
-              </div>
+              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">
@@ -148,7 +121,7 @@ function ExcerciseNameCategory() {
                 className="col-sm-12 btn-soft-secondary"
                 color="secondary"
                 onClick={() => {
-                  setmodal6(!modal6)
+                  setModal(!modal)
                 }}
               >
                 Cancel
@@ -159,7 +132,7 @@ function ExcerciseNameCategory() {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setmodal6(!modal6)}
+                onClick={() => setModal(!modal)}
               >
                 ADD
               </Button>

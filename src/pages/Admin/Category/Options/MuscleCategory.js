@@ -1,116 +1,83 @@
+// MuscleCategory.js
+
+import React, { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { muscleListRequest } from "../../../../store/muscle/actions"
 import TableContainer from "components/Common/TableContainer"
-import React, { useEffect } from "react"
-import { useState } from "react"
-import { useMemo } from "react"
 import {
   Button,
   Card,
   CardText,
   CardTitle,
   Col,
-  Input,
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Input,
 } from "reactstrap"
 
-import { listModalityRequest } from "store/modality/actions"
-import {
-  addModalityRequest,
-  editModalityRequest,
-  deleteModalityRequest,
-} from "../../../../store/modality/actions"
-
-import { useSelector, useDispatch } from "react-redux"
-
-function MuscleCategory() {
-  const [modal6, setmodal6] = useState(false)
-
-  const [modalityData, setModalityData] = useState([])
+const MuscleCategory = () => {
+  const [modal, setModal] = useState(false)
+  const [muscleData, setMuscleData] = useState([])
 
   const dispatch = useDispatch()
+  const muscleDispatch = useSelector(state => state.muscleReducer.muscle)
 
-  const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
+  console.log("muscleData", muscleData)
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(listModalityRequest())
-      setModalityData(modalityDispatch)
+      await dispatch(muscleListRequest())
+      setMuscleData(muscleDispatch)
     }
 
     fetchData()
-  }, [dispatch, modalityDispatch, modalityData])
+  }, [dispatch, muscleDispatch])
 
-  console.log("modalityData", modalityData)
-
-  const ele = modalityData.exercise
-    ? modalityData.exercise.map(item => item)
+  // Assuming muscleData has a structure similar to the data in your table
+  const tableData = muscleData.muscle
+    ? muscleData.muscle.map(item => item)
     : []
-  console.log("ele", ele)
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "ID",
-        accessor: "id",
-      },
-      {
-        Header: " Name",
-        accessor: "name",
-      },
-      {
-        Header: "Description",
-        accessor: "description",
-      },
-      {
-        Header: "Action",
-        accessor: "action",
-      },
-    ],
-    []
-  )
 
-  // const data = [
-  //   {
-  //     id: "1",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Jennifer Chang",
-  //     code: "Regional Director",
-  //     link: 28,
-  //     Description: "Singapore hfhfhfhhfhfh",
-  //     action: "2010/11/14",
-  //   },
-  // ]
+
+  console.log("Muscle Table Data", tableData)
+
+  const columns = [
+    // Define your columns here similar to PerformanceTagCategory component
+    {
+      Header: "ID",
+      accessor: "id",
+    },
+    {
+      Header: "Name",
+      accessor: "name",
+    },
+    {
+      Header: "Description",
+      accessor: "description",
+    },
+    {
+      Header: "Action",
+      accessor: "action",
+    },
+    // Add more columns as needed
+  ]
 
   return (
     <div>
       <Card>
         <CardTitle className="d-flex">
-          <Col sm={6}>Hypersports Conditions</Col>
-          <Col sm={6} onClick={() => setmodal6(!modal6)} className="text-end">
+          <Col sm={6}>Muscle Category</Col>
+          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
             <Button color="secondary">+ Add New</Button>
           </Col>
         </CardTitle>
         <CardText>
           <TableContainer
             columns={columns}
-            data={ele}
+            data={tableData}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -123,44 +90,32 @@ function MuscleCategory() {
         </CardText>
       </Card>
       <Modal
-        isOpen={modal6}
+        isOpen={modal}
         autoFocus={true}
         centered={true}
         toggle={() => {
-          setmodal6(!modal6)
+          setModal(!modal)
         }}
       >
         <div className="modal-content">
           <ModalHeader
             toggle={() => {
-              setmodal6(!modal6)
+              setModal(!modal)
             }}
           >
-            Manage Shortcut
+            Manage Muscle
           </ModalHeader>
           <ModalBody>
             <form>
+              {/* Add your form inputs here */}
               <div className="mb-3">
                 <Input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Short Name"
+                  placeholder="Muscle Name"
                 />
               </div>
-              <div className="mb-3">
-                <Input
-                  type="email"
-                  className="form-control"
-                  placeholder="Term Name"
-                />
-              </div>
-              <div className="mb-3">
-                <Input
-                  type="email"
-                  className="form-control"
-                  placeholder="Description"
-                />
-              </div>
+              {/* Add more form inputs as needed */}
             </form>
           </ModalBody>
           <ModalFooter className="">
@@ -170,7 +125,7 @@ function MuscleCategory() {
                 className="col-sm-12 btn-soft-secondary"
                 color="secondary"
                 onClick={() => {
-                  setmodal6(!modal6)
+                  setModal(!modal)
                 }}
               >
                 Cancel
@@ -181,7 +136,7 @@ function MuscleCategory() {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setmodal6(!modal6)}
+                onClick={() => setModal(!modal)}
               >
                 ADD
               </Button>
