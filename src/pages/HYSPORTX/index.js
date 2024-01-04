@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Select from "react-select";
 import { Await, Link, Route, redirect, useLocation, useNavigate } from 'react-router-dom';
 import TableContainer from 'components/Common/TableContainer';
-import { ToastContainer } from "react-toastify"
+
 
 import HExercise from './HExercise';
 import HCondition from './HCondition';
@@ -281,7 +281,7 @@ function index() {
             </>
           )}
         </Container>
-        <ToastContainer />
+     
       </div>
     </React.Fragment>
   )

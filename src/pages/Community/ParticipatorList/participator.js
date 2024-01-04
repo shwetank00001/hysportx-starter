@@ -21,7 +21,7 @@ import TableContainer from "components/Common/TableContainer"
 import Spinners from "components/Common/Spinner"
 import Breadcrumbs from "components/Common/Breadcrumb"
 import DeleteModal from "components/Common/DeleteModal"
-import { ToastContainer } from "react-toastify"
+
 import { createSelector } from "reselect"
 import {
   participatorListRequest,
@@ -246,7 +246,7 @@ const Participator = () => {
           </Card>
         </Col>
       </Row>
-      <ToastContainer />
+ 
 
       <Modal
         isOpen={modal}

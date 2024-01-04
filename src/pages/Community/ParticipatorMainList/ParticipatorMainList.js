@@ -7,7 +7,7 @@ import {Col,Row,Card,CardBody, Label,Form,Input,Modal,ModalHeader, ModalBody,Unc
 import TableContainer from "components/Common/TableContainer"
 import Breadcrumbs from "components/Common/Breadcrumb"
 import DeleteModal from "components/Common/DeleteModal"
-import { ToastContainer } from "react-toastify"
+
 import { createSelector } from "reselect"
 import {participatorMainListRequest,deleteParticipatorRequest,onAddParticipator as addParticipatorForm,} from "../../../store/actions";
 const ParticipatorMainList = () => {
@@ -204,7 +204,7 @@ const handleDeleteParticipator = () => {
               </Card>
             </Col>
           </Row>
-          <ToastContainer />
+ 
         </div>
       </div>
       <Modal isOpen={viewModal}toggle={() => {setviewModal()}} id="participator">

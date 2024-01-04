@@ -10,7 +10,6 @@ import { useFormik } from "formik";
 //components
 import Breadcrumbs from "components/Common/Breadcrumb";
 import DeleteModal from 'components/Common/DeleteModal';
-import { ToastContainer } from "react-toastify";
 
 
 import { Col, Row, Card, CardBody, Label, Form, Input, Modal, ModalHeader, ModalBody, UncontrolledTooltip, Badge, Button } from "reactstrap";
@@ -294,7 +293,7 @@ const index = () => {
                         </Col>
                     </Row>
 
-                    <ToastContainer />
+        
                 </div>
             </div>
 

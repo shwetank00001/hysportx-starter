@@ -21,8 +21,6 @@ import TableContainer from "components/Common/TableContainer"
 //import components
 import Breadcrumbs from 'components/Common/Breadcrumb';
 import DeleteModal from 'components/Common/DeleteModal';
-import { ToastContainer } from "react-toastify";
-
 import { fetchParticipatorCommunities as participatedCommunities, onRemovePartipator as removeParticipatorRequestList } from '../../../store/actions'
 
 const Community = () => {
@@ -241,7 +239,7 @@ const Community = () => {
           </Col>
         </Card>
       </Container>
-      <ToastContainer />
+    
     </React.Fragment>
   )
 }

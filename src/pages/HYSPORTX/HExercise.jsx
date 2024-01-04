@@ -34,8 +34,7 @@ import { addExerciseRequest } from "../../store/exercises/actions"
 import { addEquipmentRequest } from "../../store/equipment/actions"
 import { addBenefitRequest } from "../../store/benifit/actions"
 
-// toast success importing
-import { ToastContainer } from "react-toastify"
+
 
 function HExercise() {
   
@@ -816,7 +815,7 @@ function HExercise() {
         </div>
       </Modal>
 
-      <ToastContainer />
+    
     </div>
   )
 }
