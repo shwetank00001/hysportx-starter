@@ -2,7 +2,7 @@
   "name": "skote-react-hook",
   "version": "2.0.0",
   "homepage": "https://www.hysportx.com",
-  "start_url":".",
+  "start_url": ".",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^38.1.1",
