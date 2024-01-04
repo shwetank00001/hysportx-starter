@@ -180,7 +180,7 @@ const CompetitionRightSide = () => {
                 <TabPane tabId="1">
 
                     <Row >
-                    <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
+                    <SimpleBar ref={scroollRef} style={{ height: "380px" }}>
                         {competitioninter.map(item => (
                             <Col lg={12} key={item.id}>
                                 <Card>

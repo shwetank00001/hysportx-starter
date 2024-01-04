@@ -114,6 +114,12 @@ export const competition = {
       headers: { Authorization: `Bearer ${token}` },
     }),
 }
+// Condition
+export const condition = {
+  add: (data) =>post("/condition", data),
+  list: () => get("/conditions"),
+  delete: (code) => del(`/condition/${code}`),
+}
 
 export const participator = {
   listParticipatorRequests: () => get("/participator-requests"),

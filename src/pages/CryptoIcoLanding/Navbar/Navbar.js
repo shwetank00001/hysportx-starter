@@ -96,7 +96,20 @@ const Navbar_page = props => {
             </OffcanvasHeader>
             <hr className="border border-danger border-1 opacity-10 mt-0"></hr>
             <OffcanvasBody>
-            <Nav className="me-auto" navbar>
+
+            <div className='d-block d-lg-none'>
+            <nav
+            className="navbar navbar-light navbar-expand topnav-menu"
+            id="navigation"
+          > 
+          
+          <ul className="navbar-nav d-block">
+            <MenuBar />
+          </ul>
+          </nav>
+          </div>
+
+            {/* <Nav className="me-auto" navbar>
             <NavItem>
             <Link to="#" className="dropdown-item">
                       Get Your Hysportx
@@ -136,7 +149,7 @@ const Navbar_page = props => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </Nav>
+            </Nav> */}
          
             </OffcanvasBody>
           </Offcanvas>

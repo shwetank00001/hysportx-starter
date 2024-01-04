@@ -9,6 +9,7 @@ import img4 from "assets/images/slider/img4.jpg"
 const LeftSlideCompetition = () => {
     return (
         <React.Fragment>
+            <div className='mx-auto'>
             <UncontrolledCarousel
                 interval={4000}
                 indicators={false}
@@ -33,6 +34,7 @@ const LeftSlideCompetition = () => {
                     },
                 ]}
             />
+            </div>
         </React.Fragment>
     );
 }

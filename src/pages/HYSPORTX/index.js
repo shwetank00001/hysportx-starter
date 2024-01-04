@@ -6,9 +6,13 @@ import classNames from 'classnames';
 import Select from "react-select";
 import { Await, Link, Route, redirect, useLocation, useNavigate } from 'react-router-dom';
 import TableContainer from 'components/Common/TableContainer';
+import { ToastContainer } from "react-toastify"
+
 import HExercise from './HExercise';
 import HCondition from './HCondition';
 import HActivity from './HActivity';
+import Activity from './Activity';
+import Condition from './Condition';
 
 
 
@@ -212,11 +216,11 @@ function index() {
                             </TabPane>
 
                             <TabPane tabId={2}>
-                              <HCondition />
+                              <Condition />
                             </TabPane>
 
                             <TabPane tabId={3}>
-                            <HActivity />
+                            <Activity />
                             </TabPane>
 
                             <TabPane tabId={4}>
@@ -277,6 +281,7 @@ function index() {
             </>
           )}
         </Container>
+        <ToastContainer />
       </div>
     </React.Fragment>
   )

@@ -29,6 +29,8 @@ import competitionReducer from "./competition/reducer";
 
 import participatorReducer from "./participator/reducer";
 
+import conditionReducer from "./condition/reducer";
+
 const rootReducer = combineReducers({
   // public
   Layout,
@@ -47,6 +49,7 @@ const rootReducer = combineReducers({
   exerciseReducer,
   competitionReducer,
   participatorReducer,
+  conditionReducer,
 })
 
 export default rootReducer;

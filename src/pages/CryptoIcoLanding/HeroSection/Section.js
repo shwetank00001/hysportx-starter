@@ -15,6 +15,7 @@ import { SignupButton } from "components/Common/SignupButton";
 import Vacancy from "../CarouselTypes/Vacancy";
 import LeftSlideCompetition from "../CarouselTypes/LeftSlideCompetition";
 import CompetitionRightSide from "../CarouselTypes/CompetitionRightSide";
+import Activity from "../CarouselTypes/Activity";
 
 
 const Section = () => {
@@ -28,8 +29,9 @@ const Section = () => {
         <OurTeam />
         <Competition />
         <Vacancy />
+        <Activity />
       </div>
-      <section className="section  " id="home">
+      {/* <section className="section  " id="home">
         <div className="bg-overlay bg-light"></div>
 
         <Container fluid>
@@ -52,7 +54,7 @@ const Section = () => {
 
           </Row>
         </Container>
-      </section>
+      </section> */}
     </React.Fragment>
   );
 };

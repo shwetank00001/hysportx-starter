@@ -8,7 +8,7 @@ import { Container, Row, Col } from "reactstrap";
 import LeftSlidecompetition from "./LeftSlideCompetition";
 import CompetitionRightSide from "./CompetitionRightSide";
 
-const Competition = () => {
+const Activity = () => {
   const features1 = [
     { id: 1, desc: "Donec pede justo vel aliquet" },
     { id: 2, desc: "Aenean et nisl sagittis" },
@@ -25,14 +25,14 @@ const Competition = () => {
           <Row>
             <Col lg="12">
               <div className="text-center mb-5">
-                <div className="small-title">Competition</div>
-                <h4>Key Competition of the Details</h4>
+                <div className="small-title text-dark">Activity</div>
+                <h4>Key Activity of the Details</h4>
               </div>
             </Col>
           </Row>
 
           <Row className="">
-            <Col lg="4"  >
+            <Col lg="4"  className="">
               {/* <div className="row">
                 <div className="col-lg-2 col-md-2"></div>
                 <div className="col-lg-9 col-md-9"> */}
@@ -41,7 +41,7 @@ const Competition = () => {
                 {/* </div>
               </div> */}
             </Col>
-            <Col lg="8" >
+            <Col lg="8"  >
               <CompetitionRightSide />
             </Col>
           </Row>
@@ -52,4 +52,4 @@ const Competition = () => {
   );
 };
 
-export default Competition;
+export default Activity;

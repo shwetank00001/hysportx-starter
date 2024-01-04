@@ -18,6 +18,7 @@ import performanceSaga from "./performance/saga"
 import exerciseSaga from "./exercises/saga"
 
 import participatorSaga from "./participator/saga"
+import conditionSaga from "./condition/saga"
 
 export default function* rootSaga() {
   yield all([
@@ -36,6 +37,7 @@ export default function* rootSaga() {
     fork(muscleSaga),
     fork(performanceSaga),
     fork(exerciseSaga),
-    fork(participatorSaga)
+    fork(participatorSaga),
+    fork(conditionSaga)
   ])
 }

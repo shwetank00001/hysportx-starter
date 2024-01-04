@@ -41,9 +41,9 @@ const Features = () => {
     <React.Fragment>
       <footer className="landing-footer">
         <Container>
-          <Row>
+          <Row className="mx-auto">
             {footerLinks.map((footerLink, key) => (
-              <Col lg="3" sm="6" key={key}>
+              <Col lg="3" sm="4" xs="3" key={key}>
                 <div className="mb-4 mb-lg-0">
                   <h5 className="mb-3 footer-list-title">{footerLink.title}</h5>
                   <ul className="list-unstyled footer-list-menu">
@@ -57,7 +57,7 @@ const Features = () => {
               </Col>
             ))}
 
-            <Col lg="3" sm="6">
+            <Col lg="3" sm="6" xs="6">
               <div className="mb-4 mb-lg-0">
                 <h5 className="mb-3 footer-list-title">Address</h5>
                 <div className="blog-post">
