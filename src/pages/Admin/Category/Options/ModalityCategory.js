@@ -1,6 +1,6 @@
-import TableContainer from "components/Common/TableContainer"
-import React, { useEffect, useState } from "react"
-import { useMemo } from "react"
+import TableContainer from "components/Common/TableContainer";
+import React, { useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   Button,
   Card,
@@ -12,37 +12,65 @@ import {
   ModalFooter,
   ModalHeader,
   Input
-} from "reactstrap"
-import { listModalityRequest } from "store/modality/actions"
-import { deleteModalityRequest } from "store/modality/actions"
-import { useSelector, useDispatch } from "react-redux"
+} from "reactstrap";
+import { listModalityRequest, addModalityRequest, deleteModalityRequest } from "store/modality/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 function ModalityCategory() {
-  const [modal6, setmodal6] = useState(false)
-  const [modalityData, setModalityData] = useState([])
-  const dispatch = useDispatch()
-  const modalityDispatch = useSelector(state => state.ModalityReducer.modality)
+  const [modal6, setModal6] = useState(false);
+  const [modalityData, setModalityData] = useState([]);
+  const [modalityName, setModalityName] = useState("");
+  const [modalityDescription, setModalityDescription] = useState("");
+
+  const dispatch = useDispatch();
+  const modalityDispatch = useSelector(state => state.ModalityReducer.modality);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(listModalityRequest())
-      setModalityData(modalityDispatch)
-    }
+    fetchData();
+  }, [modalityDispatch]);
 
-    fetchData()
-  }, [dispatch, modalityDispatch, modalityData])
+  useEffect(() => {
+    setModalityData(modalityDispatch.exercise || []);
+  }, [modalityDispatch]);
 
-  console.log("modalityData", modalityData)
-
-  const ele = modalityData.exercise
-    ? modalityData.exercise.map(item => item)
-    : []
-  console.log("ele", ele)
+  const fetchData = async () => {
+    await dispatch(listModalityRequest());
+  };
 
   const handleDelete = modalityId => {
-    // Dispatch the delete action here
-    dispatch(deleteModalityRequest(modalityId))
+    dispatch(deleteModalityRequest(modalityId));
+  };
+
+const handleAdd = async () => {
+  try {
+    // Dispatch the add action
+    await dispatch(
+      addModalityRequest({
+        name: modalityName,
+        description: modalityDescription,
+      })
+    )
+
+    // Refetch data to update the local state
+    fetchData()
+
+    // Close the modal and clear input fields
+    setModal6(false)
+    setModalityName("")
+    setModalityDescription("")
+  } catch (error) {
+    if (error.response && error.response.status === 429) {
+      console.log("Rate limited. Retrying after 5 seconds...")
+      setTimeout(() => {
+        handleAdd()
+      }, 5000)
+    } else {
+      console.error("Error:", error)
+    }
   }
+}
+
+  const ele = modalityData || [];
 
   const columns = useMemo(
     () => [
@@ -74,14 +102,14 @@ function ModalityCategory() {
       },
     ],
     [handleDelete]
-  )
+  );
 
   return (
     <div>
       <Card>
         <CardTitle className="d-flex">
           <Col sm={6}>Hypersports Conditions</Col>
-          <Col sm={6} onClick={() => setmodal6(!modal6)} className="text-end">
+          <Col sm={6} onClick={() => setModal6(!modal6)} className="text-end">
             <Button color="secondary">+ Add New</Button>
           </Col>
         </CardTitle>
@@ -104,15 +132,11 @@ function ModalityCategory() {
         isOpen={modal6}
         autoFocus={true}
         centered={true}
-        toggle={() => {
-          setmodal6(!modal6)
-        }}
+        toggle={() => setModal6(!modal6)}
       >
         <div className="modal-content">
           <ModalHeader
-            toggle={() => {
-              setmodal6(!modal6)
-            }}
+            toggle={() => setModal6(!modal6)}
           >
             Manage Shortcut
           </ModalHeader>
@@ -122,14 +146,9 @@ function ModalityCategory() {
                 <Input
                   type="email"
                   className="form-control"
-                  placeholder="Short Name"
-                />
-              </div>
-              <div className="mb-3">
-                <Input
-                  type="email"
-                  className="form-control"
-                  placeholder="Term Name"
+                  placeholder="Modality Name"
+                  value={modalityName}
+                  onChange={(e) => setModalityName(e.target.value)}
                 />
               </div>
               <div className="mb-3">
@@ -137,6 +156,8 @@ function ModalityCategory() {
                   type="email"
                   className="form-control"
                   placeholder="Description"
+                  value={modalityDescription}
+                  onChange={(e) => setModalityDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -147,9 +168,7 @@ function ModalityCategory() {
                 type="button"
                 className="col-sm-12 btn-soft-secondary"
                 color="secondary"
-                onClick={() => {
-                  setmodal6(!modal6)
-                }}
+                onClick={() => setModal6(!modal6)}
               >
                 Cancel
               </Button>
@@ -159,7 +178,7 @@ function ModalityCategory() {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setmodal6(!modal6)}
+                onClick={handleAdd}
               >
                 ADD
               </Button>
@@ -168,7 +187,7 @@ function ModalityCategory() {
         </div>
       </Modal>
     </div>
-  )
+  );
 }
 
-export default ModalityCategory
+export default ModalityCategory;

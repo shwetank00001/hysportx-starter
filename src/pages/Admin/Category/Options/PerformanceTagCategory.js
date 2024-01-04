@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import {
   performanceListRequest,
   deletePerformanceRequest,
+  addPerformanceRequest,
 } from "../../../../store/performance/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
@@ -45,9 +46,36 @@ const PerformanceTagCategory = () => {
   console.log("TD", tableData)
 
   const handleDelete = performanceId => {
-    // Dispatch the delete action here
     dispatch(deletePerformanceRequest(performanceId))
   }
+
+    const [performanceName, setPerformanceName] = useState("")
+    const [performanceDescription, setPerformanceDescription] = useState("")
+
+    const handleAdd = async () => {
+      try {
+        await dispatch(
+          addPerformanceRequest({
+            name: performanceName,
+            description: performanceDescription,
+          })
+        )
+
+        fetchData()
+        setModal6(false)
+        setPerformanceName("")
+        setPerformanceDescription("")
+      } catch (error) {
+        if (error.response && error.response.status === 429) {
+          console.log("Rate limited. Retrying after 5 seconds...")
+          setTimeout(() => {
+            handleAdd()
+          }, 5000)
+        } else {
+          console.error("Error:", error)
+        }
+      }
+    }
 
   const columns = [
     {
@@ -119,9 +147,20 @@ const PerformanceTagCategory = () => {
             <form>
               <div className="mb-3">
                 <Input
-                  type="text"
+                  type="email"
                   className="form-control"
-                  placeholder="Performance Tag Name"
+                  placeholder="Performance Name"
+                  value={performanceName}
+                  onChange={e => setPerformanceName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  type="email"
+                  className="form-control"
+                  placeholder="Performance Description"
+                  value={performanceDescription}
+                  onChange={e => setPerformanceDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -144,7 +183,10 @@ const PerformanceTagCategory = () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setModal(!modal)}
+                onClick={
+                  () => {setModal(!modal)
+                   handleAdd ()}
+                }
               >
                 ADD
               </Button>
