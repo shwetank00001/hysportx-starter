@@ -37,7 +37,6 @@ function* listModalitySaga() {
 
 function* addModalitySaga(action) {
   try {
-    console.log("Saga received addModalityRequest with data:", action.payload)
     yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Adding Modality Please wait ...'}})
     const response = yield call(modality.add, action.payload)
     yield put({ type: ADD_MODALITY_SUCCESS })

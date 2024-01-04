@@ -11,7 +11,9 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Input
+  Input,
+  CardHeader,
+  CardBody
 } from "reactstrap";
 import { listModalityRequest, addModalityRequest, deleteModalityRequest } from "store/modality/actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -74,13 +76,15 @@ function ModalityCategory() {
   return (
     <div>
       <Card>
-        <CardTitle className="d-flex">
+        <CardHeader className="d-flex">
+          {/* <CardTitle className="d-flex">
+          </CardTitle> */}
           <Col sm={6}>Hypersports Conditions</Col>
           <Col sm={6} onClick={() => setModal6(!modal6)} className="text-end">
             <Button color="secondary">+ Add New</Button>
           </Col>
-        </CardTitle>
-        <CardText>
+        </CardHeader>
+        <CardBody>
           <TableContainer
             columns={columns}
             data={modalities || []}
@@ -93,7 +97,7 @@ function ModalityCategory() {
             paginationDiv="col-12"
             pagination="justify-content-center pagination pagination-rounded"
           />
-        </CardText>
+        </CardBody>
       </Card>
       <Modal
         isOpen={modal6}

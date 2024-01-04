@@ -27,7 +27,6 @@ const PerformanceTagCategory = () => {
   const performanceDispatch = useSelector(
     state => state.performanceReducer.performance
   )
-
   console.log("performanceData", performanceData)
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const PerformanceTagCategory = () => {
     ? performanceData.ptag.map(item => item)
     : []
 
-  console.log("TD", tableData)
+
 
   const handleDelete = performanceId => {
     dispatch(deletePerformanceRequest(performanceId))
@@ -67,12 +66,12 @@ const PerformanceTagCategory = () => {
         setPerformanceDescription("")
       } catch (error) {
         if (error.response && error.response.status === 429) {
-          console.log("Rate limited. Retrying after 5 seconds...")
+          
           setTimeout(() => {
             handleAdd()
           }, 5000)
         } else {
-          console.error("Error:", error)
+    
         }
       }
     }
