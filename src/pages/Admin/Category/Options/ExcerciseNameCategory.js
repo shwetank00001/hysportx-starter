@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   exerciseListRequest,
+  addExerciseRequest,
   deleteExerciseRequest,
 } from "../../../../store/exercises/actions"
 import TableContainer from "components/Common/TableContainer"
@@ -18,32 +19,46 @@ import {
   Input,
 } from "reactstrap"
 
-const ExcerciseNameCategory = () => {
+const ExerciseNameCategory = () => {
   const [modal, setModal] = useState(false)
-  const [exerciseData, setExerciseData] = useState([])
+  const [exerciseName, setExerciseName] = useState("")
+  const [exerciseDescription, setExerciseDescription] = useState("")
 
   const dispatch = useDispatch()
   const exerciseDispatch = useSelector(state => state.exerciseReducer.exercise)
 
-  console.log("exerciseData", exerciseData)
+  console.log("exerciseData", exerciseDispatch)
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(exerciseListRequest())
-      setExerciseData(exerciseDispatch)
+      // setExerciseData(exerciseDispatch); // Removed this line
     }
 
     fetchData()
   }, [dispatch, exerciseDispatch])
 
-  const tableData = exerciseData.exercise
-    ? exerciseData.exercise.map(item => item)
+  const tableData = exerciseDispatch.exercise
+    ? exerciseDispatch.exercise.map(item => item)
     : []
 
   console.log("Exercise Table Data", tableData)
 
   const handleDelete = exerciseId => {
     dispatch(deleteExerciseRequest(exerciseId))
+  }
+
+  const addExerciseHandler = () => {
+    dispatch(
+      addExerciseRequest({
+        name: exerciseName,
+        description: exerciseDescription,
+      })
+    )
+    dispatch(exerciseListRequest())
+    setExerciseName("")
+    setExerciseDescription("")
+    setModal(false)
   }
 
   const columns = [
@@ -119,6 +134,17 @@ const ExcerciseNameCategory = () => {
                   type="text"
                   className="form-control"
                   placeholder="Exercise Name"
+                  value={exerciseName}
+                  onChange={e => setExerciseName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  type="text"
+                  className="form-control"
+                  placeholder="Exercise Description"
+                  value={exerciseDescription}
+                  onChange={e => setExerciseDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -141,7 +167,7 @@ const ExcerciseNameCategory = () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setModal(!modal)}
+                onClick={addExerciseHandler}
               >
                 ADD
               </Button>
@@ -153,4 +179,4 @@ const ExcerciseNameCategory = () => {
   )
 }
 
-export default ExcerciseNameCategory
+export default ExerciseNameCategory

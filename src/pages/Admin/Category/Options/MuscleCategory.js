@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   muscleListRequest,
+  addMuscleRequest,
   deleteMuscleRequest,
 } from "../../../../store/muscle/actions"
 import TableContainer from "components/Common/TableContainer"
@@ -18,30 +19,41 @@ import {
   Input,
 } from "reactstrap"
 
-const MuscleCategory = () => {
+function MuscleCategory() {
   const [modal, setModal] = useState(false)
-  const [muscleData, setMuscleData] = useState([])
+  const [muscleName, setMuscleName] = useState("")
+  const [muscleDescription, setMuscleDescription] = useState("")
 
   const dispatch = useDispatch()
   const muscleDispatch = useSelector(state => state.muscleReducer.muscle)
 
-  console.log("muscleData", muscleData)
+  console.log("muscleData", muscleDispatch)
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(muscleListRequest())
-      setMuscleData(muscleDispatch)
-    }
+    dispatch(muscleListRequest())
+  }, [dispatch])
 
-    fetchData()
-  }, [dispatch, muscleDispatch])
+  const muscles = muscleDispatch.muscle
+    ? muscleDispatch.muscle.map(item => item)
+    : []
 
-  const tableData = muscleData.muscle ? muscleData.muscle.map(item => item) : []
-
-  console.log("Muscle Table Data", tableData)
+  console.log("Muscle Table Data", muscles)
 
   const handleDelete = muscleId => {
     dispatch(deleteMuscleRequest(muscleId))
+  }
+
+  const addMuscleHandler = () => {
+    dispatch(
+      addMuscleRequest({
+        name: muscleName,
+        description: muscleDescription,
+      })
+    )
+    dispatch(muscleListRequest())
+    setMuscleName("")
+    setMuscleDescription("")
+    setModal(false)
   }
 
   const columns = [
@@ -82,7 +94,7 @@ const MuscleCategory = () => {
         <CardText>
           <TableContainer
             columns={columns}
-            data={tableData}
+            data={muscles || []}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -117,6 +129,17 @@ const MuscleCategory = () => {
                   type="text"
                   className="form-control"
                   placeholder="Muscle Name"
+                  value={muscleName}
+                  onChange={e => setMuscleName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  type="text"
+                  className="form-control"
+                  placeholder="Muscle Description"
+                  value={muscleDescription}
+                  onChange={e => setMuscleDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -139,7 +162,7 @@ const MuscleCategory = () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setModal(!modal)}
+                onClick={addMuscleHandler}
               >
                 ADD
               </Button>
