@@ -6,6 +6,8 @@ import {
   Card,
   CardText,
   CardTitle,
+  CardHeader,
+  CardBody,
   Col,
   Modal,
   ModalBody,
