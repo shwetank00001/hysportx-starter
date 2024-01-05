@@ -3,6 +3,10 @@ import {
     ADD_CONDITION_SUCCESS,
     ADD_CONDITION_FAIL,
 
+    UPDATE_CONDITION,
+    UPDATE_CONDITION_SUCCESS,
+    UPDATE_CONDITION_FAIL,
+
     CONDITION_LIST_REQUEST,
     CONDITION_LIST_SUCCESS,
     CONDITION_LIST_FAIL,
@@ -38,6 +42,25 @@ function* addconditionSaga(action) {
     }
   }
 
+function* updateConditionSaga(action) {
+    try {
+      yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Creating condition Please wait ...'}})
+      const response = yield call(condition.update, action.payload);
+
+      yield put({ type: UPDATE_CONDITION_SUCCESS });
+      yield put({ type: CONDITION_LIST_REQUEST })
+      
+      yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+      toast.success(response.message, { autoClose: 2000 });
+    } catch (error) {
+      yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+      yield put({ type: UPDATE_CONDITION_FAIL, payload: error.response.data.message })
+      toast.error(error.response?error.response.data.message:error.message, {
+        autoClose: 2000,
+      })
+    }
+  }
+
   function* conditionListSaga() {
     try {
       yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Conditon list Please wait ...'}})
@@ -47,9 +70,9 @@ function* addconditionSaga(action) {
     } catch (error) {
       yield put({ type: CONDITION_LIST_FAIL, payload: error })
       yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
-      toast.error(error.response?error.response.data.message:error.message, {
-        autoClose: 2000,
-      })
+      // toast.error(error.response?error.response.data.message:error.message, {
+      //   autoClose: 2000,
+      // })
     }
   }
 
@@ -74,6 +97,7 @@ function* deleteConditionSaga(action) {
 
 export default function* conditionSaga() {
     yield takeLatest(ADD_CONDITION, addconditionSaga)
+    yield takeLatest(UPDATE_CONDITION, updateConditionSaga)
     yield takeLatest(CONDITION_LIST_REQUEST, conditionListSaga)
     yield takeLatest(CONDITION_DELETE_REQUEST, deleteConditionSaga)
     

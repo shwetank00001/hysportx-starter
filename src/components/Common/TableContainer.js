@@ -124,6 +124,7 @@ const TableContainer = ({
   const onChangeInSelect = event => {
     setPageSize(Number(event.target.value))
   }
+  console.log("table",page.row)
 
   return (
     <Fragment>
@@ -233,22 +234,30 @@ const TableContainer = ({
           </thead>
 
           <tbody {...getTableBodyProps()}>
-            {page.map(row => {
-              prepareRow(row)
-              return (
-                <Fragment key={row.getRowProps().key}>
-                  <tr>
-                    {row.cells.map(cell => {
-                      return (
-                        <td key={cell.id} {...cell.getCellProps()}>
-                          {cell.render("Cell")}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                </Fragment>
-              )
-            })}
+          { 
+          page.length > 0 ? (
+              page.map(row => {
+                prepareRow(row);
+
+                return (
+                  <Fragment key={row.getRowProps().key}>
+                    <tr>
+                      {row.cells.map(cell => {
+                        return (
+                          <td key={cell.id} {...cell.getCellProps()}>
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  </Fragment>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={columns.length} className="text-center"><h4>No data available</h4></td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>

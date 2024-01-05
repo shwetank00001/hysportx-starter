@@ -3,6 +3,10 @@ import {
     ADD_CONDITION_SUCCESS,
     ADD_CONDITION_FAIL,
 
+    UPDATE_CONDITION,
+    UPDATE_CONDITION_SUCCESS,
+    UPDATE_CONDITION_FAIL,
+
     CONDITION_LIST_REQUEST,
     CONDITION_LIST_SUCCESS,
     CONDITION_LIST_FAIL,
@@ -25,18 +29,21 @@ const initialState = {
     switch (action.type) {
         // add condtion 
       case ADD_CONDITION:  
+      case UPDATE_CONDITION:  
         return {
           ...state,
           loading: true,
           error: null,
         }
       case ADD_CONDITION_SUCCESS:
+      case UPDATE_CONDITION_SUCCESS:
         return {
           ...state,
           loading: false,
           adderrors:null,
         }
         case ADD_CONDITION_FAIL:
+        case UPDATE_CONDITION_FAIL:
         return {
           ...state,
           loading: false,

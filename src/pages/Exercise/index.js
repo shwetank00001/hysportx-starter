@@ -271,9 +271,7 @@ const index = () => {
                                         </div>
                                     </div>
                                 </CardBody>
-                                {
-                                    isLoading ? <Spinners setLoading={setLoading} />
-                                        :
+                              
                                         <CardBody>
                                             <TableContainer
                                                 columns={columns}
@@ -288,7 +286,7 @@ const index = () => {
                                                 pagination="pagination justify-content-end pagination-rounded"
                                             />
                                         </CardBody>
-                                }
+                                
                             </Card>
                         </Col>
                     </Row>
