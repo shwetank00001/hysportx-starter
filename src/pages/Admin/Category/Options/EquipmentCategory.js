@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   equipmentListRequest,
+  addEquipmentRequest,
   deleteEquipmentRequest,
 } from "store/equipment/actions"
 import TableContainer from "components/Common/TableContainer"
@@ -20,7 +21,8 @@ import {
 
 const EquipmentCategory = () => {
   const [modal, setModal] = useState(false)
-  const [equipmentData, setEquipmentData] = useState([])
+  const [equipmentName, setEquipmentName] = useState("")
+  const [equipmentDescription, setEquipmentDescription] = useState("")
 
   const dispatch = useDispatch()
   const equipmentDispatch = useSelector(
@@ -28,23 +30,30 @@ const EquipmentCategory = () => {
   )
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(equipmentListRequest())
-      setEquipmentData(equipmentDispatch)
-    }
+    dispatch(equipmentListRequest())
+  }, [dispatch])
 
-    fetchData()
-  }, [dispatch, equipmentDispatch])
+  console.log("equipmentData", equipmentDispatch)
 
-  console.log("equipmentData", equipmentData)
-
-  const tableData = equipmentData.equipment
-    ? equipmentData.equipment.map(item => item)
+  const equipments = equipmentDispatch.equipment
+    ? equipmentDispatch.equipment.map(item => item)
     : []
 
   const handleDelete = equipmentId => {
-
     dispatch(deleteEquipmentRequest(equipmentId))
+  }
+
+  const addEquipmentHandler = () => {
+    dispatch(
+      addEquipmentRequest({
+        name: equipmentName,
+        description: equipmentDescription,
+      })
+    )
+    dispatch(equipmentListRequest())
+    setEquipmentName("")
+    setEquipmentDescription("")
+    setModal(false)
   }
 
   const columns = [
@@ -85,7 +94,7 @@ const EquipmentCategory = () => {
         <CardText>
           <TableContainer
             columns={columns}
-            data={tableData}
+            data={equipments}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -120,6 +129,17 @@ const EquipmentCategory = () => {
                   type="text"
                   className="form-control"
                   placeholder="Equipment Name"
+                  value={equipmentName}
+                  onChange={e => setEquipmentName(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <Input
+                  type="text"
+                  className="form-control"
+                  placeholder="Equipment Description"
+                  value={equipmentDescription}
+                  onChange={e => setEquipmentDescription(e.target.value)}
                 />
               </div>
             </form>
@@ -142,7 +162,7 @@ const EquipmentCategory = () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={() => setModal(!modal)}
+                onClick={addEquipmentHandler}
               >
                 ADD
               </Button>
