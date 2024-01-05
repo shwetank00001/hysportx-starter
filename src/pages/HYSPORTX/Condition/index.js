@@ -99,7 +99,7 @@ const index = () => {
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                 <Button
                                     className="btn btn-sm btn-soft-primary"
-                                    id={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                    id={`viewtooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                                 onClick={() => {
                                   const singleConitionData = cellProps.row.original
                                   setConditionViewData(singleConitionData)
@@ -112,14 +112,14 @@ const index = () => {
                             </li>
                             <UncontrolledTooltip
                                 placement="top"
-                                target={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                target={`viewtooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                             >
                                 View
                             </UncontrolledTooltip>
                             <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                                 <Button
                                     className="btn btn-sm btn-soft-info"
-                                    id={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                    id={`edittooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                                 onClick={() => {
                                   const singleConitionData = cellProps.row.original
                                   setConditionEditData(singleConitionData)
@@ -132,7 +132,7 @@ const index = () => {
                             </li>
                             <UncontrolledTooltip
                                 placement="top"
-                                target={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                target={`edittooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                             >
                                 update condition
                             </UncontrolledTooltip>
@@ -144,12 +144,12 @@ const index = () => {
                                         onClickDelete(condition_code)
                                     }}
                                     className="btn btn-sm btn-soft-danger"
-                                    id={`deletetooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                    id={`deletetooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                                 >
                                     <i className="mdi mdi-delete-outline" />
                                     <UncontrolledTooltip
                                         placement="top"
-                                        target={`deletetooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                        target={`deletetooltip-${cellProps.row.original ? cellProps.row.original.id : ''}`}
                                     >
                                         Delete
                                     </UncontrolledTooltip>
