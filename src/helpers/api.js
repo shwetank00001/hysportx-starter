@@ -117,6 +117,7 @@ export const competition = {
 // Condition
 export const condition = {
   add: (data) =>post("/condition", data),
+  update: (data) =>post(`/condition/update`,data),
   list: () => get("/conditions"),
   delete: (code) => del(`/condition/${code}`),
 }

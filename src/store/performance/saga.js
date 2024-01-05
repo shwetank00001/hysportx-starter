@@ -18,6 +18,7 @@ import {
   DELETE_PERFORMANCE_SUCCESS,
   DELETE_PERFORMANCE_FAILURE,
 } from "./actionTypes"
+import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listPerformanceSaga() {
   try {
@@ -33,12 +34,17 @@ function* listPerformanceSaga() {
 
 function* addPerformanceSaga(action) {
   try {
-    yield call(performance.add, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Creating performance Please wait ...'}})
+    const response=yield call(performance.add, action.payload)
     yield put({ type: ADD_PERFORMANCE_SUCCESS })
-    toast.success("Performance added successfully!", { autoClose: 2000 })
+    yield put({ type: PERFORMANCE_LIST_REQUEST })
+      
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: ADD_PERFORMANCE_FAILURE, payload: error })
-    toast.error("Failed to add performance. Please try again.", {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: ADD_PERFORMANCE_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {
       autoClose: 2000,
     })
   }
@@ -59,12 +65,17 @@ function* editPerformanceSaga(action) {
 
 function* deletePerformanceSaga(action) {
   try {
-    yield call(performance.delete, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Deleting performance Please wait ...'}})
+    const response = yield call(performance.delete, action.payload)
     yield put({ type: DELETE_PERFORMANCE_SUCCESS })
-    toast.success("Performance deleted successfully!", { autoClose: 2000 })
+    yield put({ type: PERFORMANCE_LIST_REQUEST })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: DELETE_PERFORMANCE_FAILURE, payload: error })
-    toast.error("Failed to delete performance. Please try again.", {
+
+    yield put({ type: DELETE_PERFORMANCE_FAILURE, payload: error.response.data.message })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.error(error.response.data.message, {
       autoClose: 2000,
     })
   }

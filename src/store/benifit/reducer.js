@@ -18,6 +18,7 @@ const initialState = {
   benefit: [],
   loading: false,
   error: null,
+  adderrors:null,
 }
 
 const benefitReducer = (state = initialState, action) => {
@@ -37,15 +38,20 @@ const benefitReducer = (state = initialState, action) => {
         loading: false,
         benefit: action.payload,
       }
-    case ADD_BENEFIT_SUCCESS:
+    
     case EDIT_BENEFIT_SUCCESS:
     case DELETE_BENEFIT_SUCCESS:
       return {
         ...state,
         loading: false,
       }
+    case ADD_BENEFIT_SUCCESS:
+    return {
+      ...state,
+      adderrors:null,
+      loading: false,
+    }
     case BENEFIT_LIST_FAIL:
-    case ADD_BENEFIT_FAILURE:
     case EDIT_BENEFIT_FAILURE:
     case DELETE_BENEFIT_FAILURE:
       return {
@@ -53,6 +59,13 @@ const benefitReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       }
+
+    case ADD_BENEFIT_FAILURE:
+    return {
+      ...state,
+      loading: false,
+      adderrors: action.payload,
+    }
     default:
       return state
   }

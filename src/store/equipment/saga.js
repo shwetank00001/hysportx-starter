@@ -3,7 +3,7 @@ import { takeLatest, put, call } from "redux-saga/effects"
 import { equipment } from "helpers/api"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
+import {CHANGE_PRELOADER} from "../layout/actionTypes";
 import {
   EQUIPMENT_LIST_REQUEST,
   EQUIPMENT_LIST_SUCCESS,
@@ -33,12 +33,17 @@ function* listEquipmentSaga() {
 
 function* addEquipmentSaga(action) {
   try {
-    yield call(equipment.add, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Creating Equipment Please wait ...'}})
+    const response=yield call(equipment.add, action.payload)
     yield put({ type: ADD_EQUIPMENT_SUCCESS })
-    toast.success("Equipment added successfully!", { autoClose: 2000 })
+    yield put({ type: EQUIPMENT_LIST_REQUEST })
+      
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: ADD_EQUIPMENT_FAILURE, payload: error })
-    toast.error("Failed to add equipment. Please try again.", {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: ADD_EQUIPMENT_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {
       autoClose: 2000,
     })
   }
@@ -59,12 +64,17 @@ function* editEquipmentSaga(action) {
 
 function* deleteEquipmentSaga(action) {
   try {
-    yield call(equipment.delete, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Deleting Equipment Please wait ...'}})
+    const response =yield call(equipment.delete, action.payload)
     yield put({ type: DELETE_EQUIPMENT_SUCCESS })
-    toast.success("Equipment deleted successfully!", { autoClose: 2000 })
+    yield put({ type: EQUIPMENT_LIST_REQUEST })
+
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: DELETE_EQUIPMENT_FAILURE, payload: error })
-    toast.error("Failed to delete equipment. Please try again.", {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: DELETE_EQUIPMENT_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {
       autoClose: 2000,
     })
   }

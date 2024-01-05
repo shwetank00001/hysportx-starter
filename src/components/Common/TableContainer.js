@@ -125,7 +125,9 @@ const TableContainer = ({
     setPageSize(Number(event.target.value))
   }
 
+
   return (
+
     <Fragment>
       
       <Row className="mb-2 mx-auto">
@@ -231,25 +233,38 @@ const TableContainer = ({
               </tr>
             ))}
           </thead>
+          {data.length ? 
+            <tbody {...getTableBodyProps()}>
+            { 
 
-          <tbody {...getTableBodyProps()}>
-            {page.map(row => {
-              prepareRow(row)
-              return (
-                <Fragment key={row.getRowProps().key}>
-                  <tr>
-                    {row.cells.map(cell => {
-                      return (
-                        <td key={cell.id} {...cell.getCellProps()}>
-                          {cell.render("Cell")}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                </Fragment>
-              )
-            })}
-          </tbody>
+                page.map(row => {
+                  prepareRow(row);
+  
+                  return (
+                    <Fragment key={row.getRowProps().key}>
+                      <tr>
+                        {row.cells.map(cell => {
+                          return (
+                            <td key={cell.id} {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    </Fragment>
+                  );
+                })
+              }
+            </tbody>
+            
+            : 
+            <tbody>
+              <tr>
+                <td colSpan={columns.length} className="text-center"><h4>No data available</h4></td>
+              </tr>
+            </tbody>
+            }
+        
         </Table>
       </div>
 

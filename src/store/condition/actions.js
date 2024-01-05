@@ -3,6 +3,10 @@ import {
     ADD_CONDITION_SUCCESS,
     ADD_CONDITION_FAIL,
 
+    UPDATE_CONDITION,
+    UPDATE_CONDITION_SUCCESS,
+    UPDATE_CONDITION_FAIL,
+
     CONDITION_LIST_REQUEST,
     CONDITION_LIST_SUCCESS,
     CONDITION_LIST_FAIL,
@@ -26,6 +30,22 @@ export const onAddConditionSuccess = (success) => ({
 
 export const onAddConditionFail = error => ({
     type: ADD_CONDITION_FAIL,
+    payload: error,
+})
+
+export const updateCondition = data => ({
+    type: UPDATE_CONDITION,
+    payload: data,
+    
+})
+
+export const updateConditionSuccess = (success) => ({
+    type: UPDATE_CONDITION_SUCCESS,
+    payload: success,
+})
+
+export const updateConditionFail = error => ({
+    type: UPDATE_CONDITION_FAIL,
     payload: error,
 })
 

@@ -18,6 +18,7 @@ import {
   DELETE_MUSCLE_SUCCESS,
   DELETE_MUSCLE_FAILURE,
 } from "./actionTypes"
+import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listMuscleSaga() {
   try {
@@ -33,13 +34,17 @@ function* listMuscleSaga() {
 
 function* addMuscleSaga(action) {
   try {
-     console.log("Adding muscle:", action.payload)
-    yield call(muscle.add, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Adding Muscle Please wait ...'}})
+    const response=yield call(muscle.add, action.payload)
     yield put({ type: ADD_MUSCLE_SUCCESS })
-    toast.success("Muscle added successfully!", { autoClose: 2000 })
+    yield put({ type: MUSCLE_LIST_REQUEST })
+      
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: ADD_MUSCLE_FAILURE, payload: error })
-    toast.error("Failed to add muscle. Please try again.", { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: ADD_MUSCLE_FAILURE, payload:error.response.data.message})
+    toast.error(error.response.data.message, { autoClose: 2000 })
   }
 }
 
@@ -56,12 +61,17 @@ function* editMuscleSaga(action) {
 
 function* deleteMuscleSaga(action) {
   try {
-    yield call(muscle.delete, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Deleting Muscle Please wait ...'}})
+    const response=yield call(muscle.delete, action.payload)
     yield put({ type: DELETE_MUSCLE_SUCCESS })
-    toast.success("Muscle deleted successfully!", { autoClose: 2000 })
+    yield put({ type: MUSCLE_LIST_REQUEST })
+      
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: DELETE_MUSCLE_FAILURE, payload: error })
-    toast.error("Failed to delete muscle. Please try again.", {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: DELETE_MUSCLE_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {
       autoClose: 2000,
     })
   }

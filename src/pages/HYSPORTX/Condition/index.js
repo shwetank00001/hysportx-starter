@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo,useRef } from 'react'
 import { Link } from 'react-router-dom'
 import * as Yup from "yup"
 import { useFormik } from "formik"
@@ -7,17 +7,21 @@ import { createSelector } from "reselect"
 import { Row, Col, Card, CardHeader, CardBody, Button, UncontrolledTooltip, Modal, ModalBody, ModalHeader, ModalFooter, Form, Label, Input, FormFeedback } from 'reactstrap'
 import TableContainer from "components/Common/TableContainer"
 import DeleteModal from "components/Common/DeleteModal"
-import { onAddCondition as addConditionForm, conditionListRequest,deleteConditionRequest } from "../../../store/actions";
+import { onAddCondition as addConditionForm, conditionListRequest,deleteConditionRequest,updateCondition } from "../../../store/actions";
 const index = () => {
 
     const dispatch = useDispatch();
     const [conditionModal, setConditionModal] = useState(false)
     const [viewConditionData, setConditionViewData] = useState(null)
+    const [editConditionData, setConditionEditData] = useState(null)
     const [modalReadOnly, setModalReadOnly] = useState(false)
     const fetchCondtionList = state => state.conditionReducer
     let modalTitle="Create Condition";
     if(viewConditionData !=null){
         modalTitle="View Condition";
+    }
+    if(editConditionData !=null){
+        modalTitle="Update Condition";    
     }
 
     const conditionDataProperties = createSelector(
@@ -34,9 +38,9 @@ const index = () => {
         enableReinitialize: true,
 
         initialValues: {
-            code:(viewConditionData && viewConditionData.code) || "",
-            name:(viewConditionData && viewConditionData.name) ||  "",
-            description:(viewConditionData && viewConditionData.description) ||  "",
+            code:(viewConditionData && viewConditionData.code) || (editConditionData && editConditionData.code) ||"",
+            name:(viewConditionData && viewConditionData.name) || (editConditionData && editConditionData.name) || "",
+            description:(viewConditionData && viewConditionData.description) || (editConditionData && editConditionData.description)|| "",
         },
         validationSchema: Yup.object({
             code: Yup.string().required(
@@ -44,16 +48,19 @@ const index = () => {
             ),
         }),
         onSubmit: values => {
-            dispatch(addConditionForm(values));
+            if (editConditionData !=null) {
+                dispatch(updateCondition(values));
+            } else {
+                dispatch(addConditionForm(values));
+            }
         },
     })
     useEffect(() => {
-        if (errors === null) {
-            setConditionModal(false);
+        if (errors==null) {
+            setConditionModal();
             validation.resetForm();
         }
-
-    }, [dispatch, errors])
+    }, [errors])
 
     const columns = useMemo(
         () => [
@@ -109,6 +116,26 @@ const index = () => {
                             >
                                 View
                             </UncontrolledTooltip>
+                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                <Button
+                                    className="btn btn-sm btn-soft-info"
+                                    id={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                                onClick={() => {
+                                  const singleConitionData = cellProps.row.original
+                                  setConditionEditData(singleConitionData)
+                                  setConditionModal(true)
+                                  setModalReadOnly(false);
+                                }}
+                                >
+                                    <i className="bx bx-pencil" />
+                                </Button>
+                            </li>
+                            <UncontrolledTooltip
+                                placement="top"
+                                target={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                            >
+                                update condition
+                            </UncontrolledTooltip>
                             <li>
                                 <Link
                                     to="#"
@@ -135,8 +162,6 @@ const index = () => {
         ],
         []
     )
-
-   
 
     const [deleteModal, setDeleteModal] = useState(false)
     const [condition, setCondition] = useState(null)
@@ -167,7 +192,7 @@ const index = () => {
             <CardBody>
                 <TableContainer
                     columns={columns}
-                    data={Condition.conditions ? Condition.conditions : [{}]}
+                    data={Condition.conditions ? Condition.conditions : []}
                     isGlobalFilter={true}
                     isPagination={true}
                     // iscustomPageSizeOptions={true}
@@ -183,13 +208,14 @@ const index = () => {
                 isOpen={conditionModal}
                 toggle={() => {
                     setConditionViewData(null);
-                    setConditionModal()
+                    setConditionEditData(null);
+                    setConditionModal();
                 }}
                 id="condition"
             >
                 <div className="modal-content">
                     <ModalHeader
-                        toggle={() => {setConditionModal(),setConditionViewData(null);}}
+                        toggle={() => {setConditionModal(),setConditionViewData(null),setConditionEditData(null)}}
                         id="ConditionLabel"
                         className="modal-header"
                     >
@@ -224,7 +250,7 @@ const index = () => {
                                             invalid={
                                                 validation.touched.code && validation.errors.code ? true : false
                                             }
-                                            readOnly={modalReadOnly}
+                                            readOnly={editConditionData !=null?true:modalReadOnly}
                                         />
 
                                         {validation.touched.code && validation.errors.code ? (
@@ -279,7 +305,7 @@ const index = () => {
                                             className="btn btn-success me-1"
                                         // onClick={(e) => {e.preventDefault(),setConditionModal()}}
                                         >
-                                            Save Condition <i className="bx bx-send align-middle"></i>
+                                           {editConditionData? 'Update Condition' : 'Save Condition'}  <i className="bx bx-send align-middle"></i>
                                         </button>
                                     </div>
                                     

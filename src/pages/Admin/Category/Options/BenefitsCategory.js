@@ -1,142 +1,286 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { benefitListRequest } from "../../../../store/benifit/actions"
+import { benefitListRequest,deleteBenefitRequest,addBenefitRequest } from "../../../../store/benifit/actions"
 import TableContainer from "components/Common/TableContainer"
-import {
-  Button,
-  Card,
-  CardText,
-  CardTitle,
-  Col,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Input,
-} from "reactstrap"
+import { createSelector } from "reselect"
+import { Link } from 'react-router-dom'
+import * as Yup from "yup"
+import { useFormik } from "formik"
+import DeleteModal from "components/Common/DeleteModal"
+import { Row, Col, Card, CardHeader, CardBody, Button, UncontrolledTooltip, Modal, ModalBody, ModalHeader, ModalFooter, Form, Label, Input, FormFeedback } from 'reactstrap'
 
 const BenefitsCategory = () => {
-  const [modal, setModal] = useState(false)
-  const [benefitsData, setBenefitsData] = useState([])
+  const dispatch = useDispatch();
+  const [benefitModal, setBenifitModal] = useState(false)
+  const fetchBenifitList = state => state.benefitReducer
+  const benifitDataProperties = createSelector(
+    fetchBenifitList,
+    benifitReducer => ({
+      Benifit: benifitReducer.benefit,
+      error: benifitReducer.error,
+      errors: benifitReducer.adderrors,
+    })
+  )
+  const { Benifit, error, errors } = useSelector(benifitDataProperties)
+  useEffect(() => { dispatch(benefitListRequest()) }, [dispatch])
 
-  const dispatch = useDispatch()
-  const benefitsDispatch = useSelector(state => state.benefitReducer.benefits)
-
-  console.log("benefitsData", benefitsData)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(benefitListRequest())
-      setBenefitsData(benefitsDispatch)
-    }
-
-    fetchData()
-  }, [dispatch, benefitsDispatch])
-
-
-const tableData = benefitsData?.benefits
-  ? benefitsData.benefits.map(item => item)
-  : []
-
-
-  console.log("Benefits Table Data", tableData)
-
-  const columns = [
-    {
-      Header: "ID",
-      accessor: "id",
+  const validation = useFormik({
+    enableReinitialize: true,
+    initialValues: {  
+      point: "",
+      description: "",
     },
-    {
-      Header: "Name",
-      accessor: "name",
+    validationSchema: Yup.object({
+      point: Yup.string().required(
+        "Please Enter Benifit Name"
+      ),
+    }),
+    onSubmit: values => {
+      dispatch(addBenefitRequest(values));
+      setBenifitModal();
+      validation.resetForm();
     },
-    {
-      Header: "Description",
-      accessor: "description",
-    },
-    {
-      Header: "Action",
-      accessor: "action",
-    },
-  ]
+  })
+
+  //---bug issue modal not close after submit
+  // useEffect(() => {
+  //   if (errors===null) {
+  //       setBenifitModal();
+  //       validation.resetForm();
+  //   }
+  // }, [errors])
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "No",
+        accessor: "id",
+        Cell: cellProps => {
+          return (
+
+            <>
+              <p className="">{cellProps.rows.length - cellProps.row.index}</p>
+            </>
+          )
+        },
+      },
+
+      {
+        Header: "Benefit Name",
+        accessor: "point",
+      },
+
+      {
+        Header: "Description",
+        accessor: "description",
+      },
+      {
+        Header: "Action",
+        accessor: "action",
+        disableFilters: true,
+        Cell: cellProps => {
+          return (
+            <ul className="list-unstyled hstack gap-1 mb-0">
+              {/* <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                            <Button
+                                className="btn btn-sm btn-soft-primary"
+                                id={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                            onClick={() => {
+                              const singleConitionData = cellProps.row.original
+                              setConditionViewData(singleConitionData)
+                              setConditionModal(true)
+                              setModalReadOnly(true);
+                            }}
+                            >
+                                <i className="mdi mdi-eye-outline" />
+                            </Button>
+                        </li>
+                        <UncontrolledTooltip
+                            placement="top"
+                            target={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                        >
+                            View
+                        </UncontrolledTooltip> */}
+              {/* <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                            <Button
+                                className="btn btn-sm btn-soft-info"
+                                id={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                            onClick={() => {
+                              const singleConitionData = cellProps.row.original
+                              setConditionEditData(singleConitionData)
+                              setConditionModal(true)
+                              setModalReadOnly(false);
+                            }}
+                            >
+                                <i className="bx bx-pencil" />
+                            </Button>
+                        </li>
+                        <UncontrolledTooltip
+                            placement="top"
+                            target={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                        >
+                            update condition
+                        </UncontrolledTooltip> */}
+              <li>
+                <Link
+                  to="#"
+                  onClick={() => {
+                    const benefit_id = cellProps.row.original
+                    onClickDelete(benefit_id)
+                  }}
+                  className="btn btn-sm btn-danger"
+                  id={`deletetooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                >
+                  <i className="mdi mdi-delete-outline" />
+                  <UncontrolledTooltip
+                    placement="top"
+                    target={`deletetooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
+                  >
+                    Delete
+                  </UncontrolledTooltip>
+                </Link>
+              </li>
+            </ul>
+          )
+        },
+      },
+    ],
+    []
+  )
+
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [benefit, setBenefit] = useState(null)
+  const onClickDelete = data => {
+    setBenefit(data)
+    setDeleteModal(true)
+  }
+  const handleDeleteBenefit = () => {
+    setDeleteModal(false)
+    dispatch(deleteBenefitRequest(benefit.id))
+  }
+
 
   return (
+
+
     <div>
-      <Card>
-        <CardTitle className="d-flex">
-          <Col sm={6}>Benefits Category</Col>
-          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
-            <Button color="secondary">+ Add New</Button>
-          </Col>
-        </CardTitle>
-        <CardText>
-          <TableContainer
-            columns={columns}
-            data={tableData}
-            isGlobalFilter={true}
-            isAddOptions={false}
-            customPageSize={10}
-            isPagination={true}
-            tableClass="align-middle table-nowrap table-check table"
-            theadClass="table-light"
-            paginationDiv="col-12"
-            pagination="justify-content-center pagination pagination-rounded"
-          />
-        </CardText>
-      </Card>
+      <DeleteModal
+        text={'Are you Sure you want to Delete the Benefit list ?'}
+        show={deleteModal}
+        onDeleteClick={handleDeleteBenefit}
+        onCloseClick={() => setDeleteModal(false)}
+      />
+      <div className="d-flex align-items-center border-bottom pb-3">
+        <h5 className="mb-0 card-title flex-grow-1">Benefit Lists</h5>
+        <div className="flex-shrink-0">
+          <Link to="#!" onClick={() => { dispatch(benefitListRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+          <Link to="#" onClick={() => { setBenifitModal(true); }} className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Benefit</Link>
+        </div>
+      </div>
+      <TableContainer
+        columns={columns}
+        data={Benifit.benifit ? Benifit.benifit : [{}]}
+        isGlobalFilter={true}
+        isPagination={true}
+        // iscustomPageSizeOptions={true}
+        isShowingPageLength={true}
+        customPageSize={3}
+        tableClass=" align-middle nowrap mt-2"
+        paginationDiv="col-sm-12 col-md-7"
+        pagination="pagination justify-content-end pagination-rounded"
+      />
+
+
       <Modal
-        isOpen={modal}
-        autoFocus={true}
-        centered={true}
+        isOpen={benefitModal}
         toggle={() => {
-          setModal(!modal)
+
+          setBenifitModal();
         }}
+        id="condition"
       >
         <div className="modal-content">
           <ModalHeader
-            toggle={() => {
-              setModal(!modal)
-            }}
+            toggle={() => { setBenifitModal() }}
+            id="ConditionLabel"
+            className="modal-header"
           >
-            Manage Benefits
+            Add Benefit
           </ModalHeader>
           <ModalBody>
-            <form>
+            <Form
+              className="form-horizontal"
+              onSubmit={e => {
+                e.preventDefault()
+                validation.handleSubmit()
+                return false
+              }}
+            >
+              <Row>
+                <div className="row mb-3">
+                  <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                    <Label htmlFor="point" className="mt-2">
+                      Benefit Name
+                    </Label>
+                  </div>
+                  <div className="col-lg-8 col-md-8">
 
-              <div className="mb-3">
-                <Input
-                  type="text"
-                  className="form-control"
-                  placeholder="Benefits Name"
-                />
-              </div>
+                    <Input
+                      type="text"
+                      id="point"
+                      name="point"
+                      placeholder=""
+                      onChange={validation.handleChange}
+                      onBlur={validation.handleBlur}
+                      value={validation.values.point || ""}
+                      invalid={
+                        validation.touched.point && validation.errors.point ? true : false
+                      }
+                      readOnly={false}
+                    />
 
-            </form>
+                    {validation.touched.point && validation.errors.point ? (
+                      <FormFeedback type="invalid">{validation.errors.point}</FormFeedback>
+                    ) : null}
+                  </div>
+                </div>
+             
+                <div className="row mb-3">
+                  <div className="col-lg-4 col-md-4 text-md-end text-lg-end ">
+                    <Label htmlFor="participator_modality" className="mt-2">
+                      Description
+                    </Label>
+                  </div>
+                  <div className="col-lg-8 col-md-8">
+                    <div className="form-floating">
+                      <textarea className="form-control" name='description' id="description"
+                        onChange={validation.handleChange}
+                        onBlur={validation.handleBlur}
+                        value={validation.values.description || ""}
+                        readOnly={false}
+                      ></textarea>
+                      
+                    </div>
+
+                  </div>
+                </div>
+                <Col lg={12}>
+
+
+
+                  <div className="text-end">
+                    <button
+                      className="btn btn-success me-1"
+                    // onClick={(e) => {e.preventDefault(),setConditionModal()}}
+                    >
+                      Save Benifit  <i className="bx bx-send align-middle"></i>
+                    </button>
+                  </div>
+
+                </Col>
+              </Row>
+            </Form>
           </ModalBody>
-          <ModalFooter className="">
-            <Col className="text-center">
-              <Button
-                type="button"
-                className="col-sm-12 btn-soft-secondary"
-                color="secondary"
-                onClick={() => {
-                  setModal(!modal)
-                }}
-              >
-                Cancel
-              </Button>
-            </Col>
-            <Col className="text-center">
-              <Button
-                className="col-sm-12 btn-soft-info"
-                type="button"
-                color="primary"
-                onClick={() => setModal(!modal)}
-              >
-                ADD
-              </Button>
-            </Col>
-          </ModalFooter>
         </div>
       </Modal>
     </div>

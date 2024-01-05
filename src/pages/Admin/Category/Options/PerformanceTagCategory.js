@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   performanceListRequest,
-  deletePerformanceRequest,
   addPerformanceRequest,
+  deletePerformanceRequest,
 } from "../../../../store/performance/actions"
 import TableContainer from "components/Common/TableContainer"
 import {
@@ -19,62 +19,33 @@ import {
   Input,
 } from "reactstrap"
 
-const PerformanceTagCategory = () => {
+function PerformanceTagCategory() {
   const [modal, setModal] = useState(false)
-  const [performanceData, setPerformanceData] = useState([])
+  const [performanceName, setPerformanceName] = useState("")
+  const [performanceDescription, setPerformanceDescription] = useState("")
 
   const dispatch = useDispatch()
-  const performanceDispatch = useSelector(
-    state => state.performanceReducer.performance
-  )
-  console.log("performanceData", performanceData)
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(performanceListRequest())
-      setPerformanceData(performanceDispatch)
-    }
+    dispatch(performanceListRequest())
+  }, [])
 
-    fetchData()
-  }, [dispatch, performanceDispatch])
+  const performances = useSelector(
+    state => state.performanceReducer.performance.ptag
+  )
 
-  const tableData = performanceData.ptag
-    ? performanceData.ptag.map(item => item)
-    : []
-
-
-
-  const handleDelete = performanceId => {
-    dispatch(deletePerformanceRequest(performanceId))
+  const addPerformanceHandler = () => {
+    dispatch(
+      addPerformanceRequest({
+        name: performanceName,
+        description: performanceDescription,
+      })
+    )
+    dispatch(performanceListRequest())
+    setPerformanceName("")
+    setPerformanceDescription("")
+    setModal(false)
   }
-
-    const [performanceName, setPerformanceName] = useState("")
-    const [performanceDescription, setPerformanceDescription] = useState("")
-
-    const handleAdd = async () => {
-      try {
-        await dispatch(
-          addPerformanceRequest({
-            name: performanceName,
-            description: performanceDescription,
-          })
-        )
-
-        fetchData()
-        setModal6(false)
-        setPerformanceName("")
-        setPerformanceDescription("")
-      } catch (error) {
-        if (error.response && error.response.status === 429) {
-          
-          setTimeout(() => {
-            handleAdd()
-          }, 5000)
-        } else {
-    
-        }
-      }
-    }
 
   const columns = [
     {
@@ -94,7 +65,10 @@ const PerformanceTagCategory = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <div>
-          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
+          <Button
+            color="danger"
+            onClick={() => dispatch(deletePerformanceRequest(row.original.id))}
+          >
             Delete
           </Button>
         </div>
@@ -114,7 +88,7 @@ const PerformanceTagCategory = () => {
         <CardText>
           <TableContainer
             columns={columns}
-            data={tableData}
+            data={performances || []}
             isGlobalFilter={true}
             isAddOptions={false}
             customPageSize={10}
@@ -130,34 +104,28 @@ const PerformanceTagCategory = () => {
         isOpen={modal}
         autoFocus={true}
         centered={true}
-        toggle={() => {
-          setModal(!modal)
-        }}
+        toggle={() => setModal(!modal)}
       >
         <div className="modal-content">
-          <ModalHeader
-            toggle={() => {
-              setModal(!modal)
-            }}
-          >
+          <ModalHeader toggle={() => setModal(!modal)}>
             Manage Performance Tag
           </ModalHeader>
           <ModalBody>
             <form>
               <div className="mb-3">
                 <Input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Performance Name"
+                  placeholder="Performance Tag Name"
                   value={performanceName}
                   onChange={e => setPerformanceName(e.target.value)}
                 />
               </div>
               <div className="mb-3">
                 <Input
-                  type="email"
+                  type="text"
                   className="form-control"
-                  placeholder="Performance Description"
+                  placeholder="Performance Tag Description"
                   value={performanceDescription}
                   onChange={e => setPerformanceDescription(e.target.value)}
                 />
@@ -170,9 +138,7 @@ const PerformanceTagCategory = () => {
                 type="button"
                 className="col-sm-12 btn-soft-secondary"
                 color="secondary"
-                onClick={() => {
-                  setModal(!modal)
-                }}
+                onClick={() => setModal(!modal)}
               >
                 Cancel
               </Button>
@@ -182,10 +148,7 @@ const PerformanceTagCategory = () => {
                 className="col-sm-12 btn-soft-info"
                 type="button"
                 color="primary"
-                onClick={
-                  () => {setModal(!modal)
-                   handleAdd ()}
-                }
+                onClick={addPerformanceHandler}
               >
                 ADD
               </Button>

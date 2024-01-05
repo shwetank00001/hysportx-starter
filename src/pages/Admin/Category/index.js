@@ -91,7 +91,7 @@ function Index() {
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">
-                        <h4>Edit Title Name</h4>
+                        <h4>Add Category</h4>
                       </CardTitle>
                       <div className="vertical-wizard wizard clearfix vertical">
                         <div className="steps clearfix ">
@@ -148,6 +148,8 @@ function Index() {
 // Helper functions to get tab labels and content
 const getTabLabel = tab => {
   switch (tab) {
+    // case 1:
+    //   return "Exercise"
     case 1:
       return "Modality"
     case 2:
@@ -158,6 +160,8 @@ const getTabLabel = tab => {
       return "Muscle"
     case 5:
       return "Benefits"
+    // case 7:
+    //   return "Description"
     default:
       return ""
   }
@@ -165,6 +169,12 @@ const getTabLabel = tab => {
 
 const getTabContent = tab => {
   switch (tab) {
+    // case 1:
+    //   return (
+    //     <Card>
+    //       <ExcerciseNameCategory />
+    //     </Card>
+    //   )
     case 1:
       return (
         <Card>
@@ -172,29 +182,53 @@ const getTabContent = tab => {
         </Card>
       )
     case 2:
-      // return (
-      //   <Card>
-      //     <PerformanceTagCategory />
-      //   </Card>
-      // )
+      return (
+        <Card>
+          <PerformanceTagCategory />
+        </Card>
+      )
     case 3:
-      // return (
-      //   <Card>
-      //     <EquipmentCategory />
-      //   </Card>
-      // )
+      return (
+        <Card>
+          <EquipmentCategory />
+        </Card>
+      )
     case 4:
-      // return (
-      //   <Card>
-      //     <MuscleCategory />
-      //   </Card>
-      // )
+      return (
+        <Card>
+          <MuscleCategory />
+        </Card>
+      )
     case 5:
-      // return (
-      //   <Card>
-      //     <BenefitsCategory />
-      //   </Card>
-      // )
+      return (
+        <Card>
+          <BenefitsCategory />
+        </Card>
+      )
+    // case 7:
+    //   return (
+    //     <Card>
+    //       <ExerciseDescriptionCategory />
+    //     </Card>
+    //   )
+    // case 8:
+    //   return (
+    //     <div className="row justify-content-center">
+    //       <Col lg="6">
+    //         <div className="text-center">
+    //           <div className="mb-4">
+    //             <i className="mdi mdi-check-circle-outline text-success display-4" />
+    //           </div>
+    //           <div>
+    //             <h5>Confirm Detail</h5>
+    //             <p className="text-muted">
+    //               If several languages coalesce, the grammar of the resulting
+    //             </p>
+    //           </div>
+    //         </div>
+    //       </Col>
+    //     </div>
+    //   )
     default:
       return null
   }
