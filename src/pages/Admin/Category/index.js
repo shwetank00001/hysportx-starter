@@ -77,15 +77,6 @@ function Index() {
       <div className="page-content">
         <Container fluid>
           <Breadcrumb title="fwgames" breadcrumbItem="hyposports" />
-
-          {loading ? (
-            <>
-              <Spinner color="success"></Spinner>
-              <Spinner color="success"></Spinner>
-            </>
-          ) : (
-            <>
-              <Row></Row>
               <Row>
                 <Col lg="12">
                   <Card>
@@ -120,13 +111,13 @@ function Index() {
                             ))}
                           </ul>
                         </div>
-                        <div className="content clearfix">
+                        <div className="content clearfix pt-0">
                           <TabContent
                             activeTab={activeTabVartical}
                             className="body"
                           >
                             {[1, 2, 3, 4, 5].map(tab => (
-                              <TabPane key={tab} tabId={tab}>
+                              <TabPane key={tab} tabId={tab} className="mt-0">
                                 {getTabContent(tab)}
                               </TabPane>
                             ))}
@@ -137,8 +128,6 @@ function Index() {
                   </Card>
                 </Col>
               </Row>
-            </>
-          )}
         </Container>
       </div>
     </React.Fragment>
@@ -177,58 +166,35 @@ const getTabContent = tab => {
     //   )
     case 1:
       return (
-        <Card>
+       
           <ModalityCategory />
-        </Card>
+       
       )
     case 2:
       return (
-        <Card>
+       
           <PerformanceTagCategory />
-        </Card>
+     
       )
     case 3:
       return (
-        <Card>
+       
           <EquipmentCategory />
-        </Card>
+    
       )
     case 4:
       return (
-        <Card>
+      
           <MuscleCategory />
-        </Card>
+      
       )
     case 5:
       return (
-        <Card>
+       
           <BenefitsCategory />
-        </Card>
+        
       )
-    // case 7:
-    //   return (
-    //     <Card>
-    //       <ExerciseDescriptionCategory />
-    //     </Card>
-    //   )
-    // case 8:
-    //   return (
-    //     <div className="row justify-content-center">
-    //       <Col lg="6">
-    //         <div className="text-center">
-    //           <div className="mb-4">
-    //             <i className="mdi mdi-check-circle-outline text-success display-4" />
-    //           </div>
-    //           <div>
-    //             <h5>Confirm Detail</h5>
-    //             <p className="text-muted">
-    //               If several languages coalesce, the grammar of the resulting
-    //             </p>
-    //           </div>
-    //         </div>
-    //       </Col>
-    //     </div>
-    //   )
+  
     default:
       return null
   }

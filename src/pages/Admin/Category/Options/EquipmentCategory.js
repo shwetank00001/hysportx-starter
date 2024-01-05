@@ -6,11 +6,10 @@ import {
   deleteEquipmentRequest,
 } from "store/equipment/actions"
 import TableContainer from "components/Common/TableContainer"
+import DeleteModal from "components/Common/DeleteModal"
+import { Link } from 'react-router-dom'
 import {
   Button,
-  Card,
-  CardText,
-  CardTitle,
   Col,
   Modal,
   ModalBody,
@@ -21,6 +20,7 @@ import {
 
 const EquipmentCategory = () => {
   const [modal, setModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const [equipmentName, setEquipmentName] = useState("")
   const [equipmentDescription, setEquipmentDescription] = useState("")
 
@@ -29,17 +29,19 @@ const EquipmentCategory = () => {
     state => state.equipmentReducer.equipment
   )
 
+
   useEffect(() => {
     dispatch(equipmentListRequest())
   }, [dispatch])
 
-  console.log("equipmentData", equipmentDispatch)
+
 
   const equipments = equipmentDispatch.equipment
     ? equipmentDispatch.equipment.map(item => item)
     : []
 
   const handleDelete = equipmentId => {
+    setDeleteModal(false)
     dispatch(deleteEquipmentRequest(equipmentId))
   }
 
@@ -74,38 +76,45 @@ const EquipmentCategory = () => {
       accessor: "action",
       Cell: ({ row }) => (
         <div>
-          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
-            Delete
+          <Button color="btn btn-sm btn-danger" onClick={() => handleDelete(row.original.id)}>
+          <i className="mdi mdi-delete-outline" />
           </Button>
         </div>
       ),
     },
   ]
 
+ 
   return (
-    <div>
-      <Card>
-        <CardTitle className="d-flex">
-          <Col sm={6}>Equipment Category</Col>
-          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
-            <Button color="secondary">+ Add New</Button>
-          </Col>
-        </CardTitle>
-        <CardText>
+
+<React.Fragment>
+          
+      <DeleteModal
+        text={'Are you Sure you want to Delete the Equipment list ?'}
+        show={deleteModal}
+        onDeleteClick={handleDelete}
+        onCloseClick={() => setDeleteModal(false)}
+      />
+      <div className="d-flex align-items-center border-bottom  p-3 pt-0">
+        <h5 className="mb-0 card-title flex-grow-1">Equipment</h5>
+        <div className="flex-shrink-0">
+          <Link to="#!" onClick={() => { dispatch(equipmentListRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+          <Link to="#" onClick={() => { setModal(!modal)}} className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Equipment</Link>
+        </div>
+      </div>
           <TableContainer
             columns={columns}
             data={equipments}
             isGlobalFilter={true}
-            isAddOptions={false}
-            customPageSize={10}
             isPagination={true}
-            tableClass="align-middle table-nowrap table-check table"
-            theadClass="table-light"
-            paginationDiv="col-12"
-            pagination="justify-content-center pagination pagination-rounded"
+            // iscustomPageSizeOptions={true}
+            isShowingPageLength={true}
+            customPageSize={3}
+            tableClass=" align-middle nowrap mt-2"
+            paginationDiv="col-sm-12 col-md-7"
+            pagination="pagination justify-content-end pagination-rounded"
           />
-        </CardText>
-      </Card>
+
       <Modal
         isOpen={modal}
         autoFocus={true}
@@ -170,7 +179,7 @@ const EquipmentCategory = () => {
           </ModalFooter>
         </div>
       </Modal>
-    </div>
+      </React.Fragment>
   )
 }
 

@@ -1,13 +1,10 @@
 import TableContainer from "components/Common/TableContainer"
 import React, { useEffect, useState } from "react"
 import { useMemo } from "react"
+import DeleteModal from "components/Common/DeleteModal"
+import { Link } from 'react-router-dom'
 import {
   Button,
-  Card,
-  CardText,
-  CardTitle,
-  CardHeader,
-  CardBody,
   Col,
   Modal,
   ModalBody,
@@ -24,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 function ModalityCategory() {
   const [modal6, setModal6] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
   const [modalityName, setModalityName] = useState("")
   const [modalityDescription, setModalityDescription] = useState("")
 
@@ -46,6 +44,12 @@ function ModalityCategory() {
     setModalityDescription("")
     setModal6(false)
   }
+
+  const handleDelete = data => {
+    // setDeleteModal(true)
+    dispatch(deleteModalityRequest(data))
+  }
+  
   const columns = useMemo(() => [
     {
       Header: "ID",
@@ -65,10 +69,10 @@ function ModalityCategory() {
       Cell: ({ row }) => (
         <div>
           <Button
-            color="danger"
-            onClick={() => dispatch(deleteModalityRequest(row.original.id))}
+            color="btn btn-sm btn-danger"
+            onClick={() => handleDelete(row.original.id)}
           >
-            Delete
+           <i className="mdi mdi-delete-outline" />
           </Button>
         </div>
       ),
@@ -76,31 +80,34 @@ function ModalityCategory() {
   ])
 
   return (
-    <div>
-      <Card>
-        <CardHeader className="d-flex">
-          {/* <CardTitle className="d-flex">
-          </CardTitle> */}
-          <Col sm={6}>Hypersports Conditions</Col>
-          <Col sm={6} onClick={() => setModal6(!modal6)} className="text-end">
-            <Button color="secondary">+ Add New</Button>
-          </Col>
-        </CardHeader>
-        <CardBody>
+  <React.Fragment>
+
+        <DeleteModal
+        text={'Are you Sure you want to Delete the Modalities list ?'}
+        show={deleteModal}
+        onDeleteClick={handleDelete}
+        onCloseClick={() => setDeleteModal(false)}
+      />
+      <div className="d-flex align-items-center border-bottom  p-3 pt-0">
+        <h5 className="mb-0 card-title flex-grow-1">Modality</h5>
+        <div className="flex-shrink-0">
+          <Link to="#!" onClick={() => { dispatch(listModalityRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+          <Link to="#" onClick={() => { setModal6(!modal6)}} className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Modality</Link>
+        </div>
+      </div>
           <TableContainer
             columns={columns}
             data={modalities || []}
             isGlobalFilter={true}
-            isAddOptions={false}
-            customPageSize={10}
             isPagination={true}
-            tableClass="align-middle table-nowrap table-check table"
-            theadClass="table-light"
-            paginationDiv="col-12"
-            pagination="justify-content-center pagination pagination-rounded"
+            // iscustomPageSizeOptions={true}
+            isShowingPageLength={true}
+            customPageSize={3}
+            tableClass=" align-middle nowrap mt-2"
+            paginationDiv="col-sm-12 col-md-7"
+            pagination="pagination justify-content-end pagination-rounded"
           />
-        </CardBody>
-      </Card>
+    
       <Modal
         isOpen={modal6}
         autoFocus={true}
@@ -157,7 +164,7 @@ function ModalityCategory() {
           </ModalFooter>
         </div>
       </Modal>
-    </div>
+      </React.Fragment>
   )
 }
 

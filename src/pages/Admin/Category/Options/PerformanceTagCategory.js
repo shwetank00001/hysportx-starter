@@ -6,11 +6,10 @@ import {
   deletePerformanceRequest,
 } from "../../../../store/performance/actions"
 import TableContainer from "components/Common/TableContainer"
+import DeleteModal from "components/Common/DeleteModal"
+import { Link } from 'react-router-dom'
 import {
   Button,
-  Card,
-  CardText,
-  CardTitle,
   Col,
   Modal,
   ModalBody,
@@ -23,6 +22,7 @@ function PerformanceTagCategory() {
   const [modal, setModal] = useState(false)
   const [performanceName, setPerformanceName] = useState("")
   const [performanceDescription, setPerformanceDescription] = useState("")
+  const [deleteModal, setDeleteModal] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -47,6 +47,10 @@ function PerformanceTagCategory() {
     setModal(false)
   }
 
+  const handleDelete = data => {
+    // setDeleteModal(true)
+    dispatch(deletePerformanceRequest(data))
+  }
   const columns = [
     {
       Header: "ID",
@@ -65,11 +69,12 @@ function PerformanceTagCategory() {
       accessor: "action",
       Cell: ({ row }) => (
         <div>
+
           <Button
-            color="danger"
-            onClick={() => dispatch(deletePerformanceRequest(row.original.id))}
+            color="btn btn-sm btn-danger"
+            onClick={() => handleDelete(row.original.id)}
           >
-            Delete
+            <i className="mdi mdi-delete-outline" />
           </Button>
         </div>
       ),
@@ -77,29 +82,36 @@ function PerformanceTagCategory() {
   ]
 
   return (
-    <div>
-      <Card>
-        <CardTitle className="d-flex">
-          <Col sm={6}>Performance Tag Category</Col>
-          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
-            <Button color="secondary">+ Add New</Button>
-          </Col>
-        </CardTitle>
-        <CardText>
-          <TableContainer
-            columns={columns}
-            data={performances || []}
-            isGlobalFilter={true}
-            isAddOptions={false}
-            customPageSize={10}
-            isPagination={true}
-            tableClass="align-middle table-nowrap table-check table"
-            theadClass="table-light"
-            paginationDiv="col-12"
-            pagination="justify-content-center pagination pagination-rounded"
-          />
-        </CardText>
-      </Card>
+
+
+    <React.Fragment>
+
+      <DeleteModal
+        text={'Are you Sure you want to Delete the Performance list ?'}
+        show={deleteModal}
+        onDeleteClick={handleDelete}
+        onCloseClick={() => setDeleteModal(false)}
+      />
+      <div className="d-flex align-items-center border-bottom  p-3 pt-0">
+        <h5 className="mb-0 card-title flex-grow-1">Performance</h5>
+        <div className="flex-shrink-0">
+          <Link to="#!" onClick={() => { dispatch(performanceListRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+          <Link to="#" onClick={() => { setModal(!modal) }} className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Performance</Link>
+        </div>
+      </div>
+      <TableContainer
+        columns={columns}
+        data={performances || []}
+        isGlobalFilter={true}
+        isPagination={true}
+        // iscustomPageSizeOptions={true}
+        isShowingPageLength={true}
+        customPageSize={3}
+        tableClass=" align-middle nowrap mt-2"
+        paginationDiv="col-sm-12 col-md-7"
+        pagination="pagination justify-content-end pagination-rounded"
+      />
+
       <Modal
         isOpen={modal}
         autoFocus={true}
@@ -156,7 +168,7 @@ function PerformanceTagCategory() {
           </ModalFooter>
         </div>
       </Modal>
-    </div>
+    </React.Fragment>
   )
 }
 

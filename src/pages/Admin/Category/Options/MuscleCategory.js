@@ -6,11 +6,10 @@ import {
   deleteMuscleRequest,
 } from "../../../../store/muscle/actions"
 import TableContainer from "components/Common/TableContainer"
+import DeleteModal from "components/Common/DeleteModal"
+import { Link } from 'react-router-dom'
 import {
   Button,
-  Card,
-  CardText,
-  CardTitle,
   Col,
   Modal,
   ModalBody,
@@ -23,11 +22,12 @@ function MuscleCategory() {
   const [modal, setModal] = useState(false)
   const [muscleName, setMuscleName] = useState("")
   const [muscleDescription, setMuscleDescription] = useState("")
+  const [deleteModal, setDeleteModal] = useState(false)
 
   const dispatch = useDispatch()
   const muscleDispatch = useSelector(state => state.muscleReducer.muscle)
 
-  console.log("muscleData", muscleDispatch)
+
 
   useEffect(() => {
     dispatch(muscleListRequest())
@@ -37,9 +37,10 @@ function MuscleCategory() {
     ? muscleDispatch.muscle.map(item => item)
     : []
 
-  console.log("Muscle Table Data", muscles)
+
 
   const handleDelete = muscleId => {
+    // setDeleteModal(true)
     dispatch(deleteMuscleRequest(muscleId))
   }
 
@@ -55,6 +56,8 @@ function MuscleCategory() {
     setMuscleDescription("")
     setModal(false)
   }
+
+
 
   const columns = [
     {
@@ -74,8 +77,12 @@ function MuscleCategory() {
       accessor: "action",
       Cell: ({ row }) => (
         <div>
-          <Button color="danger" onClick={() => handleDelete(row.original.id)}>
-            Delete
+        
+          <Button
+            color="btn btn-sm btn-danger"
+            onClick={() => handleDelete(row.original.id)}
+          >
+            <i className="mdi mdi-delete-outline" />
           </Button>
         </div>
       ),
@@ -83,15 +90,23 @@ function MuscleCategory() {
   ]
 
   return (
-    <div>
-      <Card>
-        <CardTitle className="d-flex">
-          <Col sm={6}>Muscle Category</Col>
-          <Col sm={6} onClick={() => setModal(!modal)} className="text-end">
-            <Button color="secondary">+ Add New</Button>
-          </Col>
-        </CardTitle>
-        <CardText>
+
+          
+    <React.Fragment>
+
+<DeleteModal
+  text={'Are you Sure you want to Delete the Muscle list ?'}
+  show={deleteModal}
+  onDeleteClick={handleDelete}
+  onCloseClick={() => setDeleteModal(false)}
+/>
+<div className="d-flex align-items-center border-bottom  p-3 pt-0">
+  <h5 className="mb-0 card-title flex-grow-1">Muscle</h5>
+  <div className="flex-shrink-0">
+    <Link to="#!" onClick={() => { dispatch(muscleListRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
+    <Link to="#" onClick={() => { setModal(!modal) }} className="btn btn-primary"><i className="mdi mdi-plus me-1"></i>Create Muscle</Link>
+  </div>
+</div>
           <TableContainer
             columns={columns}
             data={muscles || []}
@@ -104,8 +119,7 @@ function MuscleCategory() {
             paginationDiv="col-12"
             pagination="justify-content-center pagination pagination-rounded"
           />
-        </CardText>
-      </Card>
+  
       <Modal
         isOpen={modal}
         autoFocus={true}
@@ -170,7 +184,7 @@ function MuscleCategory() {
           </ModalFooter>
         </div>
       </Modal>
-    </div>
+    </React.Fragment>
   )
 }
 

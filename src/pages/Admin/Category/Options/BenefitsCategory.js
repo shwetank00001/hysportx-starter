@@ -162,15 +162,15 @@ const BenefitsCategory = () => {
 
   return (
 
+<React.Fragment>
 
-    <div>
       <DeleteModal
         text={'Are you Sure you want to Delete the Benefit list ?'}
         show={deleteModal}
         onDeleteClick={handleDeleteBenefit}
         onCloseClick={() => setDeleteModal(false)}
       />
-      <div className="d-flex align-items-center border-bottom pb-3">
+      <div className="d-flex align-items-center border-bottom  p-3 pt-0">
         <h5 className="mb-0 card-title flex-grow-1">Benefit Lists</h5>
         <div className="flex-shrink-0">
           <Link to="#!" onClick={() => { dispatch(benefitListRequest()) }} className="btn btn-light me-1"><i className="mdi mdi-refresh"></i></Link>
@@ -189,8 +189,6 @@ const BenefitsCategory = () => {
         paginationDiv="col-sm-12 col-md-7"
         pagination="pagination justify-content-end pagination-rounded"
       />
-
-
       <Modal
         isOpen={benefitModal}
         toggle={() => {
@@ -283,7 +281,7 @@ const BenefitsCategory = () => {
           </ModalBody>
         </div>
       </Modal>
-    </div>
+      </React.Fragment>
   )
 }
 
