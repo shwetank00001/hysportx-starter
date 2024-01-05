@@ -91,12 +91,12 @@ function Index() {
                   <Card>
                     <CardBody>
                       <CardTitle className="h4 mb-4">
-                        <h4>Edit Title Name</h4>
+                        <h4>Add Category</h4>
                       </CardTitle>
                       <div className="vertical-wizard wizard clearfix vertical">
                         <div className="steps clearfix ">
                           <ul>
-                            {[1, 2, 3, 4, 5, 6, 7].map(tab => (
+                            {[1, 2, 3, 4, 5].map(tab => (
                               <NavItem
                                 key={tab}
                                 className={classNames({
@@ -125,7 +125,7 @@ function Index() {
                             activeTab={activeTabVartical}
                             className="body"
                           >
-                            {[1, 2, 3, 4, 5, 6, 7].map(tab => (
+                            {[1, 2, 3, 4, 5].map(tab => (
                               <TabPane key={tab} tabId={tab}>
                                 {getTabContent(tab)}
                               </TabPane>
@@ -148,20 +148,20 @@ function Index() {
 // Helper functions to get tab labels and content
 const getTabLabel = tab => {
   switch (tab) {
+    // case 1:
+    //   return "Exercise"
     case 1:
-      return "Exercise"
-    case 2:
       return "Modality"
-    case 3:
+    case 2:
       return "Performance"
-    case 4:
+    case 3:
       return "Equipment"
-    case 5:
+    case 4:
       return "Muscle"
-    case 6:
+    case 5:
       return "Benefits"
-    case 7:
-      return "Description"
+    // case 7:
+    //   return "Description"
     default:
       return ""
   }
@@ -169,66 +169,66 @@ const getTabLabel = tab => {
 
 const getTabContent = tab => {
   switch (tab) {
+    // case 1:
+    //   return (
+    //     <Card>
+    //       <ExcerciseNameCategory />
+    //     </Card>
+    //   )
     case 1:
-      return (
-        <Card>
-          <ExcerciseNameCategory />
-        </Card>
-      )
-    case 2:
       return (
         <Card>
           <ModalityCategory />
         </Card>
       )
-    case 3:
+    case 2:
       return (
         <Card>
           <PerformanceTagCategory />
         </Card>
       )
-    case 4:
+    case 3:
       return (
         <Card>
           <EquipmentCategory />
         </Card>
       )
-    case 5:
+    case 4:
       return (
         <Card>
           <MuscleCategory />
         </Card>
       )
-    case 6:
+    case 5:
       return (
         <Card>
           <BenefitsCategory />
         </Card>
       )
-    case 7:
-      return (
-        <Card>
-          <ExerciseDescriptionCategory />
-        </Card>
-      )
-    case 8:
-      return (
-        <div className="row justify-content-center">
-          <Col lg="6">
-            <div className="text-center">
-              <div className="mb-4">
-                <i className="mdi mdi-check-circle-outline text-success display-4" />
-              </div>
-              <div>
-                <h5>Confirm Detail</h5>
-                <p className="text-muted">
-                  If several languages coalesce, the grammar of the resulting
-                </p>
-              </div>
-            </div>
-          </Col>
-        </div>
-      )
+    // case 7:
+    //   return (
+    //     <Card>
+    //       <ExerciseDescriptionCategory />
+    //     </Card>
+    //   )
+    // case 8:
+    //   return (
+    //     <div className="row justify-content-center">
+    //       <Col lg="6">
+    //         <div className="text-center">
+    //           <div className="mb-4">
+    //             <i className="mdi mdi-check-circle-outline text-success display-4" />
+    //           </div>
+    //           <div>
+    //             <h5>Confirm Detail</h5>
+    //             <p className="text-muted">
+    //               If several languages coalesce, the grammar of the resulting
+    //             </p>
+    //           </div>
+    //         </div>
+    //       </Col>
+    //     </div>
+    //   )
     default:
       return null
   }

@@ -192,7 +192,7 @@ const index = () => {
             <CardBody>
                 <TableContainer
                     columns={columns}
-                    data={Condition.conditions ? Condition.conditions : [{}]}
+                    data={Condition.conditions ? Condition.conditions : []}
                     isGlobalFilter={true}
                     isPagination={true}
                     // iscustomPageSizeOptions={true}

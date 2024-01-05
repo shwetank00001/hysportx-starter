@@ -62,7 +62,7 @@ const index = () => {
                     Cell: (cellProps) => {
                         return (
                             <>
-                                <p className="">{cellProps.row.index + 1}</p>
+                                <p className="">{cellProps.rows.length-cellProps.row.index}</p>
                             </>
                         )
                     },
@@ -275,7 +275,7 @@ const index = () => {
                                         <CardBody>
                                             <TableContainer
                                                 columns={columns}
-                                                data={Execise.exercise ? Execise.exercise : [{}]}
+                                                data={Execise.exercise ? Execise.exercise : []}
                                                 isGlobalFilter={true}
                                                 isPagination={true}
                                                 iscustomPageSizeOptions={true}

@@ -77,7 +77,7 @@ function ModalityCategory() {
     <div>
       <Card>
         <CardTitle className="d-flex">
-          <Col sm={6}>Hypersports Conditions</Col>
+          <Col sm={6}>Modalities Category</Col>
           <Col sm={6} onClick={() => setModal6(!modal6)} className="text-end">
             <Button color="secondary">+ Add New</Button>
           </Col>
