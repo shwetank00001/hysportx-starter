@@ -172,11 +172,11 @@ const getTabContent = tab => {
         </Card>
       )
     case 2:
-      return (
-        <Card>
-          <PerformanceTagCategory />
-        </Card>
-      )
+      // return (
+      //   <Card>
+      //     <PerformanceTagCategory />
+      //   </Card>
+      // )
     case 3:
       // return (
       //   <Card>
