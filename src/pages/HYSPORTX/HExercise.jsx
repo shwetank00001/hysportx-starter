@@ -470,7 +470,7 @@ function HExercise() {
               htmlFor="horizontal-password-Input"
               className="col-sm-4 col-form-label"
             >
-              Exercise Descripon :
+              Exercise Description :
             </Label>
             <Col sm={8}>
               <Row className="col-sm-12">
