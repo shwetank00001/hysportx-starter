@@ -13,14 +13,6 @@ import { competition } from "helpers/api";
 import MenuBar from "./MenuBar";
 
 const Navbar = props => {
-
-  const [dashboard, setdashboard] = useState(false);
-  const [ui, setui] = useState(false);
-  const [app, setapp] = useState(false);
-  const [email, setemail] = useState(false);
-  const [competition, setcompetition] = useState(false);
-
-
   useEffect(() => {
     var matchingMenuItem = null;
     var ul = document.getElementById("navigation");
@@ -96,8 +88,6 @@ const Navbar = props => {
             >
               <ul className="navbar-nav">
                <MenuBar />
-
-
               </ul>
             </Collapse>
           </nav>

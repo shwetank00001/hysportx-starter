@@ -50,8 +50,12 @@ const index = () => {
         onSubmit: values => {
             if (editConditionData !=null) {
                 dispatch(updateCondition(values));
+                setConditionModal();
+                 validation.resetForm();
             } else {
                 dispatch(addConditionForm(values));
+                setConditionModal();
+                validation.resetForm();
             }
         },
     })

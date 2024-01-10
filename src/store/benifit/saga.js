@@ -21,15 +21,13 @@ import {
 import {CHANGE_PRELOADER} from "../layout/actionTypes";
 function* listBenefitSaga() {
   try {
-    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Benefit list Please wait ...'}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Benefit list Please wait ...'}})
     const data = yield call(benefit.list)
     yield put({ type: BENEFIT_LIST_SUCCESS, payload: data.data })
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: BENEFIT_LIST_FAIL, payload: error })
-    toast.error("Failed to fetch benefit data. Please try again.", {
-      autoClose: 2000,
-    })
   }
 }
 

@@ -21,15 +21,22 @@ export function setToken(token){
 export async function get(url, config = {}) {
   return await axiosApi
     .get(url, { ...config })
-    .then((response) => response.data)
-   
+    .then((response) => response.data
+    )
 }
 
+
 export async function post(url, data, config = {}) {
-  return axiosApi
-    .post(url, { ...data }, { ...config })
+  if (data instanceof FormData){
+    return axiosApi
+    .post(url, data , { ...config})
     .then((response) => response.data);
+  } 
+  return axiosApi
+  .post(url, {...data} , { ...config})
+  .then((response) => response.data);
 }
+
 
 export async function put(url, data, config = {}) {
   return axiosApi

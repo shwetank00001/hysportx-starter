@@ -21,17 +21,14 @@ import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listModalitySaga() {
   try {
-    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Modality Please wait ...'}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Modality Please wait ...'}})
     const data = yield call(modality.list)
     yield put({ type: MODALITY_LIST_SUCCESS, payload: data.data })
     
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: MODALITY_LIST_FAIL, payload: error })
-    toast.error(error.response?error.response.data.message:error.message, {
-      autoClose: 2000,
-    })
   }
 }
 

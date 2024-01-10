@@ -55,14 +55,7 @@ const BenefitsCategory = () => {
       {
         Header: "No",
         accessor: "id",
-        Cell: cellProps => {
-          return (
-
-            <>
-              <p className="">{cellProps.rows.length - cellProps.row.index}</p>
-            </>
-          )
-        },
+        Cell: cellProps => { return (<p className="">{cellProps.rows.length - cellProps.row.index}</p> )},
       },
 
       {
@@ -81,46 +74,6 @@ const BenefitsCategory = () => {
         Cell: cellProps => {
           return (
             <ul className="list-unstyled hstack gap-1 mb-0">
-              {/* <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                            <Button
-                                className="btn btn-sm btn-soft-primary"
-                                id={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
-                            onClick={() => {
-                              const singleConitionData = cellProps.row.original
-                              setConditionViewData(singleConitionData)
-                              setConditionModal(true)
-                              setModalReadOnly(true);
-                            }}
-                            >
-                                <i className="mdi mdi-eye-outline" />
-                            </Button>
-                        </li>
-                        <UncontrolledTooltip
-                            placement="top"
-                            target={`viewtooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
-                        >
-                            View
-                        </UncontrolledTooltip> */}
-              {/* <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                            <Button
-                                className="btn btn-sm btn-soft-info"
-                                id={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
-                            onClick={() => {
-                              const singleConitionData = cellProps.row.original
-                              setConditionEditData(singleConitionData)
-                              setConditionModal(true)
-                              setModalReadOnly(false);
-                            }}
-                            >
-                                <i className="bx bx-pencil" />
-                            </Button>
-                        </li>
-                        <UncontrolledTooltip
-                            placement="top"
-                            target={`edittooltip-${cellProps.row.original ? cellProps.row.original.code : ''}`}
-                        >
-                            update condition
-                        </UncontrolledTooltip> */}
               <li>
                 <Link
                   to="#"
@@ -147,7 +100,6 @@ const BenefitsCategory = () => {
     ],
     []
   )
-
   const [deleteModal, setDeleteModal] = useState(false)
   const [benefit, setBenefit] = useState(null)
   const onClickDelete = data => {
@@ -163,7 +115,6 @@ const BenefitsCategory = () => {
   return (
 
 <React.Fragment>
-
       <DeleteModal
         text={'Are you Sure you want to Delete the Benefit list ?'}
         show={deleteModal}
@@ -179,10 +130,9 @@ const BenefitsCategory = () => {
       </div>
       <TableContainer
         columns={columns}
-        data={Benifit.benifit ? Benifit.benifit : [{}]}
+        data={Benifit.benifit ? Benifit.benifit : []}
         isGlobalFilter={true}
         isPagination={true}
-        // iscustomPageSizeOptions={true}
         isShowingPageLength={true}
         customPageSize={3}
         tableClass=" align-middle nowrap mt-2"

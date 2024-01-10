@@ -59,8 +59,8 @@ const OurTeam = () => {
                       <div className="figure">
                         <img src={item.img} alt="" className="rounded w-100" />
                         <figcaption>
-                          <h3>{item.author}</h3>
-                          <h5>{item.post}</h5>
+                          {/* <h4>{item.author}</h4>
+                          <h5>{item.post}</h5> */}
                         </figcaption><a href="#"></a>
                       </div>
 

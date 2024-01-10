@@ -9,10 +9,9 @@ import TableContainer from 'components/Common/TableContainer';
 
 
 import HExercise from './HExercise';
-import HCondition from './HCondition';
-import HActivity from './HActivity';
 import Activity from './Activity';
 import Condition from './Condition';
+import Competition from './competition'
 
 
 
@@ -204,7 +203,7 @@ function index() {
                             </NavItem>
                           </ul>
                         </div>
-                        <div className="content clearfix">
+                        <div className="content clearfix pt-0">
                           <TabContent
                             activeTab={activeTabVartical}
                             className="body"
@@ -224,55 +223,11 @@ function index() {
                             </TabPane>
 
                             <TabPane tabId={4}>
-                              <div className="row justify-content-center">
-                                <Col lg="6">
-                                  <div className="text-center">
-                                    <div className="mb-4">
-                                      <i className="mdi mdi-check-circle-outline text-success display-4" />
-                                    </div>
-                                    <div>
-                                      <h5>Confirm Detail</h5>
-                                      <p className="text-muted">
-                                        If several languages coalesce, the
-                                        grammar of the resulting
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Col>
-                              </div>
+                             <Competition />
                             </TabPane>
                           </TabContent>
                         </div>
-                        {/* <div className="actions clearfix">
-                          <ul>
-                            <li
-                              className={activeTabVartical === 1
-                                ? "previous disabled"
-                                : "previous"}
-                            >
-                              <Link
-                                to="#"
-                                onClick={() => {
-                                  toggleTabVertical(activeTabVartical - 1);
-                                } }
-                              >
-                                Previous
-                              </Link>
-                            </li>
-                            <li
-                              className={activeTabVartical === 4 ? "next disabled" : "next"}
-                            >
-                              <Link
-                                to="#"
-                                onClick={() => {
-                                  toggleTabVertical(activeTabVartical + 1);
-                                } }
-                              >
-                                Next
-                              </Link>
-                            </li>
-                          </ul>
-                        </div> */}
+                        
                       </div>
                     </CardBody>
                   </Card>

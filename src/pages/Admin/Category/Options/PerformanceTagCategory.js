@@ -1,60 +1,33 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import {
-  performanceListRequest,
-  addPerformanceRequest,
-  deletePerformanceRequest,
-} from "../../../../store/performance/actions"
+import {performanceListRequest,addPerformanceRequest,deletePerformanceRequest,} from "../../../../store/performance/actions"
 import TableContainer from "components/Common/TableContainer"
 import DeleteModal from "components/Common/DeleteModal"
 import { Link } from 'react-router-dom'
-import {
-  Button,
-  Col,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Input,
-} from "reactstrap"
+import {Button, Col, Modal,ModalBody,ModalFooter,ModalHeader,Input,} from "reactstrap"
 
 function PerformanceTagCategory() {
   const [modal, setModal] = useState(false)
   const [performanceName, setPerformanceName] = useState("")
   const [performanceDescription, setPerformanceDescription] = useState("")
   const [deleteModal, setDeleteModal] = useState(false)
-
   const dispatch = useDispatch()
+  useEffect(() => { dispatch(performanceListRequest())}, [])
 
-  useEffect(() => {
-    dispatch(performanceListRequest())
-  }, [])
-
-  const performances = useSelector(
-    state => state.performanceReducer.performance.ptag
-  )
-
+  const performances = useSelector(state => state.performanceReducer.performance.ptag )
   const addPerformanceHandler = () => {
-    dispatch(
-      addPerformanceRequest({
-        name: performanceName,
-        description: performanceDescription,
-      })
-    )
-    dispatch(performanceListRequest())
+    dispatch(addPerformanceRequest({name: performanceName, description: performanceDescription, }))
     setPerformanceName("")
     setPerformanceDescription("")
     setModal(false)
   }
 
-  const handleDelete = data => {
-    // setDeleteModal(true)
-    dispatch(deletePerformanceRequest(data))
-  }
+  const handleDelete = data => { dispatch(deletePerformanceRequest(data)) }
   const columns = [
     {
       Header: "ID",
       accessor: "id",
+      Cell: cellProps => { return (<p className="">{cellProps.rows.length - cellProps.row.index}</p> )},
     },
     {
       Header: "Name",
@@ -67,31 +40,13 @@ function PerformanceTagCategory() {
     {
       Header: "Action",
       accessor: "action",
-      Cell: ({ row }) => (
-        <div>
-
-          <Button
-            color="btn btn-sm btn-danger"
-            onClick={() => handleDelete(row.original.id)}
-          >
-            <i className="mdi mdi-delete-outline" />
-          </Button>
-        </div>
-      ),
+      Cell: ({ row }) => ( <Button color="btn btn-sm btn-danger" onClick={() => handleDelete(row.original.id)} >
+            <i className="mdi mdi-delete-outline" /></Button>),
     },
   ]
-
   return (
-
-
-    <React.Fragment>
-
-      <DeleteModal
-        text={'Are you Sure you want to Delete the Performance list ?'}
-        show={deleteModal}
-        onDeleteClick={handleDelete}
-        onCloseClick={() => setDeleteModal(false)}
-      />
+ <React.Fragment>
+   <DeleteModal text={'Are you Sure you want to Delete the Performance list ?'}show={deleteModal}onDeleteClick={handleDelete} onCloseClick={() => setDeleteModal(false)}/>
       <div className="d-flex align-items-center border-bottom  p-3 pt-0">
         <h5 className="mb-0 card-title flex-grow-1">Performance</h5>
         <div className="flex-shrink-0">
@@ -111,59 +66,25 @@ function PerformanceTagCategory() {
         paginationDiv="col-sm-12 col-md-7"
         pagination="pagination justify-content-end pagination-rounded"
       />
-
-      <Modal
-        isOpen={modal}
-        autoFocus={true}
-        centered={true}
-        toggle={() => setModal(!modal)}
-      >
+      <Modal isOpen={modal} autoFocus={true} centered={true}toggle={() => setModal(!modal)}>
         <div className="modal-content">
-          <ModalHeader toggle={() => setModal(!modal)}>
-            Manage Performance Tag
-          </ModalHeader>
+          <ModalHeader toggle={() => setModal(!modal)}>Manage Performance Tag </ModalHeader>
           <ModalBody>
             <form>
               <div className="mb-3">
-                <Input
-                  type="text"
-                  className="form-control"
-                  placeholder="Performance Tag Name"
-                  value={performanceName}
-                  onChange={e => setPerformanceName(e.target.value)}
-                />
+                <Input type="text" className="form-control"placeholder="Performance Tag Name"value={performanceName}onChange={e => setPerformanceName(e.target.value)}/>
               </div>
               <div className="mb-3">
-                <Input
-                  type="text"
-                  className="form-control"
-                  placeholder="Performance Tag Description"
-                  value={performanceDescription}
-                  onChange={e => setPerformanceDescription(e.target.value)}
-                />
+                <Input type="text" className="form-control"placeholder="Performance Tag Description"value={performanceDescription} onChange={e => setPerformanceDescription(e.target.value)}/>
               </div>
             </form>
           </ModalBody>
           <ModalFooter className="">
             <Col className="text-center">
-              <Button
-                type="button"
-                className="col-sm-12 btn-soft-secondary"
-                color="secondary"
-                onClick={() => setModal(!modal)}
-              >
-                Cancel
-              </Button>
+              <Button type="button" className="col-sm-12 btn-soft-secondary" color="secondary"onClick={()=>setModal(!modal)}>Cancel </Button>
             </Col>
             <Col className="text-center">
-              <Button
-                className="col-sm-12 btn-soft-info"
-                type="button"
-                color="primary"
-                onClick={addPerformanceHandler}
-              >
-                ADD
-              </Button>
+              <Button className="col-sm-12 btn-soft-info" type="button"color="primary"onClick={addPerformanceHandler}>ADD</Button>
             </Col>
           </ModalFooter>
         </div>
@@ -171,5 +92,4 @@ function PerformanceTagCategory() {
     </React.Fragment>
   )
 }
-
 export default PerformanceTagCategory

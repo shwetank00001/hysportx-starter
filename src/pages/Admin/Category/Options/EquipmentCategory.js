@@ -62,6 +62,7 @@ const EquipmentCategory = () => {
     {
       Header: "ID",
       accessor: "id",
+      Cell: cellProps => { return (<p className="">{cellProps.rows.length - cellProps.row.index}</p> )},
     },
     {
       Header: "Name",
@@ -107,7 +108,6 @@ const EquipmentCategory = () => {
             data={equipments}
             isGlobalFilter={true}
             isPagination={true}
-            // iscustomPageSizeOptions={true}
             isShowingPageLength={true}
             customPageSize={3}
             tableClass=" align-middle nowrap mt-2"

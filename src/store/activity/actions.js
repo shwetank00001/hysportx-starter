@@ -12,6 +12,12 @@ import {
   DELETE_ACTIVITY_REQUEST,
   DELETE_ACTIVITY_SUCCESS,
   DELETE_ACTIVITY_FAILURE,
+  ADD_ACTIVITY_EXERCISE_REQUEST,
+  ADD_ACTIVITY_EXERCISE_SUCCESS,
+  ADD_ACTIVITY_EXERCISE_FAILURE,
+  DELETE_ACTIVITY_EXERCISE_REQUEST,
+  DELETE_ACTIVITY_EXERCISE_SUCCESS,
+  DELETE_ACTIVITY_EXERCISE_FAILURE,
 } from "./actionTypes"
 
 
@@ -49,6 +55,7 @@ export const addActivityFailure = error => ({
 })
 
 
+
 export const editActivityRequest = (id, data) => ({
   type: EDIT_ACTIVITY_REQUEST,
   payload: { id, data },
@@ -78,6 +85,38 @@ export const deleteActivitySuccess = () => ({
 
 export const deleteActivityFailure = error => ({
   type: DELETE_ACTIVITY_FAILURE,
+  payload: error,
+})
+
+
+export const addActivityExerciseRequest = data => ({
+  type: ADD_ACTIVITY_EXERCISE_REQUEST,
+  payload: data,
+})
+
+
+export const addActivityExerciseSuccess = () => ({
+  type: ADD_ACTIVITY_EXERCISE_SUCCESS,
+})
+
+
+export const addActivityExerciseFailure = error => ({
+  type: ADD_ACTIVITY_EXERCISE_FAILURE,
+  payload: error,
+})
+
+export const deleteActivityExerciseRequest = id => ({
+  type: DELETE_ACTIVITY_EXERCISE_REQUEST,
+  payload: id,
+})
+
+export const deleteActivityExerciseSuccess = () => ({
+  type: DELETE_ACTIVITY_EXERCISE_SUCCESS,
+})
+
+
+export const deleteActivityExerciseFailure = error => ({
+  type: DELETE_ACTIVITY_EXERCISE_FAILURE,
   payload: error,
 })
 

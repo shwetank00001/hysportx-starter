@@ -26,9 +26,6 @@ function* listPerformanceSaga() {
     yield put({ type: PERFORMANCE_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: PERFORMANCE_LIST_FAIL, payload: error })
-    toast.error("Failed to fetch performance data. Please try again.", {
-      autoClose: 2000,
-    })
   }
 }
 

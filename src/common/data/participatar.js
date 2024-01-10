@@ -1,18 +1,18 @@
 const reports = [
-    { title: "Community Status", iconClass: "bx-copy-alt", description: "$1,235" },
+    { title: "Competition", iconClass: "bx-copy-alt", description: "$1,235" },
     {
-      title: "ASSOCIATION STATUS",
+      title: "Activity",
       iconClass: "bx-purchase-tag-alt",
       description: "$16.2",
     },
-    { title: "Election Selection", iconClass: "bx-copy-alt", description: "$1,232" },
+    { title: "Condition", iconClass: "bx-copy-alt", description: "$1,232" },
     {
-      title: "SHOPPING STATUS",
+      title: "Execise",
       iconClass: "bx-purchase-tag-alt",
       description: "$16.2",
     },
-    { title: "HIRE PROFESSIONALS", iconClass: "bx-archive-in", description: "$35, 723" },
-    { title: "POST ADVERTISEMENT", iconClass: "bx-archive-in", description: "$35, 723" },
+    { title: "Category", iconClass: "bx-archive-in", description: "$35, 723" },
+    { title: "Equipment", iconClass: "bx-archive-in", description: "$35, 723" },
   
   ]
   // }
@@ -146,7 +146,32 @@ const reports = [
     
 ] 
 
-
+const activityDataDashboard = [
+  {
+      id: 1,
+      active: false,
+      date: "22 Nov",
+      activity: "Responded to need “Volunteer Activities”"
+  },
+  {
+      id: 2,
+      active: false,
+      date: "17 Nov",
+      activity: "Everyone realizes why a new common language would be desirable... Read More"
+  },
+  {
+      id: 3,
+      active: true,
+      date: "15 Nov",
+      activity: "Joined the group “Boardsmanship Forum”"
+  },
+  {
+      id: 4,
+      active: false,
+      date: "22 Nov",
+      activity: "Responded to need “In-Kind Opportunity”"
+  }
+]
 
 
 
@@ -156,5 +181,5 @@ const reports = [
 
 
   export {
-    event, competition,inetrSchool, national,reports, broadcast,connect,post, fitness,support, app,fwgbm, indivisual
+    event, competition,inetrSchool, national,reports, broadcast,connect,post, fitness,support, app,fwgbm, indivisual,activityDataDashboard
   }

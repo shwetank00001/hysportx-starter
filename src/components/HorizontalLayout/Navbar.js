@@ -14,28 +14,6 @@ import { connect } from "react-redux";
 const Navbar = props => {
 
   const [dashboard, setdashboard] = useState(false);
-  const [ui, setui] = useState(false);
-  const [app, setapp] = useState(false);
-  const [email, setemail] = useState(false);
-  const [ecommerce, setecommerce] = useState(false);
-  const [crypto, setcrypto] = useState(false);
-  const [project, setproject] = useState(false);
-  const [task, settask] = useState(false);
-  const [contact, setcontact] = useState(false);
-  const [blog, setBlog] = useState(false);
-  const [job, setJob] = useState(false);
-  const [candidate, setCandidate] = useState(false);
-  const [component, setcomponent] = useState(false);
-  const [form, setform] = useState(false);
-  const [table, settable] = useState(false);
-  const [chart, setchart] = useState(false);
-  const [icon, seticon] = useState(false);
-  const [map, setmap] = useState(false);
-  const [extra, setextra] = useState(false);
-  const [invoice, setinvoice] = useState(false);
-  const [auth, setauth] = useState(false);
-  const [utility, setutility] = useState(false);
-
   useEffect(() => {
     var matchingMenuItem = null;
     var ul = document.getElementById("navigation");

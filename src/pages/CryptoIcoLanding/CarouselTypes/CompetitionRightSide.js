@@ -181,8 +181,8 @@ const CompetitionRightSide = () => {
 
                     <Row >
                     <SimpleBar ref={scroollRef} style={{ height: "380px" }}>
-                        {competitioninter.map(item => (
-                            <Col lg={12} key={item.id}>
+                        {competitioninter.map((item,id) => (
+                            <Col lg={12} key={id}>
                                 <Card>
                                     <Row className="no-gutters align-items-center">
                                         <Col md={4}>
@@ -212,8 +212,8 @@ const CompetitionRightSide = () => {
                 <TabPane tabId="2">
                     <Row>
                     <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
-                        {competitiondistrict.map(item => (
-                            <Col lg={12} key={item.id}>
+                        {competitiondistrict.map((item,id) => (
+                            <Col lg={12} key={id}>
                                 <Card>
                                     <Row className="no-gutters align-items-center">
                                         <Col md={4}>
@@ -243,8 +243,8 @@ const CompetitionRightSide = () => {
                 <TabPane tabId="3">
                     <Row>
                     <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
-                        {competitioninter.map(item => (
-                            <Col lg={12} key={item.id}>
+                        {competitioninter.map((item,id) => (
+                            <Col lg={12} key={id}>
                                 <Card>
                                     <Row className="no-gutters align-items-center">
                                         <Col md={4}>
@@ -274,8 +274,8 @@ const CompetitionRightSide = () => {
                 <TabPane tabId="4">
                     <Row>
                     <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
-                        {competitiondistrict.map(item => (
-                            <Col lg={12} key={item.id}>
+                        {competitiondistrict.map((item,id) => (
+                            <Col lg={12} key={id}>
                                 <Card>
                                     <Row className="no-gutters align-items-center">
                                         <Col md={4}>
@@ -305,8 +305,8 @@ const CompetitionRightSide = () => {
                 <TabPane tabId="5">
                     <Row>
                     <SimpleBar ref={scroollRef} style={{ height: "340px" }}>
-                        {competitioninter.map(item => (
-                            <Col lg={12} key={item.id}>
+                        {competitioninter.map((item,id) => (
+                            <Col lg={12} key={id}>
                                 <Card>
                                     <Row className="no-gutters align-items-center">
                                         <Col md={4}>

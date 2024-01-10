@@ -35,7 +35,7 @@ const authProtectedRoutes = [
     path: "/community/dashboard",
     component: <CommunityDashboard />,
     user: "community",
-    icon: "mdi mdi-run",
+    icon: "bx bx-home-circle",
     children: [],
   },
   {
@@ -97,7 +97,7 @@ const authProtectedRoutes = [
     path: "/Admin/dashboard",
     component: <Dashboard />,
     user: "Admin",
-    icon: "mdi mdi-run",
+    icon: "bx bx-home-circle",
     children: [],
   },
   {
@@ -130,7 +130,7 @@ const authProtectedRoutes = [
     path: "/Participator/dashboard",
     component: <ParticipatorDashboard />,
     user: "Participator",
-    icon: "mdi mdi-run",
+    icon: "bx bx-home-circle",
     children: [],
   },
   {

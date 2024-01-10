@@ -25,9 +25,6 @@ function* listEquipmentSaga() {
     yield put({ type: EQUIPMENT_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: EQUIPMENT_LIST_FAIL, payload: error })
-    toast.error("Failed to fetch equipment data. Please try again.", {
-      autoClose: 2000,
-    })
   }
 }
 

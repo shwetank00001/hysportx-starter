@@ -26,9 +26,6 @@ function* listMuscleSaga() {
     yield put({ type: MUSCLE_LIST_SUCCESS, payload: data.data })
   } catch (error) {
     yield put({ type: MUSCLE_LIST_FAIL, payload: error })
-    toast.error("Failed to fetch muscle data. Please try again.", {
-      autoClose: 2000,
-    })
   }
 }
 
@@ -37,8 +34,7 @@ function* addMuscleSaga(action) {
     yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Adding Muscle Please wait ...'}})
     const response=yield call(muscle.add, action.payload)
     yield put({ type: ADD_MUSCLE_SUCCESS })
-    yield put({ type: MUSCLE_LIST_REQUEST })
-      
+    yield put({ type: MUSCLE_LIST_REQUEST })   
     yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
@@ -52,6 +48,7 @@ function* editMuscleSaga(action) {
   try {
     yield call(muscle.edit, action.payload.id, action.payload.data)
     yield put({ type: EDIT_MUSCLE_SUCCESS })
+    yield put({ type: MUSCLE_LIST_REQUEST })
     toast.success("Muscle edited successfully!", { autoClose: 2000 })
   } catch (error) {
     yield put({ type: EDIT_MUSCLE_FAILURE, payload: error })

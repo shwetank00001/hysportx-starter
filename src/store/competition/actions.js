@@ -42,9 +42,9 @@ export const addCompetitionFailure = error => ({
   payload: error,
 })
 
-export const editCompetitionRequest = (id, data) => ({
+export const editCompetitionRequest = (data) => ({
   type: EDIT_COMPETITION_REQUEST,
-  payload: { id, data },
+  payload: {data},
 })
 
 export const editCompetitionSuccess = () => ({

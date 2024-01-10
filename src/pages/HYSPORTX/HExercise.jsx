@@ -114,7 +114,6 @@ function HExercise() {
   }
 
   //fetch muscles data
-
   function getMuscles() {
     try {
       const ele = muscles.muscle.map(function (item) {
@@ -222,12 +221,6 @@ function HExercise() {
     setPerformanceDescription("")
   }
 
-  
-
-  
-  
-
-
   const level = [
    {label:'Beginner',value:'beginner'},
    {label:'Intermediate',value:'intermediate'},
@@ -265,7 +258,16 @@ function HExercise() {
       benifits: set(selectedBenefits),
     }
     dispatch(addExerciseRequest(exerciseData))
+    setExerciseName();
+    setDescriptionName();
+    setselectedDifficultyLevel();
+    setselectedModality();
+    setselectedPtag();
+    setselectedEquipment();
+    setselectedMuscleUsed();
+    setselectedBenefits();
   }
+
 
   return (
     <div>

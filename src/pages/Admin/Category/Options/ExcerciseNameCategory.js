@@ -65,6 +65,7 @@ const ExerciseNameCategory = () => {
     {
       Header: "ID",
       accessor: "id",
+      Cell: cellProps => { return (<p className="">{cellProps.rows.length - cellProps.row.index}</p> )},
     },
     {
       Header: "Name",

@@ -14,3 +14,5 @@ export * from "./exercises/actions";
 
 export * from "./participator/actions";
 export * from "./condition/actions";
+export * from "./activity/actions";
+export * from "./competition/actions";

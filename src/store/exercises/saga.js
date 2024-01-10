@@ -19,20 +19,15 @@ import {
   DELETE_EXERCISE_SUCCESS,
   DELETE_EXERCISE_FAILURE,
 } from "./actionTypes"
-
 function* listExerciseSaga() {
-
   try {
-    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Exercise list data Please wait ...'}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Exercise list data Please wait ...'}})
     const data = yield call(exercise.list)
     yield put({ type: EXERCISE_LIST_SUCCESS, payload: data.data })
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
     yield put({ type: EXERCISE_LIST_FAIL, payload: error })
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
-    // toast.error("Failed to fetch exercise data. Please try again.", {
-    //   autoClose: 2000,
-    // })
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   }
 }
 
@@ -40,14 +35,15 @@ function* listExerciseSaga() {
 
 function* addExerciseSaga(action) {
   try {
-    yield call(exercise.add, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Creating Exercise data Please wait ...'}})
+    const response=yield call(exercise.add, action.payload)
     yield put({ type: ADD_EXERCISE_SUCCESS })
-    toast.success("Exercise added successfully!", { autoClose: 2000 })
+    yield put({ type: EXERCISE_LIST_REQUEST})
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: ADD_EXERCISE_FAILURE, payload: error })
-    toast.error("Failed to add exercise. Please try again.", {
-      autoClose: 2000,
-    })
+    yield put({ type: ADD_EXERCISE_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {autoClose: 2000,})
   }
 }
 
@@ -66,14 +62,16 @@ function* editExerciseSaga(action) {
 
 function* deleteExerciseSaga(action) {
   try {
-    yield call(exercise.delete, action.payload)
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Deleting Exercise list data Please wait ...'}})
+    const response=yield call(exercise.delete, action.payload)
     yield put({ type: DELETE_EXERCISE_SUCCESS })
-    toast.success("Exercise deleted successfully!", { autoClose: 2000 })
+    yield put({ type: EXERCISE_LIST_REQUEST})
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
-    yield put({ type: DELETE_EXERCISE_FAILURE, payload: error })
-    toast.error("Failed to delete exercise. Please try again.", {
-      autoClose: 2000,
-    })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    yield put({ type: DELETE_EXERCISE_FAILURE, payload: error.response.data.message })
+    toast.error(error.response.data.message, {autoClose: 2000,})
   }
 }
 

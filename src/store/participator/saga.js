@@ -35,32 +35,26 @@ import {CHANGE_PRELOADER} from "../layout/actionTypes";
 
 function* listParticipatorRequestsSaga() {
   try {
-    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator List Please wait ...'}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator List Please wait ...'}})
     const data = yield call(participator.listParticipatorRequests)
     yield put({ type: PARTICIPATOR_LIST_SUCCESS, payload: data.data })
-    toast.success(data.message, { autoClose: 2000 });
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    // toast.success(data.message, { autoClose: 2000 });
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   } catch (error) {
     yield put({ type: PARTICIPATOR_LIST_FAIL, payload: error })
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
-    toast.error(error.response?error.response.data.message:error.message, {
-      autoClose: 2000,
-    })
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   }
 }
 function* listParticipatorMainListSaga() {
   try {
-    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator Please wait ...'}})
+    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Retriving Participator Please wait ...'}})
     const data = yield call(participator.listParticipators)
     yield put({ type: PARTICIPATOR_LIST_MAIN_SUCCESS, payload: data.data })
-    toast.success(data.message, { autoClose: 2000 });
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    // toast.success(data.message, { autoClose: 2000 });
+    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
-    yield put({ type: PARTICIPATOR_LIST_MAIN_FAIL, payload: error })
+    // yield put({ type: PARTICIPATOR_LIST_MAIN_FAIL, payload: error })
     yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
-    toast.error(error.response?error.response.data.message:error.message, {
-      autoClose: 2000,
-    })
   }
 }
 
@@ -143,9 +137,7 @@ function* fetchParticipatorCommunitiesSaga() {
   } catch (error) {
     yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
     yield put({ type: FETCH_PARTICIPATOR_cOMMUNITIES__FAIL, payload: error })
-    toast.error(error.response?error.response.data.message:error.message, {
-      autoClose: 2000,
-    })
+   
   }
 }
 

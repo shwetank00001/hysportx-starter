@@ -14,7 +14,6 @@ import { competition } from "helpers/api";
 const MenuBar = props => {
 
   const [dashboard, setdashboard] = useState(false);
-  const [ui, setui] = useState(false);
   const [app, setapp] = useState(false);
   const [email, setemail] = useState(false);
   const [competition, setcompetition] = useState(false);
