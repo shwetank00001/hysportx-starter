@@ -25,6 +25,9 @@ function* listPerformanceSaga() {
     const data = yield call(performance.list)
     yield put({ type: PERFORMANCE_LIST_SUCCESS, payload: data.data })
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: PERFORMANCE_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: PERFORMANCE_LIST_FAIL, payload: error })
   }
 }

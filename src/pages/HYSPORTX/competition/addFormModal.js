@@ -29,7 +29,7 @@ const AddFormModal = () => {
             const formData = new FormData();
             formData.append('name', values.name);
             formData.append('description', values.description);
-            formData.append('socail_link', values.social_link);
+            formData.append('social_link', values.social_link);
             formData.append('image', values.image);
             dispatch(addCompetitionRequest(formData));
             validation.resetForm();

@@ -26,6 +26,9 @@ function* listBenefitSaga() {
     yield put({ type: BENEFIT_LIST_SUCCESS, payload: data.data })
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: BENEFIT_LIST_SUCCESS,payload: []})
+    }
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: BENEFIT_LIST_FAIL, payload: error })
   }

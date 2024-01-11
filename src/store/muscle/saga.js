@@ -25,6 +25,9 @@ function* listMuscleSaga() {
     const data = yield call(muscle.list)
     yield put({ type: MUSCLE_LIST_SUCCESS, payload: data.data })
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: MUSCLE_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: MUSCLE_LIST_FAIL, payload: error })
   }
 }

@@ -27,6 +27,9 @@ function* listCompetitionSaga() {
     yield put({ type: COMPETITION_LIST_SUCCESS, payload: response.data })
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: COMPETITION_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: COMPETITION_LIST_FAIL, payload: error })
   }
 }

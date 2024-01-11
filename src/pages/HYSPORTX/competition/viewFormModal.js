@@ -5,8 +5,10 @@ import { useFormik } from "formik";
 import { Row, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input, FormFeedback,Button,UncontrolledTooltip } from 'reactstrap'
 import {useSelector, useDispatch } from "react-redux";
 const viewFormModal = (props) => {
+    const baseUrl = 'https://hysportx.com/';
+    const imageupload = baseUrl + (props.data.image ? props.data.image : '');
     const [competitionModal, setCompetitionModal] = useState(false);
-    const [preview, setPreview] = useState('');
+    const [preview, setPreview] = useState(imageupload);
     const validation = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -62,7 +64,6 @@ const viewFormModal = (props) => {
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-lg-3 col-md-3 text-md-end text-lg-end ">
-                                       
                                     </div>
                                     <div className="col-lg-9 col-md-9">
                                         {preview ? <img src={preview} width="200px" height="200px" /> : ''}

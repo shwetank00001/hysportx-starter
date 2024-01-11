@@ -35,7 +35,9 @@ function* listActivitySaga() {
     yield put({ type: ACTIVITY_LIST_SUCCESS, payload: data.data })
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
-    yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
+    if(error.response && error.response.status===404){
+      yield put({ type: ACTIVITY_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: ACTIVITY_LIST_FAIL, payload: error })
     // toast.error("Failed to fetch activity data. Please try again.", {
     //   autoClose: 2000,

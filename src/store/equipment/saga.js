@@ -24,6 +24,9 @@ function* listEquipmentSaga() {
     const data = yield call(equipment.list)
     yield put({ type: EQUIPMENT_LIST_SUCCESS, payload: data.data })
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: EQUIPMENT_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: EQUIPMENT_LIST_FAIL, payload: error })
   }
 }

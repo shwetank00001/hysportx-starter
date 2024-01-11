@@ -41,6 +41,9 @@ function* listParticipatorRequestsSaga() {
     // toast.success(data.message, { autoClose: 2000 });
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: PARTICIPATOR_LIST_SUCCESS,payload: []})
+    }
     yield put({ type: PARTICIPATOR_LIST_FAIL, payload: error })
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
   }

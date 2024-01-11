@@ -68,6 +68,9 @@ function* updateConditionSaga(action) {
       yield put({ type: CONDITION_LIST_SUCCESS, payload: data.data })
       // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     } catch (error) {
+      if(error.response && error.response.status===404){
+        yield put({ type: CONDITION_LIST_SUCCESS,payload: []})
+      }
       yield put({ type: CONDITION_LIST_FAIL, payload: error })
       // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
       // toast.error(error.response?error.response.data.message:error.message, {

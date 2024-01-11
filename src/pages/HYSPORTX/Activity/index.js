@@ -55,7 +55,7 @@ const index = () => {
             },
             {
                 Header: 'Condition Name',
-                accessor: 'condition_name',
+                accessor: 'condition.name',
             },
             {
                 Header: 'Description',

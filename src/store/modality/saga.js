@@ -27,6 +27,9 @@ function* listModalitySaga() {
     
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
+    if(error.response && error.response.status===404){
+      yield put({ type: MODALITY_LIST_SUCCESS,payload: []})
+    }
     // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
     yield put({ type: MODALITY_LIST_FAIL, payload: error })
   }

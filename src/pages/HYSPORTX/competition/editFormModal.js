@@ -33,8 +33,9 @@ const EditFormModal = (props) => {
             formData.append('competition_id', values.competition_id);
             formData.append('name', values.name);
             formData.append('description', values.description);
-            formData.append('socail_link', values.social_link);
-            formData.append('image', values.image);
+            formData.append('socail_link', values.social_link
+);
+            values.image && formData.append('image', values.image);
             dispatch(editCompetitionRequest(formData));
             validation.resetForm();
             setCompetitionModal();
