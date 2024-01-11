@@ -6,12 +6,12 @@ import { Row, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input, Fo
 import { useSelector, useDispatch } from "react-redux";
 import { editCompetitionRequest } from '../../../store/actions'
 const EditFormModal = (props) => {
-
-    const dispatch = useDispatch();
-    const [competitionModal, setCompetitionModal] = useState(false);
-    const [preview, setPreview] = useState('');
     const baseUrl = 'https://hysportx.com/';
     const imageupload = baseUrl + (props.image ? props.image : '');
+    const dispatch = useDispatch();
+    const [competitionModal, setCompetitionModal] = useState(false);
+    const [preview, setPreview] = useState(imageupload);
+
     const validation = useFormik({
         enableReinitialize: true,
         initialValues: {
@@ -27,7 +27,6 @@ const EditFormModal = (props) => {
                 (value) => !value || (value && value.size <= 1024 * 1024) // Adjust the size limit
             ).test('fileType', 'Invalid file type. Only jpg,jpeg,png,svg format are allowed',
                 (value) => !value || (value && ['image/jpeg', 'image/png'].includes(value.type)))
-                .required('Image is required'),
         }),
         onSubmit: (values) => {
             const formData = new FormData();
