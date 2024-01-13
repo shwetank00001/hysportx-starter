@@ -102,3 +102,15 @@ export const participator = {
   participatedcommunities:()=>get("/participated-communities"),
   removeParticipatorRequest: id =>  get(`/remove-participated-community/${id}`),
 }
+
+export const roundApi = {
+  add: data => post("/round", data),
+  removeActivity: (competitionId, activityId, roundName) =>
+    post(`/competition/remove-round-activity`, {
+      competition_id: competitionId,
+      activity_id: activityId,
+      round_name: roundName,
+    }),
+  removeRound: (competitionId, roundName) =>
+    get(`/competition/${competitionId}/remove-round/${roundName}`),
+}

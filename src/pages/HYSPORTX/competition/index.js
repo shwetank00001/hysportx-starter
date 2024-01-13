@@ -70,6 +70,12 @@ const { Competition } = useSelector(allDataProperties)
                   <UncontrolledTooltip placement="top" target={`deletetooltip`}> Delete </UncontrolledTooltip>
                 </Button>
               </li>
+              <li>
+                <Button onClick={() => {const data = cellProps.row.original; onClickDelete(data)}} className="btn btn-sm btn-soft-danger"
+                  id={`deletetooltip`}><i className="mdi mdi-delete-outline" />
+                  <UncontrolledTooltip placement="top" target={`deletetooltip`}> Delete </UncontrolledTooltip>
+                </Button>
+              </li>
             </ul>
           )
         },

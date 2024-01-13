@@ -86,5 +86,4 @@ export default function* performanceSaga() {
   yield takeLatest(ADD_PERFORMANCE_REQUEST, addPerformanceSaga)
   yield takeLatest(EDIT_PERFORMANCE_REQUEST, editPerformanceSaga)
   yield takeLatest(DELETE_PERFORMANCE_REQUEST, deletePerformanceSaga)
-  // Add additional takeLatest for other actions if needed
 }
