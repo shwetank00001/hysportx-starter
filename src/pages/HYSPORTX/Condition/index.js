@@ -8,6 +8,7 @@ import { Row, Col, Card, CardHeader, CardBody, Button, UncontrolledTooltip, Moda
 import TableContainer from "components/Common/TableContainer"
 import DeleteModal from "components/Common/DeleteModal"
 import { onAddCondition as addConditionForm, conditionListRequest,deleteConditionRequest,updateCondition } from "../../../store/actions";
+
 const index = () => {
 
     const dispatch = useDispatch();

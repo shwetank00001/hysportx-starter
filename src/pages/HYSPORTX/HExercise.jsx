@@ -245,28 +245,31 @@ function HExercise() {
   const [selectedBenefits, setselectedBenefits] = useState(null)
   const [selectedDifficultyLevel, setselectedDifficultyLevel] = useState(null)
   const set = s => s.map(e=>e.value)
-  const handleSubmit = e => {
-    e.preventDefault()
-    const exerciseData = {
-      name: exerciseName,
-      description: descriptionName,
-      level: selectedDifficultyLevel.value,
-      modalities: set(selectedModality),
-      ptags: set(selectedPtag),
-      equipments: set(selectedEquipment),
-      muscles: set(selectedMuscleUsed),
-      benifits: set(selectedBenefits),
-    }
-    dispatch(addExerciseRequest(exerciseData))
-    setExerciseName();
-    setDescriptionName();
-    setselectedDifficultyLevel();
-    setselectedModality();
-    setselectedPtag();
-    setselectedEquipment();
-    setselectedMuscleUsed();
-    setselectedBenefits();
+  
+const handleSubmit = e => {
+  e.preventDefault()
+
+  const exerciseData = {
+    name: exerciseName,
+    description: descriptionName,
+    level: selectedDifficultyLevel?.value || "", 
+    modalities: set(selectedModality) || [], 
+    ptags: set(selectedPtag) || [],
+    equipments: set(selectedEquipment) || [],
+    muscles: set(selectedMuscleUsed) || [],
+    benifits: set(selectedBenefits) || [],
   }
+
+  dispatch(addExerciseRequest(exerciseData))
+  setExerciseName("")
+  setDescriptionName("")
+  setselectedDifficultyLevel(null)
+  setselectedModality(null)
+  setselectedPtag(null)
+  setselectedEquipment(null)
+  setselectedMuscleUsed(null)
+  setselectedBenefits(null)
+}
 
 
   return (

@@ -12,6 +12,7 @@ import HExercise from './HExercise';
 import Activity from './Activity';
 import Condition from './Condition';
 import Competition from './competition'
+import Round from './Rounds'
 
 
 
@@ -41,7 +42,7 @@ function index() {
         if (activeTabVartical !== tab) {
           var modifiedSteps = [...passedStepsVertical, tab]
     
-          if (tab >= 1 && tab <= 4) {
+          if (tab >= 1 && tab <= 5) {
             setoggleTabVertical(tab)
             setPassedStepsVertical(modifiedSteps)
           }
@@ -201,6 +202,29 @@ function index() {
                                 </span>
                               </NavLink>
                             </NavItem>
+
+                            <NavItem
+                              className={classNames({
+                                current: activeTabVartical === 5,
+                              })}
+                            >
+                              <NavLink
+                                className={
+                                  (classNames({
+                                    active: activeTabVartical === 5,
+                                  }),
+                                  "done")
+                                }
+                                onClick={() => {
+                                  toggleTabVertical(5)
+                                }}
+                              >
+                                <span className="number">5.</span>
+                                <span className="font-size-10">
+                                Rounds
+                                </span>
+                              </NavLink>
+                            </NavItem>
                           </ul>
                         </div>
                         <div className="content clearfix pt-0">
@@ -224,6 +248,10 @@ function index() {
 
                             <TabPane tabId={4}>
                              <Competition />
+                            </TabPane>
+
+                            <TabPane tabId={5}>
+                             <Round />
                             </TabPane>
                           </TabContent>
                         </div>

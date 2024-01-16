@@ -106,14 +106,25 @@ function* deleteCompetitionSaga(action) {
   }
 }
 
-
 function* addRoundSaga(action) {
   try {
-
-    // yield call(competition.addRound, action.payload)
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: true, text: "Adding Round. Please wait..." },
+    })
+    const response = yield call(competition.addRound, action.payload)
     yield put({ type: ADD_ROUND_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
     yield put({ type: ADD_ROUND_FAILURE, payload: error })
     toast.error(error.response.data.message, { autoClose: 2000 })
   }
@@ -121,20 +132,50 @@ function* addRoundSaga(action) {
 
 function* removeRoundActivitySaga(action) {
   try {
-    // Example: yield call(competition.removeRoundActivity, action.payload)
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: {
+        status: true,
+        text: "Removing Round Activity. Please wait...",
+      },
+    })
+    const response = yield call(competition.removeRoundActivity, action.payload)
     yield put({ type: REMOVE_ROUND_ACTIVITY_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
     yield put({ type: REMOVE_ROUND_ACTIVITY_FAILURE, payload: error })
-     toast.error(error.response.data.message, { autoClose: 2000 })
+    toast.error(error.response.data.message, { autoClose: 2000 })
   }
 }
 
 function* removeRoundSaga(action) {
   try {
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: true, text: "Removing Round. Please wait..." },
+    })
+    const response = yield call(competition.removeRound, action.payload)
     yield put({ type: REMOVE_ROUND_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
+    toast.success(response.message, { autoClose: 2000 })
   } catch (error) {
+    yield put({
+      type: CHANGE_PRELOADER,
+      payload: { status: false, text: "" },
+    })
     yield put({ type: REMOVE_ROUND_FAILURE, payload: error })
     toast.error(error.response.data.message, { autoClose: 2000 })
   }
