@@ -31,7 +31,6 @@ import participatorReducer from "./participator/reducer";
 
 import conditionReducer from "./condition/reducer";
 
-import roundReducer from "./round/reducer";
 
 const rootReducer = combineReducers({
   // public
@@ -52,7 +51,6 @@ const rootReducer = combineReducers({
   competitionReducer,
   participatorReducer,
   conditionReducer,
-  roundReducer ,
 })
 
 export default rootReducer;

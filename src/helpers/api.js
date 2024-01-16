@@ -74,11 +74,18 @@ export const activity = {
 
 // competition
 export const competition = {
-  add: (data) => post("/competition", data,{'Content-Type': 'multipart/form-data'}),
-  update: (data) =>post('/competition/update',data,{'Content-Type': 'multipart/form-data'}),
+  add: data =>
+    post("/competition", data, { "Content-Type": "multipart/form-data" }),
+  update: data =>
+    post("/competition/update", data, {
+      "Content-Type": "multipart/form-data",
+    }),
   // update: (data) =>{console.log("api call data",data.entries().next())},
   list: () => get("/competitions"),
-  delete: (id) =>del(`/competition/${id}`),
+  delete: id => del(`/competition/${id}`),
+  addRound: data => post("/competition/add-round", data),
+  removeRoundActivity: data => post("/competition/remove-round-activity", data),
+  removeRound: (compId, roundName) => get(`/competition/${compId}/remove-round/${roundName}`),
 }
 
 // Condition
@@ -103,14 +110,14 @@ export const participator = {
   removeParticipatorRequest: id =>  get(`/remove-participated-community/${id}`),
 }
 
-export const roundApi = {
-  add: data => post("/round", data),
-  removeActivity: (competitionId, activityId, roundName) =>
-    post(`/competition/remove-round-activity`, {
-      competition_id: competitionId,
-      activity_id: activityId,
-      round_name: roundName,
-    }),
-  removeRound: (competitionId, roundName) =>
-    get(`/competition/${competitionId}/remove-round/${roundName}`),
-}
+// export const roundApi = {
+//   add: data => post("/round", data),
+//   removeActivity: (competitionId, activityId, roundName) =>
+//     post(`/competition/remove-round-activity`, {
+//       competition_id: competitionId,
+//       activity_id: activityId,
+//       round_name: roundName,
+//     }),
+//   removeRound: (competitionId, roundName) =>
+//     get(`/competition/${competitionId}/remove-round/${roundName}`),
+// }

@@ -12,6 +12,15 @@ import {
   DELETE_COMPETITION_REQUEST,
   DELETE_COMPETITION_SUCCESS,
   DELETE_COMPETITION_FAILURE,
+  ADD_ROUND_REQUEST,
+  ADD_ROUND_SUCCESS,
+  ADD_ROUND_FAILURE,
+  REMOVE_ROUND_ACTIVITY_REQUEST,
+  REMOVE_ROUND_ACTIVITY_SUCCESS,
+  REMOVE_ROUND_ACTIVITY_FAILURE,
+  REMOVE_ROUND_REQUEST,
+  REMOVE_ROUND_SUCCESS,
+  REMOVE_ROUND_FAILURE,
 } from "./actionTypes"
 
 export const competitionListRequest = () => ({
@@ -42,9 +51,9 @@ export const addCompetitionFailure = error => ({
   payload: error,
 })
 
-export const editCompetitionRequest = (data) => ({
+export const editCompetitionRequest = data => ({
   type: EDIT_COMPETITION_REQUEST,
-  payload: {data},
+  payload: { data },
 })
 
 export const editCompetitionSuccess = () => ({
@@ -67,5 +76,48 @@ export const deleteCompetitionSuccess = () => ({
 
 export const deleteCompetitionFailure = error => ({
   type: DELETE_COMPETITION_FAILURE,
+  payload: error,
+})
+
+// New Actions for additional endpoints
+export const addRoundRequest = data => ({
+  type: ADD_ROUND_REQUEST,
+  payload: data,
+})
+
+export const addRoundSuccess = () => ({
+  type: ADD_ROUND_SUCCESS,
+})
+
+export const addRoundFailure = error => ({
+  type: ADD_ROUND_FAILURE,
+  payload: error,
+})
+
+export const removeRoundActivityRequest = data => ({
+  type: REMOVE_ROUND_ACTIVITY_REQUEST,
+  payload: data,
+})
+
+export const removeRoundActivitySuccess = () => ({
+  type: REMOVE_ROUND_ACTIVITY_SUCCESS,
+})
+
+export const removeRoundActivityFailure = error => ({
+  type: REMOVE_ROUND_ACTIVITY_FAILURE,
+  payload: error,
+})
+
+export const removeRoundRequest = (compId, roundName) => ({
+  type: REMOVE_ROUND_REQUEST,
+  payload: { compId, roundName },
+})
+
+export const removeRoundSuccess = () => ({
+  type: REMOVE_ROUND_SUCCESS,
+})
+
+export const removeRoundFailure = error => ({
+  type: REMOVE_ROUND_FAILURE,
   payload: error,
 })
