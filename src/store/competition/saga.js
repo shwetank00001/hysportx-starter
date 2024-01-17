@@ -113,6 +113,7 @@ function* addRoundSaga(action) {
       payload: { status: true, text: "Adding Round. Please wait..." },
     })
     const response = yield call(competition.addRound, action.payload)
+
     yield put({ type: ADD_ROUND_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
     yield put({
@@ -140,6 +141,7 @@ function* removeRoundActivitySaga(action) {
       },
     })
     const response = yield call(competition.removeRoundActivity, action.payload)
+    
     yield put({ type: REMOVE_ROUND_ACTIVITY_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
     yield put({
