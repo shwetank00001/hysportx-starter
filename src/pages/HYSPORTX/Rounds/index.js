@@ -54,7 +54,7 @@ const index = () => {
         },
       },
       {
-        Header: "Competiton Name",
+        Header: "Rounds Name",
         accessor: "name",
       },
 
