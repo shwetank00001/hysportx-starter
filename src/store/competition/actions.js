@@ -1,4 +1,3 @@
-// actions.js
 import {
   COMPETITION_LIST_REQUEST,
   COMPETITION_LIST_SUCCESS,
@@ -21,6 +20,10 @@ import {
   REMOVE_ROUND_REQUEST,
   REMOVE_ROUND_SUCCESS,
   REMOVE_ROUND_FAILURE,
+  MAKE_PARTICIPATION_REQUEST,
+  MAKE_PARTICIPATION_SUCCESS,
+  MAKE_PARTICIPATION_FAILURE,
+  PARTICIPATED_COMPETITION_LIST_REQUEST,
 } from "./actionTypes"
 
 export const competitionListRequest = () => ({
@@ -120,4 +123,23 @@ export const removeRoundSuccess = () => ({
 export const removeRoundFailure = error => ({
   type: REMOVE_ROUND_FAILURE,
   payload: error,
+})
+
+export const makeParticipationRequest = data => ({
+  type: MAKE_PARTICIPATION_REQUEST,
+  payload: data,
+})
+
+export const makeParticipationSuccess = () => ({
+  type: MAKE_PARTICIPATION_SUCCESS,
+})
+
+export const makeParticipationFailure = error => ({
+  type: MAKE_PARTICIPATION_FAILURE,
+  payload: error,
+})
+
+export const participatedCompetitionListRequest = participatior_id => ({
+  type: PARTICIPATED_COMPETITION_LIST_REQUEST,
+  payload: participatior_id,
 })

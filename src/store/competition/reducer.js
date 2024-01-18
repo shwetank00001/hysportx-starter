@@ -1,4 +1,3 @@
-// reducer.js
 import {
   COMPETITION_LIST_REQUEST,
   COMPETITION_LIST_SUCCESS,
@@ -21,6 +20,10 @@ import {
   REMOVE_ROUND_REQUEST,
   REMOVE_ROUND_SUCCESS,
   REMOVE_ROUND_FAILURE,
+  MAKE_PARTICIPATION_REQUEST,
+  MAKE_PARTICIPATION_SUCCESS,
+  MAKE_PARTICIPATION_FAILURE,
+  PARTICIPATED_COMPETITION_LIST_REQUEST,
 } from "./actionTypes"
 
 const initialState = {
@@ -38,6 +41,8 @@ const competitionReducer = (state = initialState, action) => {
     case ADD_ROUND_REQUEST:
     case REMOVE_ROUND_ACTIVITY_REQUEST:
     case REMOVE_ROUND_REQUEST:
+    case MAKE_PARTICIPATION_REQUEST:
+    case PARTICIPATED_COMPETITION_LIST_REQUEST:
       return {
         ...state,
         loading: true,
@@ -55,6 +60,7 @@ const competitionReducer = (state = initialState, action) => {
     case ADD_ROUND_SUCCESS:
     case REMOVE_ROUND_ACTIVITY_SUCCESS:
     case REMOVE_ROUND_SUCCESS:
+    case MAKE_PARTICIPATION_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -66,6 +72,7 @@ const competitionReducer = (state = initialState, action) => {
     case ADD_ROUND_FAILURE:
     case REMOVE_ROUND_ACTIVITY_FAILURE:
     case REMOVE_ROUND_FAILURE:
+    case MAKE_PARTICIPATION_FAILURE:
       return {
         ...state,
         loading: false,
