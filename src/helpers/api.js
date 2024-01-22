@@ -74,19 +74,18 @@ export const activity = {
 
 // competition
 export const competition = {
-  add: data =>
-    post("/competition", data, { "Content-Type": "multipart/form-data" }),
-  update: data =>
-    post("/competition/update", data, {
-      "Content-Type": "multipart/form-data",
-    }),
-  // update: (data) =>{console.log("api call data",data.entries().next())},
+  add: data => post("/competition", data, { "Content-Type": "multipart/form-data" }),
+  update: data => post("/competition/update", data, {"Content-Type": "multipart/form-data",}) ,
   list: () => get("/competitions"),
   delete: id => del(`/competition/${id}`),
   addRound: data => post("/competition/add-round", data),
   removeRoundActivity: data => post("/competition/remove-round-activity", data),
   removeRound: (compId, roundName) => get(`/competition/${compId}/remove-round/${roundName}`),
+  makeParticipation: (participatorId, competitionId) => get(`/make-participation/${participatorId}/${competitionId}`),
+  listCompetitions: participatorId => get(`/competition-list/${participatorId}`),
+  listParticipatedCompetitions: participatorId => get(`/participated-competition-list/${participatorId}`),
 }
+
 
 // Condition
 export const condition = {

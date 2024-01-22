@@ -26,15 +26,17 @@ import {
   REMOVE_ROUND_REQUEST,
   REMOVE_ROUND_SUCCESS,
   REMOVE_ROUND_FAILURE,
+  MAKE_PARTICIPATION_REQUEST,
+  MAKE_PARTICIPATION_SUCCESS,
+  MAKE_PARTICIPATION_FAILURE,
+  PARTICIPATED_COMPETITION_LIST_REQUEST,
 } from "./actionTypes"
 import { CHANGE_PRELOADER } from "../layout/actionTypes"
 
 function* listCompetitionSaga() {
   try {
-    // yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching Competition Data Please wait ...'}})
     const response = yield call(competition.list)
     yield put({ type: COMPETITION_LIST_SUCCESS, payload: response.data })
-    // yield put({type:CHANGE_PRELOADER,payload:{status:false,text:''}})
   } catch (error) {
     if (error.response && error.response.status === 404) {
       yield put({ type: COMPETITION_LIST_SUCCESS, payload: [] })
@@ -47,7 +49,7 @@ function* addCompetitionSaga(action) {
   try {
     yield put({
       type: CHANGE_PRELOADER,
-      payload: { status: true, text: "Creating Competiton Please wait ..." },
+      payload: { status: true, text: "Creating Competition. Please wait ..." },
     })
     const response = yield call(competition.add, action.payload)
     yield put({ type: ADD_COMPETITION_SUCCESS })
@@ -68,7 +70,7 @@ function* editCompetitionSaga(action) {
   try {
     yield put({
       type: CHANGE_PRELOADER,
-      payload: { status: true, text: "Updating Competiton Please wait ..." },
+      payload: { status: true, text: "Updating Competition. Please wait ..." },
     })
     const response = yield call(competition.update, action.payload.data)
     yield put({ type: EDIT_COMPETITION_SUCCESS })
@@ -91,7 +93,7 @@ function* deleteCompetitionSaga(action) {
       type: CHANGE_PRELOADER,
       payload: {
         status: true,
-        text: "Deleting Your Competiton data Please wait ...",
+        text: "Deleting Competition. Please wait ...",
       },
     })
     const response = yield call(competition.delete, action.payload)
@@ -113,6 +115,7 @@ function* addRoundSaga(action) {
       payload: { status: true, text: "Adding Round. Please wait..." },
     })
     const response = yield call(competition.addRound, action.payload)
+
     yield put({ type: ADD_ROUND_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
     yield put({
@@ -140,6 +143,7 @@ function* removeRoundActivitySaga(action) {
       },
     })
     const response = yield call(competition.removeRoundActivity, action.payload)
+
     yield put({ type: REMOVE_ROUND_ACTIVITY_SUCCESS })
     yield put({ type: COMPETITION_LIST_REQUEST })
     yield put({
@@ -181,6 +185,39 @@ function* removeRoundSaga(action) {
   }
 }
 
+function* makeParticipationSaga(action) {
+  try {
+    const response = yield call(competition.makeParticipation, action.payload)
+    yield put({ type: MAKE_PARTICIPATION_SUCCESS })
+    yield put({ type: COMPETITION_LIST_REQUEST })
+    toast.success(response.message, { autoClose: 2000 })
+  } catch (error) {
+    yield put({ type: MAKE_PARTICIPATION_FAILURE, payload: error })
+    toast.error(error.response.data.message, { autoClose: 2000 })
+  }
+}
+
+function* participatedCompetitionListSaga() {
+  try {
+    const response = yield call(competition.participatedCompetitionList)
+    yield put({
+      type: PARTICIPATED_COMPETITION_LIST_SUCCESS,
+      payload: response.data,
+    })
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      yield put({
+        type: PARTICIPATED_COMPETITION_LIST_SUCCESS,
+        payload: [],
+      })
+    }
+    yield put({
+      type: PARTICIPATED_COMPETITION_LIST_FAILURE,
+      payload: error,
+    })
+  }
+}
+
 export default function* competitionSaga() {
   yield takeLatest(COMPETITION_LIST_REQUEST, listCompetitionSaga)
   yield takeLatest(ADD_COMPETITION_REQUEST, addCompetitionSaga)
@@ -190,4 +227,10 @@ export default function* competitionSaga() {
   yield takeLatest(ADD_ROUND_REQUEST, addRoundSaga)
   yield takeLatest(REMOVE_ROUND_ACTIVITY_REQUEST, removeRoundActivitySaga)
   yield takeLatest(REMOVE_ROUND_REQUEST, removeRoundSaga)
+
+  yield takeLatest(MAKE_PARTICIPATION_REQUEST, makeParticipationSaga)
+  yield takeLatest(
+    PARTICIPATED_COMPETITION_LIST_REQUEST,
+    participatedCompetitionListSaga
+  )
 }
