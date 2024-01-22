@@ -104,20 +104,24 @@ export const participator = {
   removeParticipator: id =>  get(`/remove-participator/${id}`),
   
   listParticipators: () => get("/list-participators"),
+  allcompetition: (id) => get(`/competition-list/${id}`),
+  allParticipated: (id) => get(`/participated-competition-list/${id}`),
+
+  joinParticipate: (data) => get(`/make-participation/${data.pid}/${data.jid}`),
   
   addParticipator: data => post("/create-participator",data),
   participatedcommunities:()=>get("/participated-communities"),
   removeParticipatorRequest: id =>  get(`/remove-participated-community/${id}`),
 }
 
-// export const roundApi = {
-//   add: data => post("/round", data),
-//   removeActivity: (competitionId, activityId, roundName) =>
-//     post(`/competition/remove-round-activity`, {
-//       competition_id: competitionId,
-//       activity_id: activityId,
-//       round_name: roundName,
-//     }),
-//   removeRound: (competitionId, roundName) =>
-//     get(`/competition/${competitionId}/remove-round/${roundName}`),
-// }
+export const roundApi = {
+  add: data => post("/competition/add-round", data),
+  removeActivity: (competitionId, activityId, roundName) =>
+    post(`/competition/remove-round-activity`, {
+      competition_id: competitionId,
+      activity_id: activityId,
+      round_name: roundName,
+    }),
+  removeRound: (competitionId, roundName) =>
+    get(`/competition/${competitionId}/remove-round/${roundName}`),
+}

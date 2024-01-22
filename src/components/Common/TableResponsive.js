@@ -55,7 +55,7 @@ function GlobalFilter({
   )
 }
 
-const TableContainer = ({
+const TableResponsive = ({
   columns,
   data,
   isGlobalFilter,
@@ -129,7 +129,7 @@ const TableContainer = ({
   return (
 
     <Fragment>
-      
+
       <Row className="mb-2 mx-auto">
         {iscustomPageSizeOptions &&
           <Col md={customPageSizeOptions ? customPageSizeOptions : 1}>
@@ -222,30 +222,30 @@ const TableContainer = ({
           <thead className={theadClass}>
             {headerGroups.map(headerGroup => (
               <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
-                  <th colSpan={column.colSpan} rowSpan={column.rowSpan} key={column.id} className={column.isSort ? "sorting" : ''}>
-                  <div className="m-0" {...column.getSortByToggleProps()}>
-                    {column.render("Header")}
-                  </div>
-                  {/* <Filter column={column} /> */}
-                </th>
+                {headerGroup.headers.map((column, index) => (
+                      <th colSpan={column.colSpan} rowSpan={column.rowSpan} key={column.id} className={`${column.isSort ? "sorting text-center" : "text-center"} ${column.HeaderClass}`}>
+                        <div className="m-0" {...column.getSortByToggleProps()}>
+                          {column.render("Header")}
+                        </div>
+                        {/* <Filter column={column} /> */}
+                      </th>
                 ))}
               </tr>
             ))}
           </thead>
-          {data.length ? 
+          {data.length ?
             <tbody {...getTableBodyProps()}>
-            { 
+              {
 
                 page.map(row => {
                   prepareRow(row);
-  
+
                   return (
                     <Fragment key={row.getRowProps().key}>
                       <tr>
                         {row.cells.map(cell => {
                           return (
-                            <td key={cell.id} {...cell.getCellProps()}>
+                            <td key={cell.id} className="text-center" {...cell.getCellProps()}>
                               {cell.render("Cell")}
                             </td>
                           );
@@ -256,15 +256,15 @@ const TableContainer = ({
                 })
               }
             </tbody>
-            
-            : 
+
+            :
             <tbody>
               <tr>
                 <td colSpan={columns.length} className="text-center"><h4>No data available</h4></td>
               </tr>
             </tbody>
-            }
-        
+          }
+
         </Table>
       </div>
 
@@ -302,8 +302,8 @@ const TableContainer = ({
   )
 }
 
-TableContainer.propTypes = {
+TableResponsive.propTypes = {
   preGlobalFilteredRows: PropTypes.any,
 }
 
-export default TableContainer
+export default TableResponsive

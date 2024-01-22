@@ -10,8 +10,16 @@ import {
   FETCH_PARTICIPATOR_cOMMUNITIES,
   FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
   FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+  ALL_COMPETITION_LIST,
+  ALL_COMPETITION_LIST_SUCCESS,
+  ALL_COMPETITION_LIST__FAIL,
+  ALL_PARTICIPATED_LIST,
+  ALL_PARTICIPATED_LIST_SUCCESS,
+  ALL_PARTICIPATED_LIST_FAIL,
+  JOIN_PARTICIPATE,
+  JOIN_PARTICIPATE_SUCCESS,
+  JOIN_PARTICIPATE_FAIL,
 
-   
   REMOVE_PARTICIPATOR_REQUEST_LIST,
   REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
   REMOVE_PARTICIPATOR_REQUEST_LIST_FAIL,
@@ -144,13 +152,60 @@ function* fetchParticipatorCommunitiesSaga() {
   }
 }
 
+function* allCompetitionList(action) {
+  try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching All Competition List Please wait ...'}})
+    const response = yield call(participator.allcompetition,action.payload);
+    yield put({ type: ALL_COMPETITION_LIST_SUCCESS,payload:response.data })
+    toast.success(response.message, { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+  } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    yield put({ type: ALL_COMPETITION_LIST__FAIL, payload: error })
+   
+  }
+}
+
+function* allParticipatedList(action) {
+  try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Fetching All already Pariticipated Please wait ...'}})
+    const response = yield call(participator.allParticipated,action.payload);
+    yield put({ type: ALL_PARTICIPATED_LIST_SUCCESS,payload:response.data })
+    toast.success(response.message, { autoClose: 2000 })
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+  } catch (error) {
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    yield put({ type: ALL_PARTICIPATED_LIST_FAIL, payload: error })
+   
+  }
+}
+function* joinParticipator(action) {
+  const {pid,jid}=action.payload;
+  console.log("join file saga",pid,jid)
+  try {
+    yield put({type:CHANGE_PRELOADER,payload:{status:true,text:'Joing participate Please wait ...'}})
+    const response = yield call(participator.joinParticipate,action.payload);
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    yield put({type: ALL_COMPETITION_LIST,payload:pid});
+    toast.success(response.message, { autoClose: 2000 })
+  } catch (error) {
+    console.log(error)
+    yield put({type:CHANGE_PRELOADER,payload:{status:false,message:''}})
+    toast.error(error.response?error.response.data.message:error.message, {
+      autoClose: 2000,
+    })
+  }
+}
+
 export default function* participatorSaga() {
   yield takeLatest(ADD_PARTICIPATOR, addParticipatorSaga)
   yield takeLatest( REMOVE_PARTICIPATOR_REQUEST_LIST, removeParticipatorRequestSaga)
   yield takeLatest(FETCH_PARTICIPATOR_cOMMUNITIES, fetchParticipatorCommunitiesSaga)
   yield takeLatest(PARTICIPATOR_LIST_REQUEST, listParticipatorRequestsSaga)
-  // yield takeLatest(ADD_PARTICIPATOR_REQUEST, addParticipatorSaga)
   yield takeLatest(ACCEPT_PARTICIPATOR_REQUEST, acceptParticipatorSaga)
   yield takeLatest(DELETE_PARTICIPATOR_REQUEST, deleteParticipatorSaga)
   yield takeLatest(PARTICIPATOR_LIST_MAIN_REQUEST, listParticipatorMainListSaga)
+  yield takeLatest(ALL_COMPETITION_LIST, allCompetitionList)
+  yield takeLatest(ALL_PARTICIPATED_LIST, allParticipatedList)
+  yield takeLatest(JOIN_PARTICIPATE, joinParticipator)
 }

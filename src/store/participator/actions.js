@@ -10,6 +10,18 @@ import {
   FETCH_PARTICIPATOR_cOMMUNITIES,
   FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
   FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
+
+  ALL_COMPETITION_LIST,
+  ALL_COMPETITION_LIST_SUCCESS,
+  ALL_COMPETITION_LIST__FAIL,
+
+  ALL_PARTICIPATED_LIST,
+  ALL_PARTICIPATED_LIST_SUCCESS,
+  ALL_PARTICIPATED_LIST_FAIL,
+
+  JOIN_PARTICIPATE,
+  JOIN_PARTICIPATE_SUCCESS,
+  JOIN_PARTICIPATE_FAIL,
   
   PARTICIPATOR_LIST_REQUEST,
   PARTICIPATOR_LIST_SUCCESS,
@@ -136,5 +148,41 @@ export const deleteParticipatorSuccess = () => ({
 
 export const deleteParticipatorFailure = error => ({
   type: DELETE_PARTICIPATOR_FAILURE,
+  payload: error,
+})
+
+export const allCompetitionList = (id) => ({
+  type: ALL_COMPETITION_LIST,
+  payload:id,
+})
+
+export const allCompetitionListSuccess = (data) => ({
+  type:ALL_COMPETITION_LIST_SUCCESS,
+  payload:data
+})
+
+export const allCompetitionListFail = error => ({
+  type: ALL_COMPETITION_LIST__FAIL,
+  payload: error,
+})
+
+
+export const acceptParticipated = (pid,jid) => ({
+  type: JOIN_PARTICIPATE,
+  payload:{pid,jid},
+})
+
+export const allParticipatedList = (id) => ({
+  type: ALL_PARTICIPATED_LIST,
+  payload:id,
+})
+
+export const allParticipatedListSuccess = (data) => ({
+  type:ALL_PARTICIPATED_LIST_SUCCESS,
+  payload:data
+})
+
+export const allParticipatedListFail = error => ({
+  type: ALL_PARTICIPATED_LIST_FAIL,
   payload: error,
 })

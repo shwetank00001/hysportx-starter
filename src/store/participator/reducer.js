@@ -8,6 +8,16 @@ import {
   FETCH_PARTICIPATOR_cOMMUNITIES_SUCCESS,
   FETCH_PARTICIPATOR_cOMMUNITIES__FAIL,
 
+  ALL_COMPETITION_LIST,
+  ALL_COMPETITION_LIST_SUCCESS,
+  ALL_COMPETITION_LIST__FAIL,
+  ALL_PARTICIPATED_LIST,
+  ALL_PARTICIPATED_LIST_SUCCESS,
+  ALL_PARTICIPATED_LIST_FAIL,
+
+  JOIN_PARTICIPATE,
+  JOIN_PARTICIPATE_SUCCESS,
+  JOIN_PARTICIPATE_FAIL,
   
   REMOVE_PARTICIPATOR_REQUEST_LIST,
   REMOVE_PARTICIPATOR_REQUEST_LIST_SUCCESS,
@@ -31,6 +41,7 @@ import {
 
 const initialState = {
   participator: [],
+  competition:[],
   loading: false,
   error: null,
   adderrors: null,
@@ -46,6 +57,9 @@ const participatorReducer = (state = initialState, action) => {
     case ACCEPT_PARTICIPATOR_REQUEST:
     case DELETE_PARTICIPATOR_REQUEST:
     case FETCH_PARTICIPATOR_cOMMUNITIES:
+    case ALL_COMPETITION_LIST:
+    case JOIN_PARTICIPATE:
+    case ALL_PARTICIPATED_LIST:
       return {
         ...state,
         loading: true,
@@ -63,6 +77,16 @@ const participatorReducer = (state = initialState, action) => {
         adderrors:null,
         participator: action.payload,
       }
+    case ALL_COMPETITION_LIST_SUCCESS:
+    case ALL_PARTICIPATED_LIST_SUCCESS:
+    case JOIN_PARTICIPATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        adderrors:null,
+        error:null,
+        competition: action.payload, 
+      }
 
     case ACCEPT_PARTICIPATOR_SUCCESS:
     case DELETE_PARTICIPATOR_SUCCESS:
@@ -77,6 +101,9 @@ const participatorReducer = (state = initialState, action) => {
     case PARTICIPATOR_LIST_MAIN_FAIL:
     case ACCEPT_PARTICIPATOR_FAILURE:
     case DELETE_PARTICIPATOR_FAILURE:
+    case ALL_COMPETITION_LIST__FAIL:
+    case JOIN_PARTICIPATE_FAIL:
+    case ALL_PARTICIPATED_LIST_FAIL:
       return {
         ...state,
         loading: false,

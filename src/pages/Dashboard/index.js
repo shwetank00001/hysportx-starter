@@ -10,7 +10,7 @@ import { reports } from 'common/data'
 
 const Dashboard = props => {
   //meta title
-  document.title = "Dashboard | Participator"
+  document.title = "Dashboard | Admin"
   const [toast, setToast] = useState(true);
   const [toast1, setToast1] = useState(true);
   const toggleToast = () => {
@@ -26,7 +26,7 @@ const Dashboard = props => {
         <Container fluid>
           {/* Render Breadcrumb */}
           <Breadcrumb
-            title={props.t("Participator")}
+            title={props.t("Admin")}
             breadcrumbItem={props.t("Dashboard")}
           />
           <Row className="mb-3">

@@ -1,163 +1,114 @@
-import Breadcrumb from 'components/Common/Breadcrumb'
-import React from 'react'
-import { Button, Card, CardBody, Col, Container, Row } from 'reactstrap'
+import Breadcrumb from "components/Common/Breadcrumb"
+import React, { useState } from "react"
+import { Link } from "react-router-dom";
+import { Container, Row, Col, CardGroup, Card, CardTitle, CardText, CardBody, CardFooter, Toast, ToastHeader, ToastBody, } from "reactstrap"
 import PropTypes from "prop-types"
 //i18n
 import { withTranslation } from "react-i18next"
 import WelcomeComp from "components/Common/WelcomeComp"
-import Navcards from 'components/Common/Navcards'
-import {event, competition,inetrSchool, national,reports,connect,post, fitness,support, app,fwgbm} from '../../../common/data/'
-import Participatar from './Participatar'
-import {indivisual} from '../../../common/data/participatar'
-
-import Activity from './Activity'
-import Posts from './Posts'
-import Comments from './Comments'
-import PopularPost from './PopularPost'
-
-
-const kyc =[
-  { title: "Personal", iconClass: "bx-copy-alt", description: <Participatar type={indivisual}/> },
-  { title: "Bussiness", iconClass: "bx-copy-alt", description: <Participatar type={'Business'} />  },
-  { title: "Account", iconClass: "bx-copy-alt", description: <Participatar />  },
-  
-]
-const broadcast =[
-  { title: "Whatsapp", iconClass: "bx-copy-alt", description: "Whatspp messages" },
-  { title: "SMS Message", iconClass: "bx-copy-alt", description: "Sms List" },
-  { title: "Email", iconClass: "bx-copy-alt", description: "Email Accounts" },
-  
-]
-
+import { reports } from 'common/data'
 
 const Dashboard = props => {
-    //meta title
-    document.title = "Dashboard | Participator"
-
-   
+  //meta title
+  document.title = "Dashboard | Participator"
+  const [toast, setToast] = useState(true);
+  const [toast1, setToast1] = useState(true);
+  const toggleToast = () => {
+    setToast(!toast);
+  };
+  const toggleToast1 = () => {
+    setToast1(!toast1);
+  };
 
   return (
     <React.Fragment>
-    <div className="page-content">
+      <div className="page-content">
         <Container fluid>
-           {/* Render Breadcrumb */}
-           <Breadcrumb
-              title={props.t("Participator")}
-              breadcrumbItem={props.t("Dashboard")}
-            />
-        </Container>
-     
-      
-        <Row className='text-center mb-3 rounded- bg-info my-2'>
-             <Col className='text-center py-5'>
-              <div className=" my-5 py-5">
-  
-               Advertisment Contents
-              </div>
-             </Col>
-         </Row>
+          {/* Render Breadcrumb */}
+          <Breadcrumb
+            title={props.t("Participator")}
+            breadcrumbItem={props.t("Dashboard")}
+          />
+          <Row className="mb-3">
+            <Col lg={12}>
+              <Toast isOpen={toast} className="w-100 bg-info-subtle text-primary">
+                <ToastHeader toggle={toggleToast} className="bg-info-subtle text-primary">
+                  Offer
+                </ToastHeader>
+                <ToastBody>
+                  <h3 className="text-center">Advertisment Contents</h3>
+                </ToastBody>
+              </Toast>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg="6">
+              <WelcomeComp />
+            </Col>
 
-             <Container>
-            
-            <Row>
-              <Col lg='8'>
-              <WelcomeComp/>
+            <Col lg={6}>
               <Row>
-                <Col>
-                <Navcards index={kyc}  Heading="KYC Details" icon={<><Button /><Button /></>}/>
-                </Col>
-                <Col>
-                <Activity heading='National Comptition'/>
-             
-                <Activity heading='Inter School'/>
-                 
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                <Posts heading={'Post'}/>
-                {/* <Navcards index={post}  Heading="Post" icon={<><Button /><Button /></>}/> */}
-                </Col>
-                <Col>
-                <Comments />
-                {/* <Navcards   Heading="Comments" icon={<><Button /><Button /></>}/> */}
-                </Col>
-              </Row>
-             
-              </Col>
-                <Col>
-                <Row>
-  
-                {reports.map((report, key)=>(
-                  <Col xl='6' key={key}>
-                    <Card className="mini-stats-wid ">
-                      <CardBody className='m-1 p-0'>
-                        <div className="d-flex">
-                          <div className=" justify-evenly">
-                          <p className="text-muted fw-small">
-                                {report.title}
-                              </p>
-                             
-                              <h5 className="mb-0 ">{report.description}</h5>
-                           
+
+                <CardGroup>
+                  {reports.map((data, key) => (
+                    <Col xs="6" key={key}>
+                      <Card className="mx-2" >
+                        <CardBody>
+                          <div className="d-flex justify-content-between align-item-center">
+                            <CardTitle>{data.title} Status</CardTitle>
+                            <button className="btn btn-sm btn-soft-success">
+                              <i className="mdi mdi-run"></i>
+                            </button>
                           </div>
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                ))}
-                </Row>
-              
-                <Posts heading='Broadcast'/>
-                <Posts heading='Organise  Event'/>
-               
-                <Posts heading='Connect'/>
-                <Posts heading='Fitness & Health'/>
-                
-                
-                  
-                {/* <Navcards index={fwgbm}  Heading="FWG School BM" icon={<><Button /><Button /></>}/> */}
-                </Col>
-            </Row>
-            <Row>
-              <Col lg={8}>
-                <PopularPost heading='Help & Support'/>
-              </Col>
-              <Col lg={4}>
-              <Activity heading='Activity'/>
-              </Col>
+                          <CardText className="pt-1">
+                            <Row className="my-3">
+                              <Col className="d-flex justify-content-between">
+                                <span className="fw-bold">Total:</span>
+                                <span>500</span>
+                              </Col>
+                            </Row>
+                            <div className="d-lg-flex d-md-block d-flex justify-content-between">
+                              <div className="d-lg-block d-md-flex d-block justify-content-between mb-1">
+                                <span className="fw-bold">Total Avaiable:</span>
+                                <span className="ms-2">480</span>
+                              </div>
+                              <div className="d-lg-block d-md-flex d-block justify-content-between">
+                                <span className="fw-bold">Total Left:</span>
+                                <span className="ms-2">20</span>
+                              </div>
+                            </div>
+                          </CardText>
+                          <CardFooter className="text-center" style={{ cursor: 'pointer' }}><span>{data.title} Details</span></CardFooter>
+                        </CardBody>
+                      </Card>
+                    </Col>
+                  ))}
+                </CardGroup>
               </Row>
-              <Row>
-              <Col lg={8}>
+            </Col>
+          </Row>
 
-                <PopularPost heading='Other Utility App'/>
-                </Col>
-             <Col lg={4}>
-                  <Activity heading='FWG School'/>
-             </Col>
-                
-              </Row>
-                
-  
-  
-            </Container>
-            <Row className='text-center mb-3 rounded mx-1 bg-info my-2'>
-             <Col className='text-center py-5'>
-              <div className=" my-5 py-5">
-  
-               Advertisment Contents
-              </div>
-             </Col>
-            </Row>
-            
-    </div>
-    </React.Fragment>
+          <Row className="mb-3">
+            <Col lg={12}>
+              <Toast isOpen={toast1} className="w-100 bg-info-subtle text-primary">
+                <ToastHeader toggle={toggleToast1} className="bg-info-subtle text-primary">
+                  Offer
+                </ToastHeader>
+                <ToastBody>
+                  <h3 className="text-center">Advertisment Contents</h3>
+                </ToastBody>
+              </Toast>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </React.Fragment >
   )
 }
 
 Dashboard.propTypes = {
-    t: PropTypes.any,
-    chartsData: PropTypes.any,
-    onGetChartsData: PropTypes.func,
-  }
-  export default withTranslation()(Dashboard)
+  t: PropTypes.any,
+  chartsData: PropTypes.any,
+  onGetChartsData: PropTypes.func,
+}
+export default withTranslation()(Dashboard)

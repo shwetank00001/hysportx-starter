@@ -4,6 +4,7 @@ import DeleteModal from "components/Common/DeleteModal"
 import AddFormModal from "./addFormModal"
 import EditFormModal from "./editFormModal"
 import ViewFormModal from "./viewFormModal"
+import AddRoundFormModal from "./AddRoundFormModal"
 import TableContainer from "components/Common/TableContainer"
 import {
   competitionListRequest,
@@ -100,6 +101,15 @@ const index = () => {
                     Delete{" "}
                   </UncontrolledTooltip>
                 </Button>
+              </li>
+
+              <li data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                <AddRoundFormModal
+                  data={cellProps.row.original ? cellProps.row.original : ""}
+                  id={cellProps.row.original ? cellProps.row.original.id : ""}
+                  
+                />
+
               </li>
             </ul>
           )

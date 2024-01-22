@@ -6,21 +6,17 @@ import PropTypes from "prop-types"
 import { withTranslation } from "react-i18next"
 import { createSelector } from "reselect"
 import { useSelector, useDispatch } from "react-redux"
-import {allCompetitionList,acceptParticipated,} from "../../../store/participator/actions"
+import {allParticipatedList} from "../../../store/participator/actions"
 import TableContainer from 'components/Common/TableContainer'
 
 const Competition = props => {
   const dispatch = useDispatch()
-  const [pid,setuserId]=useState(null);
   useEffect(() => {
     if (localStorage.getItem("userData")) {
       const uid=JSON.parse(localStorage.getItem("userData"));
-      setuserId(uid.id);
-      dispatch(allCompetitionList(uid.id))
+      dispatch(allParticipatedList(uid.id))
     }
-  }, []);
-
-  
+  }, [dispatch,props.success]);
 
   const fetchDataList = state => state.participatorReducer
   const allDataProperties = createSelector(fetchDataList, Reducer => ({
@@ -42,33 +38,11 @@ const Competition = props => {
       },
       {Header: "Competiton Name",accessor: "name",},
       {Header: "Description",accessor: "description",},
-      {
-        Header: "Action",
-        accessor: "action",
-        disableFilters: true,
-        Cell: cellProps => {
-          return (
-            <ul className="list-unstyled hstack gap-1 mb-0">
-              <li>
-                <Button className="btn btn-sm btn-soft-success"id={'acept'} onClick={() => { handleAccept(cellProps.row.original) }}>
-                  <i className="bx bx bx-check-shield" />
-                  <UncontrolledTooltip placement="top" target={'acept'} >Join participate</UncontrolledTooltip>
-                </Button>
-              </li>
-            </ul>
-          )
-        },
-      },
+    
     ],
     []
   )
 
-  const handleAccept = joinParticipate => {
-    const uid=JSON.parse(localStorage.getItem("userData"));
-    if (joinParticipate && joinParticipate.id) {
-      dispatch(acceptParticipated(uid.id,joinParticipate.id))
-    }
-  }
   return (
     <React.Fragment>
       <div className="page-content">

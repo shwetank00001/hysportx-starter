@@ -6,6 +6,7 @@ import Exercise from "pages/Exercise"
 // Partcipator folder
 import ParticipatorDashboard from '../pages/Participator/Dashboard'
 import Competition from '../pages/Participator/Competition'
+import Participated from '../pages/Participator/ParticipatedList'
 // community folder
 import CommunityDashboard from "pages/Community/CommunityDashboard/CommunityDashboard";
 import ParticipatorMainList from "pages/Community/ParticipatorMainList/ParticipatorMainList";
@@ -124,6 +125,14 @@ const authProtectedRoutes = [
     icon: "mdi mdi-run",
     children: [],
   },
+  {
+    label: "Leader Board",
+    path: "/Admin/leader",
+    component: <LeaderBoard />,
+    user: "Admin",
+    icon: "mdi mdi-run",
+    children: [],
+  },
   // Participator routes
   {
     label: "Dashboard",
@@ -133,18 +142,19 @@ const authProtectedRoutes = [
     icon: "bx bx-home-circle",
     children: [],
   },
+
   {
-    label: "Community",
-    path: "/Participator/communities",
-    component: <Community />,
+    label: "Competition List",
+    path: "/Participator/competition",
+    component: <Competition />,
     user: "Participator",
     icon: "mdi mdi-run",
     children: [],
   },
   {
-    label: "Comptitions",
-    path: "/Participator/comptitions",
-    component: <Competition />,
+    label: "Participated List",
+    path: "/Participator/participated",
+    component: <Participated />,
     user: "Participator",
     icon: "mdi mdi-run",
     children: [],
@@ -153,6 +163,14 @@ const authProtectedRoutes = [
     label: "Profile",
     path: "/Participator/Profile",
     component: <Profile />,
+    user: "Participator",
+    icon: "mdi mdi-run",
+    children: [],
+  },
+  {
+    label: "Community",
+    path: "/Participator/communities",
+    component: <Community />,
     user: "Participator",
     icon: "mdi mdi-run",
     children: [],
